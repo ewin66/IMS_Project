@@ -25,6 +25,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMS.Presentation", "IMS.Pre
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMS", "IMS\IMS.csproj", "{4F587A28-CAD8-407C-B1CD-FF465009B033}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fiscal", "Fiscal", "{0DB9809F-3ACE-403F-9CF5-02D41E6BE069}"
+	ProjectSection(SolutionItems) = preProject
+		Library\_Fiskalni\Bujar.Fiscal.dll = Library\_Fiskalni\Bujar.Fiscal.dll
+		Library\_Fiskalni\pf550.dll = Library\_Fiskalni\pf550.dll
+		Library\_Fiskalni\Upatstvo.txt = Library\_Fiskalni\Upatstvo.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,8 +70,11 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0DB9809F-3ACE-403F-9CF5-02D41E6BE069} = {B58531E4-D4E0-4AD2-A569-00D2AAC1649D}
+	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		VisualSVNWorkingCopyRoot = .
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
+		VisualSVNWorkingCopyRoot = .
 	EndGlobalSection
 EndGlobal
