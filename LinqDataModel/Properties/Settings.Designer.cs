@@ -27,9 +27,9 @@ namespace LinqDataModel.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.;Initial Catalog=Mikavi;Integrated Security=True")]
-        public string MikaviConnectionString {
+        public string MyConnectionString {
             get {
-                return ((string)(this["MikaviConnectionString"]));
+                return ((string)(this["MyConnectionString"]));
             }
         }
     }

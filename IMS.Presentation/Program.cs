@@ -66,7 +66,7 @@ namespace Viktor.IMS.Presentation
       /// Dokolku se pojavi greshka pri obidot za inicijallizacija na istiot ova property ke se postavi na FALSE
       IsBarcodeScannerConnected = true;
 
-      var connectionString = ConfigurationManager.ConnectionStrings["MikaviConnectionString"].ConnectionString;
+      var connectionString = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
       MainForm main = new MainForm();
       main._repository = new DataRepository(connectionString);
       //main._serialPort = _serialPort;

@@ -27,9 +27,9 @@ namespace Viktor.IMS.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.\\sql2005;Initial Catalog=Mikavi;User ID=sa;Password=viktor")]
-        public string MikaviConnectionString {
+        public string MyConnectionString {
             get {
-                return ((string)(this["MikaviConnectionString"]));
+                return ((string)(this["MyConnectionString"]));
             }
         }
     }

@@ -48,7 +48,7 @@ namespace LinqDataModel
     #endregion
 		
 		public MikaviDBDataContext() : 
-				base(global::LinqDataModel.Properties.Settings.Default.MikaviConnectionString, mappingSource)
+				base(global::LinqDataModel.Properties.Settings.Default.MyConnectionString, mappingSource)
 		{
 			OnCreated();
 		}

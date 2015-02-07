@@ -967,7 +967,7 @@ namespace Viktor.IMS.Presentation.MikaviTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::Viktor.IMS.Presentation.Properties.Settings.Default.MikaviConnectionString;
+            this._connection.ConnectionString = global::Viktor.IMS.Presentation.Properties.Settings.Default.MyConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
