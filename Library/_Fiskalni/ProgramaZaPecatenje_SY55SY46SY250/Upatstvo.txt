@@ -1,0 +1,30 @@
+Za da se koristat kasite kako printer koristejki go Fiscal32.exe treba da se podesi brzina od 9600 bps na kasata.
+Toa se pravi na sledniot nacin:
+1. Se vklucuva kasata.
+2. Se odbira opcija 4 (Programiranje) od menito, se vnesuva sifrata i se pritiska Total.
+3. Se odbira opcija 5 (Konfiguracija).
+4. Se odbira opcija 5 (Komunikacija).
+5. Se odbira opcija 2 (PC).
+6. Ovde mozete da ja poglednete na displejot momentalnata konfiguracija. 
+ - Za da ja podesite COM portata sto ke ja koristite od kasata (oznaceni se od strana COM1 i COM2) vnesete go soodvetniot broj od tastaturata (1 - COM1, 2 - COM2) i pritisnete Total.
+ - Pritisnete Total za da prodolzite za narednoto podesuvanje.
+ - Ovde treba da se vnese posakuvanata brzina kako broj so vrednost 0-9 (vo slucajov 3 kojsto oznacuva brzina od 9600). 
+ Brzinite se predefinirani:
+ 0 - 1200
+ 1 - 2400
+ 2 - 4800
+ 3 - 9600 (ovaa ke ja koristime za rabota so Fiscal32.exe)
+ 4 - 14400
+ 5 - 19200
+ 6 - 38400
+ 7 - 56000
+ 8 - 57600
+ 9 - 115200
+ 
+ Za listanje niz menito moze da se koristat:
+ %+ - nadolu niz menito
+ %- - nagore niz menito
+ Total - potvrduvanje i vlez vo menito
+ 
+ Nazivite na artiklite treba da bidat sekogas kirilicni golemi bukvi.
+ 

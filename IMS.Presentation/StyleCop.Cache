@@ -1,0 +1,123 @@
+<stylecopresultscache>
+  <version>10</version>
+  <sourcecode name="BarcodeScannedEventArgs.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/27/2009 19:00:56</timestamp>
+      <milliseconds>804</milliseconds>
+    </settings>
+    <timestamp>02/27/2009 18:59:59</timestamp>
+    <milliseconds>161</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="BarcodeScannerDeviceInfo.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/27/2009 19:00:56</timestamp>
+      <milliseconds>804</milliseconds>
+    </settings>
+    <timestamp>02/27/2009 18:59:59</timestamp>
+    <milliseconds>100</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="BarcodeScannerListener.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/27/2009 19:00:56</timestamp>
+      <milliseconds>804</milliseconds>
+    </settings>
+    <timestamp>02/27/2009 18:59:59</timestamp>
+    <milliseconds>37</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="BarcodeScannerListenerConfigurationElement.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/27/2009 19:00:56</timestamp>
+      <milliseconds>804</milliseconds>
+    </settings>
+    <timestamp>02/27/2009 18:59:58</timestamp>
+    <milliseconds>975</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="BarcodeScannerListenerConfigurationElementCollection.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/27/2009 19:00:56</timestamp>
+      <milliseconds>804</milliseconds>
+    </settings>
+    <timestamp>02/27/2009 18:59:58</timestamp>
+    <milliseconds>911</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="BarcodeScannerListenerConfigurationSection.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/27/2009 19:00:56</timestamp>
+      <milliseconds>804</milliseconds>
+    </settings>
+    <timestamp>02/27/2009 18:59:58</timestamp>
+    <milliseconds>849</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="NativeMethods.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/27/2009 19:00:56</timestamp>
+      <milliseconds>804</milliseconds>
+    </settings>
+    <timestamp>02/27/2009 18:59:52</timestamp>
+    <milliseconds>990</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="Program.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/27/2009 19:00:56</timestamp>
+      <milliseconds>804</milliseconds>
+    </settings>
+    <timestamp>02/27/2009 18:59:06</timestamp>
+    <milliseconds>264</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="Resources.Designer.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/27/2009 19:00:56</timestamp>
+      <milliseconds>804</milliseconds>
+    </settings>
+    <timestamp>02/27/2009 18:54:21</timestamp>
+    <milliseconds>829</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="MainForm.Designer.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/27/2009 19:00:56</timestamp>
+      <milliseconds>804</milliseconds>
+    </settings>
+    <timestamp>02/27/2009 18:55:14</timestamp>
+    <milliseconds>689</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="Settings.Designer.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/27/2009 19:00:56</timestamp>
+      <milliseconds>804</milliseconds>
+    </settings>
+    <timestamp>02/27/2009 18:54:21</timestamp>
+    <milliseconds>941</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="AssemblyInfo.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/27/2009 19:00:56</timestamp>
+      <milliseconds>804</milliseconds>
+    </settings>
+    <timestamp>02/27/2009 19:01:15</timestamp>
+    <milliseconds>5</milliseconds>
+    <violations />
+  </sourcecode>
+  <project key="1229645556">
+    <configuration>DEBUG;TRACE</configuration>
+  </project>
+  <sourcecode name="MainForm.cs" parser="Microsoft.StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>02/27/2009 19:00:56</timestamp>
+      <milliseconds>804</milliseconds>
+    </settings>
+    <timestamp>02/27/2009 19:03:57</timestamp>
+    <milliseconds>80</milliseconds>
+    <violations />
+  </sourcecode>
+</stylecopresultscache>

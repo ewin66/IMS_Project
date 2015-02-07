@@ -1,0 +1,31 @@
+Primer za koristenje:
+PF550 printer = new PF550("COM4", 9600);
+printer.OpenPort();
+PrinterResult result = printer.WriteCommand(48, "1,0000,1");
+Console.WriteLine(result.ResultStatus + ", response bytes: " + result.Response.Count);
+result = printer.WriteCommand(49, "test" + (char)9 + (char)192 + "100.00*1.000");
+Console.WriteLine(result.ResultStatus + ", response bytes: " + result.Response.Count);
+result = printer.WriteCommand(49, "test" + (char)9 + (char)192 + "100.00*1.000");
+Console.WriteLine(result.ResultStatus + ", response bytes: " + result.Response.Count);
+result = printer.WriteCommand(49, "test" + (char)9 + (char)192 + "100.00*1.000");
+Console.WriteLine(result.ResultStatus + ", response bytes: " + result.Response.Count);
+result = printer.WriteCommand(53, "\t");
+Console.WriteLine(result.ResultStatus + ", response bytes: " + result.Response.Count);
+result = printer.WriteCommand(56, "");
+Console.WriteLine(result.ResultStatus + ", response bytes: " + result.Response.Count);
+printer.ClosePort();
+Moznite statusi se:
+public enum PrinterResultStatus
+{
+        UNKNOWN, OK, NAK_RECEIVED, TIMEOUT_READING, WRONG_COMMAND_RESPONSE, GENERAL_ERROR, SYNTAX_ERROR, INVALID_RESPONSE
+}
+Edna poraka sto ja vrakja printerot e sostavena od:
+Принтер кон Host. (Receive)
+    <01><LEN><SEQ><CMD><DATA><04><STATUS><05><BCC><03>
+(Za poveke detali proverete gi kontrolnite kodovi kade sto e objasneto paketiranjeto na porakite)
+PrinterResult (objektot sto go vraka funkcijata WriteCommand(byte command, String data)) se sostoi od:
+- PrinterResultStatus ResultStatus - ova e statusot na citanjeto na response od printerot.
+- List<int> Response - ova e celosniot response primen od printerot (od 01 do 03).
+- byte[] Data - <DATA> delot od porakata vratena od printerot.
+- byte[] Status - <STATUS> delot od porakata vratena od printerot.
+funkcijata WriteCommand(byte cmd, String data) se sostoi od 2 parametri, edniot e komandata a drugiot e data-ta sto treba da e prati zaedno so komandata.

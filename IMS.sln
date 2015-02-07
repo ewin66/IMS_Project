@@ -1,0 +1,70 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{B58531E4-D4E0-4AD2-A569-00D2AAC1649D}"
+	ProjectSection(SolutionItems) = preProject
+		Library\ClosedXML.dll = Library\ClosedXML.dll
+		Library\itextsharp.dll = Library\itextsharp.dll
+		Library\Newtonsoft.Json.dll = Library\Newtonsoft.Json.dll
+		Library\UnidecodeSharpFork.dll = Library\UnidecodeSharpFork.dll
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{50ECB7F4-77F2-45D4-BC0F-4D26ACD8466A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplashScreen", "SplashScreen\SplashScreen.csproj", "{743EDB81-D2AC-4A52-A313-50BD4229401B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqDataModel", "LinqDataModel\LinqDataModel.csproj", "{0A7DAC6B-B6AF-4AD5-AA1F-D5E93ABC84B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMS_Web", "IMS_Web\IMS_Web\IMS_Web.csproj", "{E823A49A-C1C3-45AF-B26D-11EE12834C99}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMS.Main", "IMS.Main\IMS.Main.csproj", "{2CF8F0ED-7513-446B-90D0-3C07858C1F22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMS.Presentation", "IMS.Presentation\IMS.Presentation.csproj", "{7F5A680A-B980-421E-8049-A7E0D3086541}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMS", "IMS\IMS.csproj", "{4F587A28-CAD8-407C-B1CD-FF465009B033}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{50ECB7F4-77F2-45D4-BC0F-4D26ACD8466A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50ECB7F4-77F2-45D4-BC0F-4D26ACD8466A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50ECB7F4-77F2-45D4-BC0F-4D26ACD8466A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50ECB7F4-77F2-45D4-BC0F-4D26ACD8466A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{743EDB81-D2AC-4A52-A313-50BD4229401B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{743EDB81-D2AC-4A52-A313-50BD4229401B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{743EDB81-D2AC-4A52-A313-50BD4229401B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{743EDB81-D2AC-4A52-A313-50BD4229401B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A7DAC6B-B6AF-4AD5-AA1F-D5E93ABC84B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A7DAC6B-B6AF-4AD5-AA1F-D5E93ABC84B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A7DAC6B-B6AF-4AD5-AA1F-D5E93ABC84B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A7DAC6B-B6AF-4AD5-AA1F-D5E93ABC84B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E823A49A-C1C3-45AF-B26D-11EE12834C99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E823A49A-C1C3-45AF-B26D-11EE12834C99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E823A49A-C1C3-45AF-B26D-11EE12834C99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E823A49A-C1C3-45AF-B26D-11EE12834C99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CF8F0ED-7513-446B-90D0-3C07858C1F22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CF8F0ED-7513-446B-90D0-3C07858C1F22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CF8F0ED-7513-446B-90D0-3C07858C1F22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CF8F0ED-7513-446B-90D0-3C07858C1F22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F5A680A-B980-421E-8049-A7E0D3086541}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F5A680A-B980-421E-8049-A7E0D3086541}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F5A680A-B980-421E-8049-A7E0D3086541}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F5A680A-B980-421E-8049-A7E0D3086541}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F587A28-CAD8-407C-B1CD-FF465009B033}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F587A28-CAD8-407C-B1CD-FF465009B033}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F587A28-CAD8-407C-B1CD-FF465009B033}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F587A28-CAD8-407C-B1CD-FF465009B033}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		VisualSVNWorkingCopyRoot = .
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
+	EndGlobalSection
+EndGlobal
