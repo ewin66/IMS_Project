@@ -40,31 +40,7 @@ namespace Viktor.IMS.Presentation
         private decimal? cumulativeAmount; 
         //public string activeFormName = "";
 
-        #region Helper methods
-        public static InputLanguage GetInputLanguageByName(string inputName)
-        {
-            foreach (InputLanguage lang in InputLanguage.InstalledInputLanguages)
-            {
-                if (lang.Culture.Name.ToLower().StartsWith(inputName))
-                    return lang;
-            }
-            return null;
-        }
-        public void SetKeyboardLayout(InputLanguage layout)
-        {
-            InputLanguage.CurrentInputLanguage = layout;
-        }
-        private void SplashScreen_Layout(object sender, System.Windows.Forms.LayoutEventArgs e)
-        {
-            if (m_bLayoutCalled == false)
-            {
-                m_bLayoutCalled = true;
-                m_dt = DateTime.Now;
-                this.Activate();
-                SplashScreen.SplashScreen.CloseForm();
-            }
-        }
-        #endregion
+
 
         RowDetails form2;
         public MainForm()
@@ -422,6 +398,30 @@ namespace Viktor.IMS.Presentation
         }
 
         #endregion
-
+        #region Helper methods
+        public static InputLanguage GetInputLanguageByName(string inputName)
+        {
+            foreach (InputLanguage lang in InputLanguage.InstalledInputLanguages)
+            {
+                if (lang.Culture.Name.ToLower().StartsWith(inputName))
+                    return lang;
+            }
+            return null;
+        }
+        public void SetKeyboardLayout(InputLanguage layout)
+        {
+            InputLanguage.CurrentInputLanguage = layout;
+        }
+        private void SplashScreen_Layout(object sender, System.Windows.Forms.LayoutEventArgs e)
+        {
+            if (m_bLayoutCalled == false)
+            {
+                m_bLayoutCalled = true;
+                m_dt = DateTime.Now;
+                this.Activate();
+                SplashScreen.SplashScreen.CloseForm();
+            }
+        }
+        #endregion
     }
 }

@@ -4,15 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0A7DAC6B-B6AF-4AD5-AA1F-D5E93ABC84B8}</ProjectGuid>
+    <ProjectGuid>{D27168E8-420A-4E08-A038-5B2A34BB47F1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LinqDataModel</RootNamespace>
-    <AssemblyName>LinqDataModel</AssemblyName>
+    <RootNamespace>IMS.Resources</RootNamespace>
+    <AssemblyName>IMS.Resources</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,8 +32,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.Linq" />
-    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,43 +39,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Custom\Product.cs" />
-    <Compile Include="Custom\OrderDetail.cs" />
-    <Compile Include="IMSDB.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>IMSDB.dbml</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DataContextFactory.cs" />
-    <Compile Include="Models\DataRepository.cs" />
-    <Compile Include="Models\DefaultCacheProvider.cs" />
-    <Compile Include="Models\IDataRepository.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
+    <Compile Include="ResourcesHandler.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <None Include="app.config" />
-    <None Include="IMSDB.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>IMSDB.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="IMSDB.dbml.layout">
-      <DependentUpon>IMSDB.dbml</DependentUpon>
-    </None>
+    <Content Include="Icons\Exit32.png" />
+    <Content Include="Icons\Goods32.png" />
+    <Content Include="Icons\Sale32.png" />
+    <Content Include="Icons\TradePoint32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

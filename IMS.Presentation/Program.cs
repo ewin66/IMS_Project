@@ -5,72 +5,80 @@ using System.Linq;
 using System.Configuration;
 using System.IO.Ports;
 using System.Windows.Forms;
+using Viktor.IMS.Presentation.UI;
 
 namespace Viktor.IMS.Presentation
 {
   static class Program {
     public static string activeFormName = "";
     public static bool IsBarcodeScannerConnected { get; set; }
+    public static bool IsFiscalPrinterConnected { get; set; }
     //public SerialPort _serialPort;
     /// <summary>
     /// The main entry point for the application.
     /// </summary>
     [STAThread]
-    static void Main() {
-      
-      Application.EnableVisualStyles();
-      Application.SetCompatibleTextRenderingDefault(false);
+    static void Main()
+    {
 
-      SplashScreen.SplashScreen.ShowSplashScreen();
-      Application.DoEvents();
+        Application.EnableVisualStyles();
+        Application.SetCompatibleTextRenderingDefault(false);
 
-      SplashScreen.SplashScreen.SetStatus("Loading module 1");
-      System.Threading.Thread.Sleep(100);
-      SplashScreen.SplashScreen.SetStatus("Loading module 2");
-      System.Threading.Thread.Sleep(200);
-      SplashScreen.SplashScreen.SetStatus("Loading module 14");
-      System.Threading.Thread.Sleep(300);
+        SplashScreen.SplashScreen.ShowSplashScreen();
+        Application.DoEvents();
 
-      /// Init seral barcode reader
-      /*
-      var ports = Common.Helpers.DeviceHelper.GetPortByVPid("067B", "2303").Distinct();
-      var COM_PORT = SerialPort.GetPortNames().Intersect(ports).FirstOrDefault();
-      //Common.Helpers.DeviceHelper.NullModemCheck(ref ports);
+        SplashScreen.SplashScreen.SetStatus("Loading module 1");
+        System.Threading.Thread.Sleep(100);
+        SplashScreen.SplashScreen.SetStatus("Loading module 2");
+        System.Threading.Thread.Sleep(200);
+        SplashScreen.SplashScreen.SetStatus("Loading module 14");
+        System.Threading.Thread.Sleep(300);
 
-      //SerialPort _serialPort = null;
-      SerialPort _serialPort = new SerialPort(COM_PORT); //give your barcode serial port 
-      _serialPort.BaudRate = 9600;
-      _serialPort.Parity = Parity.None;
-      _serialPort.StopBits = StopBits.One;
-      _serialPort.DataBits = 8;
-      _serialPort.Handshake = Handshake.None;
-      //_serialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
-      _serialPort.ReadTimeout = 500;
-      _serialPort.WriteTimeout = 500;
+        /// Init seral barcode reader
+        /*
+        var ports = Common.Helpers.DeviceHelper.GetPortByVPid("067B", "2303").Distinct();
+        var COM_PORT = SerialPort.GetPortNames().Intersect(ports).FirstOrDefault();
+        //Common.Helpers.DeviceHelper.NullModemCheck(ref ports);
 
-      // Makes sure serial port is open before trying to write
-      try
-      {
-          if (!_serialPort.IsOpen)
-              _serialPort.Open();
+        //SerialPort _serialPort = null;
+        SerialPort _serialPort = new SerialPort(COM_PORT); //give your barcode serial port 
+        _serialPort.BaudRate = 9600;
+        _serialPort.Parity = Parity.None;
+        _serialPort.StopBits = StopBits.One;
+        _serialPort.DataBits = 8;
+        _serialPort.Handshake = Handshake.None;
+        //_serialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
+        _serialPort.ReadTimeout = 500;
+        _serialPort.WriteTimeout = 500;
 
-          //_serialPort.Write("SI\r\n");
-      }
-      catch (Exception ex)
-      {
-          MessageBox.Show("Error opening/writing to serial port :: " + ex.Message, "Error!");
-      }
-      */
+        // Makes sure serial port is open before trying to write
+        try
+        {
+            if (!_serialPort.IsOpen)
+                _serialPort.Open();
 
-      /// Na pocetok pretpostavuvame deka BarcodeScanner-ot e konektiran
-      /// Dokolku se pojavi greshka pri obidot za inicijallizacija na istiot ova property ke se postavi na FALSE
-      IsBarcodeScannerConnected = true;
+            //_serialPort.Write("SI\r\n");
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show("Error opening/writing to serial port :: " + ex.Message, "Error!");
+        }
+        */
 
-      var connectionString = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
-      MainForm main = new MainForm();
-      main._repository = new DataRepository(connectionString);
-      //main._serialPort = _serialPort;
-      Application.Run(main);
+        /// Na pocetok pretpostavuvame deka BarcodeScanner-ot e konektiran
+        /// Dokolku se pojavi greshka pri obidot za inicijallizacija na istiot ova property ke se postavi na FALSE
+        IsBarcodeScannerConnected = true;
+
+        var connectionString = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
+        /*
+        MainForm main = new MainForm();
+        main._repository = new DataRepository(connectionString);
+        //main._serialPort = _serialPort;
+        Application.Run(main);
+        */
+        Home home = new Home();
+        home._repository = new DataRepository(connectionString);
+        Application.Run(home);
     }
   }
     /*

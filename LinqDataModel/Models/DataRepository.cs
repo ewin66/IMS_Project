@@ -14,7 +14,7 @@ namespace LinqDataModel.Models
     {
         #region Private Members
 
-        private MikaviDBDataContext _dataContext;
+        private IMSDBDataContext _dataContext;
 
         #endregion
         
@@ -23,8 +23,8 @@ namespace LinqDataModel.Models
         public ICacheProvider Cache { get; set; }
         //public DataRepository() : this(new DefaultCacheProvider()) { }
         //public DataRepository() : this(new IbankDBDataContext()) { }
-        public DataRepository(string connectionString) : this(new MikaviDBDataContext(connectionString)) { }
-        public DataRepository(MikaviDBDataContext dataContext)
+        public DataRepository(string connectionString) : this(new IMSDBDataContext(connectionString)) { }
+        public DataRepository(IMSDBDataContext dataContext)
         {
             this._dataContext = dataContext;
             this.Cache = new DefaultCacheProvider();
@@ -82,6 +82,35 @@ namespace LinqDataModel.Models
             return _dataContext.Connection.BeginTransaction(IsolationLevel.ReadCommitted);
         }
 
+        public Product GetProduct(int? productId, string productName, string barCode)
+        {
+            var result = _dataContext.GetProduct(productId, productName, barCode).FirstOrDefault();
+            return new Product
+            {
+                ProductId = result.ProductId,
+                CategoryId = result.CategoryId,
+                SuplierId = result.SuplierId,
+                ProductName = result.ProductName,
+                QuantityPerUnit = result.QuantityPerUnit,
+                UnitPrice = result.UnitPrice,
+                UnitsInStock = result.UnitsInStock,
+                ReorderLevel = result.ReorderLevel,
+                Discontinued = result.Discontinued,
+                BarCode1 = result.BarCode1,
+                BarCode2 = result.BarCode2,
+                BarCode3 = result.BarCode3,
+                BarCode4 = result.BarCode4,
+                Created = result.Created,
+                Updated = result.Updated,
+                Quantity = 1,
+                Discount = 0,
+                Price = result.UnitPrice
+            };
+        }
+        public IList<GetProductsResult> GetProducts(int? productId, string productName, string barCode, ref int? totalArticles, ref int? articlesWithStock, ref decimal? cumulativeAmount)
+        {
+            return _dataContext.GetProducts(productId, productName, barCode, ref totalArticles, ref articlesWithStock, ref cumulativeAmount).ToList();
+        }
         public IList<GetArticlesResult> GetArticles(int? articleId, string name, string barcode, ref int? totalArticles, ref int? articlesWithStock, ref decimal? cumulativeAmount)
         {
             return _dataContext.GetArticles(articleId, name, barcode, ref totalArticles, ref articlesWithStock, ref cumulativeAmount).ToList();

@@ -286,19 +286,19 @@ namespace Viktor.IMS.Presentation
         /// during configuration</exception>
         private void InitializeBarcodeScannerDeviceHandles()
         {
-            BarcodeScannerListenerConfigurationSection config;
-            BarcodeScannerListenerConfigurationElementCollection hardwareIdsConfig;
+            HardwareConfigurationSection config;
+            HardwareConfigurationElementCollection hardwareIdsConfig;
             List<string> hardwareIds;
             uint numDevices;
             uint size;
 
-            config = BarcodeScannerListenerConfigurationSection.GetConfiguration();
+            config = HardwareConfigurationSection.GetConfiguration();
             hardwareIdsConfig = config.HardwareIds;
             hardwareIds = new List<string>();
             numDevices = 0;
             size = (uint)Marshal.SizeOf(typeof(NativeMethods.RAWINPUTDEVICELIST));
 
-            foreach (BarcodeScannerListenerConfigurationElement hardwareId in hardwareIdsConfig)
+            foreach (HardwareConfigurationElement hardwareId in hardwareIdsConfig)
             {
                 hardwareIds.Add(hardwareId.Id);
             }

@@ -47,6 +47,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -66,14 +67,8 @@
     <Reference Include="AMS.TextBox">
       <HintPath>..\..\..\..\MyProgramFiles\VisualStudio\WindowsForm\CustomControls\AMS.TextBox.dll</HintPath>
     </Reference>
-    <Reference Include="Bujar.Fiscal">
-      <HintPath>..\Library\_Fiskalni\Bujar.Fiscal.dll</HintPath>
-    </Reference>
     <Reference Include="ClosedXML">
       <HintPath>..\Library\ClosedXML.dll</HintPath>
-    </Reference>
-    <Reference Include="pf550">
-      <HintPath>..\Library\_Fiskalni\pf550.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -97,15 +92,17 @@
     <Compile Include="Infrastructure\BarcodeScannerDeviceInfo.cs" />
     <Compile Include="Infrastructure\BarcodeListener.cs" />
     <Compile Include="Infrastructure\BarcodeScannerListener.cs" />
-    <Compile Include="Infrastructure\BarcodeScannerListenerConfigurationElement.cs" />
-    <Compile Include="Infrastructure\BarcodeScannerListenerConfigurationElementCollection.cs" />
-    <Compile Include="Infrastructure\BarcodeScannerListenerConfigurationSection.cs" />
+    <Compile Include="Infrastructure\HardwareConfigurationElement.cs" />
+    <Compile Include="Infrastructure\HardwareConfigurationElementCollection.cs" />
+    <Compile Include="Infrastructure\HardwareConfigurationSection.cs" />
+    <Compile Include="Infrastructure\FiscalPrinter.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Mapper\FiscalMapper.cs" />
     <Compile Include="Mikavi.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -129,6 +126,18 @@
     <Compile Include="UIExtensions\NumericTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="UI\Home.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Home.Designer.cs">
+      <DependentUpon>Home.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Sale.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Sale.Designer.cs">
+      <DependentUpon>Sale.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="MainForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -150,6 +159,12 @@
     <EmbeddedResource Include="SplashScreen_.resx">
       <DependentUpon>SplashScreen_.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Home.resx">
+      <DependentUpon>Home.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Sale.resx">
+      <DependentUpon>Sale.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Mikavi.xsc">
@@ -207,6 +222,10 @@
       <Project>{50ecb7f4-77f2-45d4-bc0f-4d26acd8466a}</Project>
       <Name>Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\IMS.Fiscal\IMS.Fiscal.csproj">
+      <Project>{b00f05a6-cec4-44e5-8721-4edb34be619e}</Project>
+      <Name>IMS.Fiscal</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LinqDataModel\LinqDataModel.csproj">
       <Project>{0a7dac6b-b6af-4ad5-aa1f-d5e93abc84b8}</Project>
       <Name>LinqDataModel</Name>
@@ -215,6 +234,21 @@
       <Project>{743edb81-d2ac-4a52-a313-50bd4229401b}</Project>
       <Name>SplashScreen</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Icons\Exit32.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Icons\Goods32.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Icons\Sale32.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Icons\TradePoint32.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

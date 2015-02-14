@@ -14,8 +14,7 @@ namespace Viktor.IMS.Presentation
         "Microsoft.Design",
         "CA1010",
         Justification = "This is just part of the design of the configuration classes.")]
-    public class BarcodeScannerListenerConfigurationElementCollection : 
-        ConfigurationElementCollection
+    public class HardwareConfigurationElementCollection : ConfigurationElementCollection
     {
         /// <summary>
         /// Creates a new element in the collection.
@@ -23,7 +22,7 @@ namespace Viktor.IMS.Presentation
         /// <returns>the created element</returns>
         protected override ConfigurationElement CreateNewElement()
         {
-            return new BarcodeScannerListenerConfigurationElement();
+            return new HardwareConfigurationElement();
         }
 
         /// <summary>
@@ -33,8 +32,7 @@ namespace Viktor.IMS.Presentation
         /// <returns>the key of the element</returns>
         protected override object GetElementKey(ConfigurationElement element)
         {
-            BarcodeScannerListenerConfigurationElement myElement =
-                (BarcodeScannerListenerConfigurationElement)element;
+            HardwareConfigurationElement myElement = (HardwareConfigurationElement)element;
 
             return myElement.Id;
         }

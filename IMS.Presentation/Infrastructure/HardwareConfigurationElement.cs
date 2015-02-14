@@ -8,7 +8,7 @@ namespace Viktor.IMS.Presentation
     /// <summary>
     /// A barcode scanner configuration element.
     /// </summary>
-    public class BarcodeScannerListenerConfigurationElement : ConfigurationElement
+    public class HardwareConfigurationElement : ConfigurationElement
     {
         /// <summary>
         /// Gets or sets the hardware ID.
@@ -18,6 +18,16 @@ namespace Viktor.IMS.Presentation
         {
             get { return (string)this["id"]; }
             set { this["id"] = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the hardware Name.
+        /// </summary>
+        [ConfigurationProperty("name", IsRequired = true, IsKey = true)]
+        public string Name
+        {
+            get { return (string)this["name"]; }
+            set { this["name"] = value; }
         }
     }
 }

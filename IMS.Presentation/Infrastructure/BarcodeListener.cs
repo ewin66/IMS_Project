@@ -357,21 +357,24 @@ namespace Viktor.IMS.Presentation
             {
                 if (_serialPort == null)
                 {
-                    BarcodeScannerListenerConfigurationSection config;
-                    BarcodeScannerListenerConfigurationElementCollection hardwareIdsConfig;
-                    List<string> hardwareIds;
+                    HardwareConfigurationSection config;
+                    HardwareConfigurationElementCollection hardwareIdsConfig;
+                    //List<string> hardwareIds;
+                    List<KeyValuePair<string, string>> hardware;
 
-                    config = BarcodeScannerListenerConfigurationSection.GetConfiguration();
+                    config = HardwareConfigurationSection.GetConfiguration();
                     hardwareIdsConfig = config.HardwareIds;
-                    hardwareIds = new List<string>();
+                    //hardwareIds = new List<string>();
+                    hardware = new List<KeyValuePair<string, string>>();
 
-                    foreach (BarcodeScannerListenerConfigurationElement hardwareId in hardwareIdsConfig)
+                    foreach (HardwareConfigurationElement hardwareId in hardwareIdsConfig)
                     {
-                        hardwareIds.Add(hardwareId.Id);
+                        //hardwareIds.Add(hardwareId.Id);
+                        hardware.Add(new KeyValuePair<string, string>(hardwareId.Name, hardwareId.Id));
                     }
 
-                    string VID = hardwareIds[0].Split('&')[0].Replace("VID_", "");
-                    string PID = hardwareIds[0].Split('&')[1].Replace("PID_", "");
+                    string VID = hardware.FirstOrDefault(x => x.Key == "BarcodeScanner").Value.Split('&')[0].Replace("VID_", "");
+                    string PID = hardware.FirstOrDefault(x => x.Key == "BarcodeScanner").Value.Split('&')[1].Replace("PID_", "");
                     var ports = Common.Helpers.DeviceHelper.GetPortByVPid(VID, PID).Distinct(); //("067B", "2303")
                     var com_port = SerialPort.GetPortNames().Intersect(ports).FirstOrDefault();
                     _serialPort = new SerialPort(com_port); //give your barcode serial port 
@@ -493,6 +496,59 @@ namespace Viktor.IMS.Presentation
             }
             */
             #endregion
+        }
+
+        private void InitializeFiscalPrinterDeviceHandles()
+        {
+            try
+            {
+                if (_serialPort == null)
+                {
+                    HardwareConfigurationSection config;
+                    HardwareConfigurationElementCollection hardwareIdsConfig;
+                    //List<string> hardwareIds;
+                    List<KeyValuePair<string, string>> hardware;
+
+                    config = HardwareConfigurationSection.GetConfiguration();
+                    hardwareIdsConfig = config.HardwareIds;
+                    //hardwareIds = new List<string>();
+                    hardware = new List<KeyValuePair<string, string>>();
+
+                    foreach (HardwareConfigurationElement hardwareId in hardwareIdsConfig)
+                    {
+                        //hardwareIds.Add(hardwareId.Id);
+                        hardware.Add(new KeyValuePair<string, string>(hardwareId.Name, hardwareId.Id));
+                    }
+
+                    string VID = hardware.FirstOrDefault(x => x.Key == "BarcodeScanner").Value.Split('&')[0].Replace("VID_", "");
+                    string PID = hardware.FirstOrDefault(x => x.Key == "BarcodeScanner").Value.Split('&')[1].Replace("PID_", "");
+                    var ports = Common.Helpers.DeviceHelper.GetPortByVPid(VID, PID).Distinct(); //("067B", "2303")
+                    var com_port = SerialPort.GetPortNames().Intersect(ports).FirstOrDefault();
+                    _serialPort = new SerialPort(com_port); //give your barcode serial port 
+                    _serialPort.BaudRate = 9600;
+                    _serialPort.Parity = Parity.None;
+                    _serialPort.StopBits = StopBits.One;
+                    _serialPort.DataBits = 8;
+                    _serialPort.Handshake = Handshake.None;
+                    _serialPort.ReadTimeout = 500;
+                    _serialPort.WriteTimeout = 500;
+                }
+                _serialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
+                // Makes sure serial port is open before trying to write
+
+                if (!_serialPort.IsOpen)
+                {
+                    _serialPort.Open();
+                    //MessageBox.Show("Успешно вклучен баркод читач, на port :: " + _serialPort.PortName);
+                }
+                //_serialPort.Write("SI\r\n");
+            }
+            catch (Exception ex)
+            {
+                Program.IsBarcodeScannerConnected = false;
+                SplashScreen.SplashScreen.CloseForm();
+                MessageBox.Show(this, "Баркод читачот не е успешно активиран или не е приклучен!\n\nOpening serial port result :: " + ex.Message, "Информација!");
+            }
         }
 
         /// <summary>

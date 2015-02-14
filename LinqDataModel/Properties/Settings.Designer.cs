@@ -26,10 +26,10 @@ namespace LinqDataModel.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.;Initial Catalog=Mikavi;Integrated Security=True")]
-        public string MyConnectionString {
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.;Initial Catalog=IMS;Integrated Security=True")]
+        public string IMSConnectionString {
             get {
-                return ((string)(this["MyConnectionString"]));
+                return ((string)(this["IMSConnectionString"]));
             }
         }
     }
