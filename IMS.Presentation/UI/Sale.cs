@@ -19,7 +19,7 @@ namespace Viktor.IMS.Presentation.UI
         List<Product> orderDetails;
         private BarcodeListener listener;
         private NumberFormatInfo nfi;
-        private PF550 _fiscalPrinter { get; set; }
+        private SY50 _fiscalPrinter { get; set; }
 
         public Sale()
         {
@@ -106,7 +106,7 @@ namespace Viktor.IMS.Presentation.UI
                     string PID = hardware.FirstOrDefault(x => x.Key == "FiscalPrinter").Value.Split('&')[1].Replace("PID_", "");
                     var ports = Common.Helpers.DeviceHelper.GetPortByVPid(VID, PID).Distinct(); //("067B", "2303")
                     var portName = SerialPort.GetPortNames().Intersect(ports).FirstOrDefault();
-                    _fiscalPrinter = new PF550(portName);
+                    _fiscalPrinter = new SY50(portName);
                     Program.IsFiscalPrinterConnected = true;
                     MessageBox.Show("Успешно поврзување со касата, на port :: " + portName);
                 }
@@ -240,14 +240,13 @@ namespace Viktor.IMS.Presentation.UI
             {
                 var stavki = Mapper.FiscalMapper.PrepareFiscalReceipt(orderDetails);
                 _fiscalPrinter.Stavki = stavki;
-                _fiscalPrinter.FiskalnaSmetka(PF550.PaidMode.VoGotovo);
+                _fiscalPrinter.FiskalnaSmetka(SY50.PaidMode.VoGotovo);
                 //_fiscalPrinter.PrintReceipt(PaidMode.VoGotovo);
                 //_fiscalPrinter.ClosePort();
             }
             catch (Exception ex)
             {
-                
-                throw;
+                MessageBox.Show(ex.ToString());
             }
             
         }

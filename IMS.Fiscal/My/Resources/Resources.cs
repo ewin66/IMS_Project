@@ -20,7 +20,7 @@ namespace IMS.Fiscal.My.Resources
   [CompilerGenerated]
   [StandardModule]
   [DebuggerNonUserCode]
-  internal sealed class Resources
+  internal sealed class Resources2
   {
     private static ResourceManager resourceMan;
     private static CultureInfo resourceCulture;
@@ -30,9 +30,9 @@ namespace IMS.Fiscal.My.Resources
     {
       get
       {
-        if (object.ReferenceEquals((object) Resources.resourceMan, (object) null))
-          Resources.resourceMan = new ResourceManager("IMS.Fiscal.Resources", typeof (Resources).Assembly);
-        return Resources.resourceMan;
+          if (object.ReferenceEquals((object)Resources2.resourceMan, (object)null))
+              Resources2.resourceMan = new ResourceManager("IMS.Fiscal.Properties.Resources", typeof(Resources2).Assembly);
+          return Resources2.resourceMan;
       }
     }
 
@@ -41,11 +41,11 @@ namespace IMS.Fiscal.My.Resources
     {
       get
       {
-        return Resources.resourceCulture;
+          return Resources2.resourceCulture;
       }
       set
       {
-        Resources.resourceCulture = value;
+          Resources2.resourceCulture = value;
       }
     }
 
@@ -53,7 +53,7 @@ namespace IMS.Fiscal.My.Resources
     {
       get
       {
-        return (byte[]) RuntimeHelpers.GetObjectValue(Resources.ResourceManager.GetObject("DAVID32", Resources.resourceCulture));
+          return (byte[])RuntimeHelpers.GetObjectValue(Resources2.ResourceManager.GetObject("DAVID32", Resources2.resourceCulture));
       }
     }
 
@@ -61,7 +61,7 @@ namespace IMS.Fiscal.My.Resources
     {
       get
       {
-        return (byte[]) RuntimeHelpers.GetObjectValue(Resources.ResourceManager.GetObject("Fiscal32", Resources.resourceCulture));
+          return (byte[])RuntimeHelpers.GetObjectValue(Resources2.ResourceManager.GetObject("Fiscal32", Resources2.resourceCulture));
       }
     }
   }

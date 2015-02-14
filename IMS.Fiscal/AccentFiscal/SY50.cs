@@ -6,6 +6,7 @@
 
 using IMS.Fiscal;
 using IMS.Fiscal.My.Resources;
+using IMS.Fiscal.Properties;
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.CompilerServices;
 using System;
@@ -21,6 +22,7 @@ namespace IMS.Fiscal.AccentFiscal
   {
     public static int LastCommand = 0;
     private int _ComPortNumber;
+    private string _ComPort;
     private List<Article> _Items;
     private string AppPath;
     private string INIPath;
@@ -37,7 +39,17 @@ namespace IMS.Fiscal.AccentFiscal
         this._ComPortNumber = value;
       }
     }
-
+    public string ComPort
+    {
+        get
+        {
+            return this._ComPort;
+        }
+        set
+        {
+            this._ComPort = value;
+        }
+    }
     public List<Article> Stavki
     {
       get
@@ -63,17 +75,17 @@ namespace IMS.Fiscal.AccentFiscal
       this._Items = new List<Article>();
     }
 
-    public SY50(int ComPort)
+    public SY50(string ComPort)
       : this()
     {
-      this._ComPortNumber = ComPort;
+      this._ComPort = ComPort;
       this.CreateIniFile();
       if (File.Exists(this.AppPath))
         return;
       this.CreateExecutable();
     }
 
-    public SY50(int ComPort, List<Article> stavki)
+    public SY50(string ComPort, List<Article> stavki)
       : this(ComPort)
     {
       this.Stavki = stavki;
@@ -344,8 +356,20 @@ namespace IMS.Fiscal.AccentFiscal
               streamWriter.Write(string.Format(" 1{0}\t{3}\t{1}\t{2}\t0\t\t\t", (object)current.Name, (object)this.FormatNumber(current.Price, 2), (object)this.FormatNumber(current.Quantity, 3), (object)num2) + "\r\n");
           checked { ++num1; }
       }
-      
-      streamWriter.Write(string.Format("&5{0}\t\t", (object) PaidMode) + "\r\n");
+      short num3 = (short)0;
+      switch (PaidMode)
+      {
+          case SY50.PaidMode.VoGotovo:
+              num3 = (short)0;
+              break;
+          case SY50.PaidMode.SoKarticka:
+              num3 = (short)1;
+              break;
+          case SY50.PaidMode.SoKredit:
+              num3 = (short)2;
+              break;
+      }
+      streamWriter.Write(string.Format("&5{0}\t\t", (object)num3) + "\r\n");
       streamWriter.Write("%8");
       streamWriter.Flush();
       streamWriter.Close();
@@ -384,7 +408,21 @@ namespace IMS.Fiscal.AccentFiscal
               streamWriter.Write(string.Format(" 1{0}\t{3}\t{1}\t{2}\t0\t\t\t", (object)current.Name, (object)this.FormatNumber(current.Price, 2), (object)this.FormatNumber(current.Quantity, 3), (object)num2) + "\r\n");
           checked { ++num1; }
       }
-      streamWriter.Write(string.Format("&5{0}\t\t", (object) PaidMode) + "\r\n");
+
+      short num3 = (short)0;
+      switch (PaidMode)
+      {
+          case SY50.PaidMode.VoGotovo:
+              num3 = (short)0;
+              break;
+          case SY50.PaidMode.SoKarticka:
+              num3 = (short)1;
+              break;
+          case SY50.PaidMode.SoKredit:
+              num3 = (short)2;
+              break;
+      }
+      streamWriter.Write(string.Format("&5{0}\t\t", (object)num3) + "\r\n");
       streamWriter.Write("%8");
       streamWriter.Flush();
       streamWriter.Close();
@@ -440,9 +478,9 @@ namespace IMS.Fiscal.AccentFiscal
 
     public enum PaidMode
     {
-      VoGotovo,
-      SoKarticka,
-      SoKredit,
+      VoGotovo = 0,
+      SoKarticka = 1,
+      SoKredit = 2,
     }
   }
 }

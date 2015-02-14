@@ -15,7 +15,7 @@ namespace Viktor.IMS.Presentation.Mapper
             {
                 var article = new Article();
                 article.Name = product.ProductName;
-                article.VAT = VATgroup.А;//ddv
+                article.VAT = VATgroup.Г;//bez ddv
                 article.Quantity = product.Quantity;
                 article.Price = (decimal)product.UnitPrice;
                 fiscalReceipt.Add(article);

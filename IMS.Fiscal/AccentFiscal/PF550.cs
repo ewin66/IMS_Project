@@ -6,6 +6,7 @@
 
 using IMS.Fiscal;
 using IMS.Fiscal.My.Resources;
+using IMS.Fiscal.Properties;
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.CompilerServices;
 using System;
