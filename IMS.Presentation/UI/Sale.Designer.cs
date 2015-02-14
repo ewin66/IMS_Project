@@ -28,27 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnAddProduct = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.ProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Measure = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UnitPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Discount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.lblCurrentProduct = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblTotalValue = new System.Windows.Forms.Label();
             this.lblTotalName = new System.Windows.Forms.Label();
-            this.btnAddProduct = new System.Windows.Forms.Button();
+            this.ProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Measure = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UnitPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Discount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -69,14 +71,24 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(850, 451);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
+            // btnAddProduct
+            // 
+            this.btnAddProduct.Location = new System.Drawing.Point(3, 425);
+            this.btnAddProduct.Name = "btnAddProduct";
+            this.btnAddProduct.Size = new System.Drawing.Size(75, 23);
+            this.btnAddProduct.TabIndex = 3;
+            this.btnAddProduct.Text = "AddProduct";
+            this.btnAddProduct.UseVisualStyleBackColor = true;
+            this.btnAddProduct.Click += new System.EventHandler(this.btnAddProduct_Click);
+            // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ProductName,
             this.Measure,
-            this.Quantity,
             this.UnitPrice,
+            this.Quantity,
             this.Discount,
             this.Price});
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -85,11 +97,71 @@
             this.dataGridView1.Size = new System.Drawing.Size(844, 366);
             this.dataGridView1.TabIndex = 0;
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.panel3);
+            this.panel1.Controls.Add(this.panel2);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(844, 44);
+            this.panel1.TabIndex = 1;
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel3.Controls.Add(this.lblCurrentProduct);
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(584, 44);
+            this.panel3.TabIndex = 7;
+            // 
+            // lblCurrentProduct
+            // 
+            this.lblCurrentProduct.AutoSize = true;
+            this.lblCurrentProduct.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblCurrentProduct.Location = new System.Drawing.Point(10, 14);
+            this.lblCurrentProduct.Name = "lblCurrentProduct";
+            this.lblCurrentProduct.Size = new System.Drawing.Size(57, 20);
+            this.lblCurrentProduct.TabIndex = 0;
+            this.lblCurrentProduct.Text = "label1";
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.lblTotalValue);
+            this.panel2.Controls.Add(this.lblTotalName);
+            this.panel2.Location = new System.Drawing.Point(585, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(259, 44);
+            this.panel2.TabIndex = 6;
+            // 
+            // lblTotalValue
+            // 
+            this.lblTotalValue.AutoSize = true;
+            this.lblTotalValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblTotalValue.Location = new System.Drawing.Point(138, 7);
+            this.lblTotalValue.Name = "lblTotalValue";
+            this.lblTotalValue.Size = new System.Drawing.Size(58, 25);
+            this.lblTotalValue.TabIndex = 7;
+            this.lblTotalValue.Text = "0.00";
+            // 
+            // lblTotalName
+            // 
+            this.lblTotalName.AutoSize = true;
+            this.lblTotalName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblTotalName.Location = new System.Drawing.Point(43, 7);
+            this.lblTotalName.Name = "lblTotalName";
+            this.lblTotalName.Size = new System.Drawing.Size(97, 25);
+            this.lblTotalName.TabIndex = 6;
+            this.lblTotalName.Text = "Вкупно:";
+            // 
             // ProductName
             // 
             this.ProductName.DataPropertyName = "ProductName";
-            dataGridViewCellStyle17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ProductName.DefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ProductName.DefaultCellStyle = dataGridViewCellStyle1;
             this.ProductName.HeaderText = "Назив";
             this.ProductName.Name = "ProductName";
             this.ProductName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
@@ -99,26 +171,26 @@
             // Measure
             // 
             this.Measure.DataPropertyName = "Measure";
-            dataGridViewCellStyle18.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.Measure.DefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.Measure.DefaultCellStyle = dataGridViewCellStyle2;
             this.Measure.HeaderText = "Мерка";
             this.Measure.Name = "Measure";
             this.Measure.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Measure.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // UnitPrice
+            // 
+            this.UnitPrice.DataPropertyName = "UnitPrice";
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.UnitPrice.DefaultCellStyle = dataGridViewCellStyle3;
+            this.UnitPrice.HeaderText = "Цена";
+            this.UnitPrice.Name = "UnitPrice";
             // 
             // Quantity
             // 
             this.Quantity.DataPropertyName = "Quantity";
             this.Quantity.HeaderText = "Количина";
             this.Quantity.Name = "Quantity";
-            // 
-            // UnitPrice
-            // 
-            this.UnitPrice.DataPropertyName = "UnitPrice";
-            dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.UnitPrice.DefaultCellStyle = dataGridViewCellStyle19;
-            this.UnitPrice.HeaderText = "Цена";
-            this.UnitPrice.Name = "UnitPrice";
             // 
             // Discount
             // 
@@ -129,74 +201,10 @@
             // Price
             // 
             this.Price.DataPropertyName = "Price";
-            dataGridViewCellStyle20.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.Price.DefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.Price.DefaultCellStyle = dataGridViewCellStyle4;
             this.Price.HeaderText = "Износ";
             this.Price.Name = "Price";
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.panel2);
-            this.panel1.Controls.Add(this.lblCurrentProduct);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(844, 44);
-            this.panel1.TabIndex = 1;
-            // 
-            // lblCurrentProduct
-            // 
-            this.lblCurrentProduct.AutoSize = true;
-            this.lblCurrentProduct.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblCurrentProduct.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblCurrentProduct.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblCurrentProduct.Location = new System.Drawing.Point(0, 26);
-            this.lblCurrentProduct.MinimumSize = new System.Drawing.Size(400, 22);
-            this.lblCurrentProduct.Name = "lblCurrentProduct";
-            this.lblCurrentProduct.Size = new System.Drawing.Size(400, 22);
-            this.lblCurrentProduct.TabIndex = 3;
-            this.lblCurrentProduct.Text = "label1";
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.lblTotalValue);
-            this.panel2.Controls.Add(this.lblTotalName);
-            this.panel2.Location = new System.Drawing.Point(613, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(231, 29);
-            this.panel2.TabIndex = 6;
-            // 
-            // lblTotalValue
-            // 
-            this.lblTotalValue.AutoSize = true;
-            this.lblTotalValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblTotalValue.Location = new System.Drawing.Point(84, 3);
-            this.lblTotalValue.Name = "lblTotalValue";
-            this.lblTotalValue.Size = new System.Drawing.Size(113, 20);
-            this.lblTotalValue.TabIndex = 7;
-            this.lblTotalValue.Text = "lblTotalValue";
-            // 
-            // lblTotalName
-            // 
-            this.lblTotalName.AutoSize = true;
-            this.lblTotalName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblTotalName.Location = new System.Drawing.Point(6, 3);
-            this.lblTotalName.Name = "lblTotalName";
-            this.lblTotalName.Size = new System.Drawing.Size(73, 20);
-            this.lblTotalName.TabIndex = 6;
-            this.lblTotalName.Text = "Вкупно:";
-            // 
-            // btnAddProduct
-            // 
-            this.btnAddProduct.Location = new System.Drawing.Point(3, 425);
-            this.btnAddProduct.Name = "btnAddProduct";
-            this.btnAddProduct.Size = new System.Drawing.Size(75, 23);
-            this.btnAddProduct.TabIndex = 3;
-            this.btnAddProduct.Text = "AddProduct";
-            this.btnAddProduct.UseVisualStyleBackColor = true;
-            this.btnAddProduct.Click += new System.EventHandler(this.btnAddProduct_Click);
             // 
             // Sale
             // 
@@ -210,7 +218,8 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.ResumeLayout(false);
@@ -221,18 +230,19 @@
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ProductName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Measure;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Quantity;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UnitPrice;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Discount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Price;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label lblTotalValue;
         private System.Windows.Forms.Label lblTotalName;
-        private System.Windows.Forms.Label lblCurrentProduct;
         private System.Windows.Forms.Button btnAddProduct;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Label lblCurrentProduct;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ProductName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Measure;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UnitPrice;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Quantity;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Discount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Price;
 
     }
 }

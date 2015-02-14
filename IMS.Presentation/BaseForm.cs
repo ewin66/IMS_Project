@@ -1,4 +1,5 @@
 ﻿using Common.Helpers;
+using LinqDataModel;
 using LinqDataModel.Models;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace Viktor.IMS.Presentation
         public IDataRepository _repository { get; set; }
         public SerialPort _serialPort { get; set; }
         public DataRow LastDataRow = null; //tracks for the PositionChanged event the last row
+        public Product CurrentProduct { get; set; }
         //public string activeFormName = "";
 
         public BaseForm()

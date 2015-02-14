@@ -24,6 +24,8 @@ namespace Viktor.IMS.Presentation.UI
         public Sale()
         {
             InitializeComponent();
+            lblCurrentProduct.Text = string.Empty;
+            lblTotalValue.Text = "0.00";
             this.nfi = new NumberFormatInfo();
             this.nfi.NumberDecimalSeparator = ".";
             convertor = new ISO9TransliterationProvider();
@@ -160,8 +162,8 @@ namespace Viktor.IMS.Presentation.UI
                 orderDetails.Add(product);
 
             dataGridView1.DataSource = orderDetails.ToArray();
-            lblCurrentProduct.Text = string.Format("{0} {1} ком x {2} = {3}", query.Single().ProductName, query.Single().Quantity, query.Single().UnitPrice, query.Single().Price);
-            lblTotalValue.Text = orderDetails.Sum(x => x.Price).ToString();
+            lblCurrentProduct.Text = string.Format("{0} {1} ком x {2} = {3}", query.Single().ProductName, query.Single().Quantity, ((decimal)query.Single().UnitPrice).ToString("N2", nfi), ((decimal)query.Single().Price).ToString("N2", nfi));
+            lblTotalValue.Text = ((decimal)orderDetails.Sum(x => x.Price)).ToString("N2", nfi);
         }
 
         #region Barcode Events
@@ -215,6 +217,56 @@ namespace Viktor.IMS.Presentation.UI
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(KeyEvent);
         }
 
+        private void moveUp()
+        {
+            if (dataGridView1.RowCount > 0)
+            {
+                if (dataGridView1.SelectedRows.Count > 0)
+                {
+                    int rowCount = dataGridView1.Rows.Count;
+                    int index = dataGridView1.SelectedCells[0].OwningRow.Index;
+
+                    if (index == 0)
+                    {
+                        return;
+                    }
+                    DataGridViewRowCollection rows = dataGridView1.Rows;
+
+                    // remove the previous row and add it behind the selected row.
+                    DataGridViewRow prevRow = rows[index - 1];
+                    rows.Remove(prevRow);
+                    prevRow.Frozen = false;
+                    rows.Insert(index, prevRow);
+                    dataGridView1.ClearSelection();
+                    dataGridView1.Rows[index - 1].Selected = true;
+                }
+            }
+        }
+        private void moveDown()
+        {
+            if (dataGridView1.RowCount > 0)
+            {
+                if (dataGridView1.SelectedRows.Count > 0)
+                {
+                    int rowCount = dataGridView1.Rows.Count;
+                    int index = dataGridView1.SelectedCells[0].OwningRow.Index;
+
+                    if (index == (rowCount - 2)) // include the header row
+                    {
+                        return;
+                    }
+                    DataGridViewRowCollection rows = dataGridView1.Rows;
+
+                    // remove the next row and add it in front of the selected row.
+                    DataGridViewRow nextRow = rows[index + 1];
+                    rows.Remove(nextRow);
+                    nextRow.Frozen = false;
+                    rows.Insert(index, nextRow);
+                    dataGridView1.ClearSelection();
+                    dataGridView1.Rows[index + 1].Selected = true;
+                }
+            }
+        }
         /// <summary>
         /// F9-Execute Order, F6-Save, F3-LookUp.
         /// </summary>
@@ -222,17 +274,52 @@ namespace Viktor.IMS.Presentation.UI
         /// <param name="e"></param>
         private void KeyEvent(object sender, KeyEventArgs e) //Keyup Event 
         {
-            if (e.KeyCode == Keys.F9)
+            switch (e.KeyCode)
             {
-                //MessageBox.Show("Function F9");
-                ExecuteOrder();
+                case Keys.F4:
+                    listener.Pause();
+                    using (var search = new Search(this._serialPort))
+                    {
+                        search._repository = this._repository;
+                        search.Owner = this;
+                        search.ShowDialog();
+
+                        if (search.CurrentProduct != null && search.CurrentProduct.ProductId > 0)
+                        {
+                            /// Add Product to LIST
+                            /// ===================
+                            var query = orderDetails.Where(x => x.ProductId == search.CurrentProduct.ProductId);
+                            if (query.Count() > 0)
+                            {
+                                ++query.Single().Quantity;
+                                query.Single().Price = query.Single().Quantity * query.Single().UnitPrice;
+                            }
+                            else
+                            {
+                                var product = _repository.GetProduct(search.CurrentProduct.ProductId, null, null);
+                                this.orderDetails.Add(product);
+                            }
+                            this.dataGridView1.DataSource = orderDetails.ToArray();
+                        }
+                        e.Handled = true;
+                    }
+                    break;
+                case Keys.F9:
+                    ExecuteOrder();
+                    e.Handled = true;
+                    break;
+                case Keys.Up:
+                    moveUp();
+                    e.Handled = true;
+                    break;
+                case Keys.Down:
+                    moveDown();
+                    e.Handled = true;
+                    break;
+                default:
+                    e.Handled = true;
+                    break;
             }
-            if (e.KeyCode == Keys.F6)
-            {
-                MessageBox.Show("Function F6");
-            }
-            else
-                MessageBox.Show("No Function");
         }
         private void ExecuteOrder()
         {
