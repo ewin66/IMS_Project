@@ -16,9 +16,9 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <ManifestCertificateThumbprint>4B8490EF9AE9C146F2760D91F8999EDB112F2046</ManifestCertificateThumbprint>
-    <ManifestKeyFile>IMS_TemporaryKey.pfx</ManifestKeyFile>
-    <GenerateManifests>true</GenerateManifests>
+    <ManifestCertificateThumbprint>BBE26BCC939C9DE1C30F01DBC18EC0E8A69BD8F1</ManifestCertificateThumbprint>
+    <ManifestKeyFile>IMS.Presentation_TemporaryKey.pfx</ManifestKeyFile>
+    <GenerateManifests>false</GenerateManifests>
     <SignManifests>false</SignManifests>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile />
@@ -60,15 +60,29 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup />
   <PropertyGroup>
-    <NoWin32Manifest>true</NoWin32Manifest>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>IMS.Presentation_TemporaryKey.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AC.ExtendedRenderer.Toolkit">
+      <HintPath>..\Library\AC.ExtendedRenderer.Toolkit.dll</HintPath>
+    </Reference>
     <Reference Include="AMS.TextBox">
       <HintPath>..\..\..\..\MyProgramFiles\VisualStudio\WindowsForm\CustomControls\AMS.TextBox.dll</HintPath>
     </Reference>
     <Reference Include="ClosedXML">
       <HintPath>..\Library\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="ComponentFactory.Krypton.Toolkit">
+      <HintPath>..\Library\ComponentFactory.Krypton.Toolkit.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -82,10 +96,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseForm.cs">
+    <Compile Include="UI\BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BaseForm.Designer.cs">
+    <Compile Include="UI\BaseForm.Designer.cs">
       <DependentUpon>BaseForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\BarcodeScannedEventArgs.cs" />
@@ -96,10 +110,16 @@
     <Compile Include="Infrastructure\HardwareConfigurationElementCollection.cs" />
     <Compile Include="Infrastructure\HardwareConfigurationSection.cs" />
     <Compile Include="Infrastructure\FiscalPrinter.cs" />
-    <Compile Include="MainForm.cs">
+    <Compile Include="UI\HomeTabbed.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="UI\HomeTabbed.Designer.cs">
+      <DependentUpon>HomeTabbed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Mapper\FiscalMapper.cs" />
@@ -111,16 +131,16 @@
     <Compile Include="NativeMethods.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RowDetails.cs">
+    <Compile Include="UI\RowDetails.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RowDetails.Designer.cs">
+    <Compile Include="UI\RowDetails.Designer.cs">
       <DependentUpon>RowDetails.cs</DependentUpon>
     </Compile>
-    <Compile Include="SplashScreen_.cs">
+    <Compile Include="UI\SplashScreen_.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SplashScreen_.Designer.cs">
+    <Compile Include="UI\SplashScreen_.Designer.cs">
       <DependentUpon>SplashScreen_.cs</DependentUpon>
     </Compile>
     <Compile Include="UIExtensions\NumericTextBox.cs">
@@ -144,7 +164,13 @@
     <Compile Include="UI\Sale.Designer.cs">
       <DependentUpon>Sale.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="UI\BaseForm.resx">
+      <DependentUpon>BaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\HomeTabbed.resx">
+      <DependentUpon>HomeTabbed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MainForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -158,11 +184,11 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="RowDetails.resx">
+    <EmbeddedResource Include="UI\RowDetails.resx">
       <DependentUpon>RowDetails.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SplashScreen_.resx">
+    <EmbeddedResource Include="UI\SplashScreen_.resx">
       <DependentUpon>SplashScreen_.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -177,6 +203,7 @@
       <DependentUpon>Sale.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
+    <None Include="IMS.Presentation_TemporaryKey.pfx" />
     <None Include="Mikavi.xsc">
       <DependentUpon>Mikavi.xsd</DependentUpon>
     </None>

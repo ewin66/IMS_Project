@@ -13,7 +13,7 @@ using LinqDataModel;
 using System.IO;
 using ClosedXML.Excel;
 
-namespace Viktor.IMS.Presentation
+namespace Viktor.IMS.Presentation.UI
 {   
     public partial class Search : BaseForm
     {
@@ -21,7 +21,7 @@ namespace Viktor.IMS.Presentation
         private InputLanguage myCurrentLanguage;
         private bool m_bLayoutCalled = false;
         private DateTime m_dt;
-        private BarcodeListener listener;
+        //private BarcodeListener listener;
         private int? totalArticles; 
         private int? articlesWithStock;
         private decimal? cumulativeAmount;
@@ -29,6 +29,7 @@ namespace Viktor.IMS.Presentation
         public Search(SerialPort serialPort)
         {
             this.InitializeComponent();
+            this.Load += new System.EventHandler(this.SearchForm_Load);
 
             convertor = new ISO9TransliterationProvider();
             myCurrentLanguage = InputLanguage.CurrentInputLanguage;
@@ -36,6 +37,7 @@ namespace Viktor.IMS.Presentation
             this._serialPort = serialPort;
             listener = new BarcodeListener(this);
             listener.BarcodeScanned += this.OnBarcodeScanned;
+            regionDataGridView.AutoGenerateColumns = false;
         }
         public void ResumeSerialEventListener()
         {
@@ -44,13 +46,15 @@ namespace Viktor.IMS.Presentation
         public void RefreshView(string barcode)
         {
             if (barcode != null) textBox1.Text = null;
-            this.articlesBindingSource.DataSource = _repository.GetArticlesTable(null, textBox1.Text, barcode, ref totalArticles, ref articlesWithStock, ref cumulativeAmount);
-
-            //this.regionDataGridView.FirstDisplayedScrollingRowIndex = i;
+            
+            this.regionDataGridView.DataSource = _repository.GetProducts(null, textBox1.Text, barcode, ref totalArticles, ref articlesWithStock, ref cumulativeAmount);
             this.regionDataGridView.Rows[0].Selected = true; //It is also possible to color the row backgroud
+
+            //this.articlesBindingSource.DataSource = _repository.GetProductsTable(null, textBox1.Text, barcode, ref totalArticles, ref articlesWithStock, ref cumulativeAmount);
+            //this.regionDataGridView.FirstDisplayedScrollingRowIndex = i;
             //this.regionDataGridView.CurrentRow.DefaultCellStyle.BackColor = System.Drawing.Color.Red;
         }
-        private void MainForm_Load(object sender, EventArgs e)
+        private void SearchForm_Load(object sender, EventArgs e)
         {
             this.KeyPreview = true;
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(KeyEvent);
@@ -110,7 +114,7 @@ namespace Viktor.IMS.Presentation
             //textBox1.SelectionStart = textBox1.Text.Length;
 
             //this.mikavi.Articles.DefaultView.RowFilter = "Name LIKE '*" + textBox1.Text + "*'";
-            this.articlesBindingSource.DataSource = this.mikavi.Articles.DefaultView;
+            //this.articlesBindingSource.DataSource = this.mikavi.Articles.DefaultView;
 
             //var dataSource = new BindingList<GetArticlesResult>(_repository.GetArticlesTable(null, textBox1.Text, null));
             RefreshView(null);
@@ -173,11 +177,6 @@ namespace Viktor.IMS.Presentation
             }
         }
 
-        /// <summary>
-        /// F9-Execute Order, F6-Save, F3-LookUp.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
 
         #region Barcode Events
         private void OnBarcodeScanned(object sender, EventArgs e)
@@ -199,62 +198,6 @@ namespace Viktor.IMS.Presentation
                 }
                 //SetText(be.Barcode);
             }
-        }
-        private void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
-        {
-            try
-            {
-                //Thread.Sleep(500);
-                SerialPort sp = (SerialPort)sender;
-                string indata = sp.ReadLine();
-                indata = RegExReplace(indata, String.Empty).PadLeft(13, '0'); 
-                //indata = indata.Replace(System.Environment.NewLine, "");
-                //SetText(indata);
-
-                if (InvokeRequired)
-                {
-                    // after we've done all the processing, 
-                    this.Invoke(new MethodInvoker(delegate
-                    {
-                        // load the control with the appropriate data
-                            this.mikavi.Articles.DefaultView.RowFilter = "Bar_code = '" + indata + "'";
-                            this.articlesBindingSource.DataSource = this.mikavi.Articles.DefaultView;
-                    }));
-                    return;
-                }
-
-                /*
-                //Load data correspondin to "MyName"
-                //Populate a globale variable List<string> which will be
-                //bound to grid at some later stage
-                if (InvokeRequired)
-                {
-                    // after we've done all the processing, 
-                    this.Invoke(new MethodInvoker(delegate
-                    {
-                        // load the control with the appropriate data
-                        if (Program.activeFormName == "MainForm")
-                        {
-                            this.mikavi.Articles.DefaultView.RowFilter = "Bar_code = '" + indata + "'";
-                            this.articlesBindingSource.DataSource = this.mikavi.Articles.DefaultView;
-                        }
-                        else
-                        {
-                            RowDetails activeForm = (RowDetails)Form.ActiveForm;
-                            TextBox tbx = activeForm.Controls["textBox4"] as TextBox;
-                            tbx.Text = indata;
-                        }
-                    }));
-                    return;
-                }
-                */
-                
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-
         }
         #endregion
 

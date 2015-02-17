@@ -1,4 +1,5 @@
-namespace Viktor.IMS.Presentation {
+namespace Viktor.IMS.Presentation.UI
+{
     partial class Search
     {
     /// <summary>
@@ -31,9 +32,6 @@ namespace Viktor.IMS.Presentation {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.articlesBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.mikavi = new Viktor.IMS.Presentation.Mikavi();
-            this.articlesTableAdapter = new Viktor.IMS.Presentation.MikaviTableAdapters.ArticlesTableAdapter();
             this.panel2 = new System.Windows.Forms.Panel();
             this.regionDataGridView = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -49,33 +47,16 @@ namespace Viktor.IMS.Presentation {
             this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.pLUDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.priceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.stockDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.articlesBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mikavi)).BeginInit();
+            this.ProductId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UnitPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UnitsInStock = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.regionDataGridView)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.articlesBindingNavigator)).BeginInit();
             this.articlesBindingNavigator.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // articlesBindingSource
-            // 
-            this.articlesBindingSource.DataMember = "Articles";
-            this.articlesBindingSource.DataSource = this.mikavi;
-            this.articlesBindingSource.PositionChanged += new System.EventHandler(this.regionBindingSource_PositionChanged);
-            // 
-            // mikavi
-            // 
-            this.mikavi.DataSetName = "Mikavi";
-            this.mikavi.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // articlesTableAdapter
-            // 
-            this.articlesTableAdapter.ClearBeforeFill = true;
             // 
             // panel2
             // 
@@ -90,7 +71,6 @@ namespace Viktor.IMS.Presentation {
             // 
             this.regionDataGridView.AllowUserToAddRows = false;
             this.regionDataGridView.AllowUserToDeleteRows = false;
-            this.regionDataGridView.AutoGenerateColumns = false;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -101,11 +81,10 @@ namespace Viktor.IMS.Presentation {
             this.regionDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.regionDataGridView.ColumnHeadersHeight = 25;
             this.regionDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.pLUDataGridViewTextBoxColumn,
-            this.nameDataGridViewTextBoxColumn,
-            this.priceDataGridViewTextBoxColumn,
-            this.stockDataGridViewTextBoxColumn});
-            this.regionDataGridView.DataSource = this.articlesBindingSource;
+            this.ProductId,
+            this.ProductName,
+            this.UnitPrice,
+            this.UnitsInStock});
             this.regionDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.regionDataGridView.Location = new System.Drawing.Point(0, 0);
             this.regionDataGridView.Name = "regionDataGridView";
@@ -146,7 +125,6 @@ namespace Viktor.IMS.Presentation {
             // articlesBindingNavigator
             // 
             this.articlesBindingNavigator.AddNewItem = null;
-            this.articlesBindingNavigator.BindingSource = this.articlesBindingSource;
             this.articlesBindingNavigator.CountItem = this.bindingNavigatorCountItem;
             this.articlesBindingNavigator.DeleteItem = null;
             this.articlesBindingNavigator.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -238,56 +216,50 @@ namespace Viktor.IMS.Presentation {
             this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
             this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
-            // pLUDataGridViewTextBoxColumn
+            // ProductId
             // 
-            this.pLUDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.pLUDataGridViewTextBoxColumn.DataPropertyName = "PLU";
+            this.ProductId.DataPropertyName = "ProductId";
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial Narrow", 14.25F, System.Drawing.FontStyle.Bold);
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.pLUDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
-            this.pLUDataGridViewTextBoxColumn.FillWeight = 19.09396F;
-            this.pLUDataGridViewTextBoxColumn.HeaderText = "Шифра";
-            this.pLUDataGridViewTextBoxColumn.Name = "pLUDataGridViewTextBoxColumn";
-            this.pLUDataGridViewTextBoxColumn.ReadOnly = true;
+            this.ProductId.DefaultCellStyle = dataGridViewCellStyle2;
+            this.ProductId.HeaderText = "Шифра";
+            this.ProductId.Name = "ProductId";
+            this.ProductId.ReadOnly = true;
             // 
-            // nameDataGridViewTextBoxColumn
+            // ProductName
             // 
-            this.nameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ProductName.DataPropertyName = "ProductName";
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.MediumSeaGreen;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial Narrow", 14.25F, System.Drawing.FontStyle.Bold);
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.SeaGreen;
-            this.nameDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
-            this.nameDataGridViewTextBoxColumn.FillWeight = 209.0336F;
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Назив";
-            this.nameDataGridViewTextBoxColumn.MaxInputLength = 14;
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.ProductName.DefaultCellStyle = dataGridViewCellStyle3;
+            this.ProductName.HeaderText = "Производ";
+            this.ProductName.Name = "ProductName";
+            this.ProductName.ReadOnly = true;
+            this.ProductName.Width = 200;
             // 
-            // priceDataGridViewTextBoxColumn
+            // UnitPrice
             // 
-            this.priceDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.priceDataGridViewTextBoxColumn.DataPropertyName = "Price";
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.MediumSeaGreen;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.UnitPrice.DataPropertyName = "UnitPrice";
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Arial Narrow", 14.25F, System.Drawing.FontStyle.Bold);
             dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.SeaGreen;
-            this.priceDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle4;
-            this.priceDataGridViewTextBoxColumn.FillWeight = 89.61626F;
-            this.priceDataGridViewTextBoxColumn.HeaderText = "Цена";
-            this.priceDataGridViewTextBoxColumn.MaxInputLength = 10;
-            this.priceDataGridViewTextBoxColumn.Name = "priceDataGridViewTextBoxColumn";
+            this.UnitPrice.DefaultCellStyle = dataGridViewCellStyle4;
+            this.UnitPrice.HeaderText = "Цена";
+            this.UnitPrice.Name = "UnitPrice";
+            this.UnitPrice.ReadOnly = true;
             // 
-            // stockDataGridViewTextBoxColumn
+            // UnitsInStock
             // 
-            this.stockDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.stockDataGridViewTextBoxColumn.DataPropertyName = "Stock";
+            this.UnitsInStock.DataPropertyName = "UnitsInStock";
             dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Arial Narrow", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.stockDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle5;
-            this.stockDataGridViewTextBoxColumn.FillWeight = 58.40726F;
-            this.stockDataGridViewTextBoxColumn.HeaderText = "Количина";
-            this.stockDataGridViewTextBoxColumn.Name = "stockDataGridViewTextBoxColumn";
-            this.stockDataGridViewTextBoxColumn.ReadOnly = true;
+            this.UnitsInStock.DefaultCellStyle = dataGridViewCellStyle5;
+            this.UnitsInStock.HeaderText = "Количина";
+            this.UnitsInStock.Name = "UnitsInStock";
+            this.UnitsInStock.ReadOnly = true;
             // 
             // Search
             // 
@@ -298,13 +270,10 @@ namespace Viktor.IMS.Presentation {
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.articlesBindingNavigator);
             this.Name = "Search";
-            this.Text = "Преглед на Производи";
+            this.Text = "Пребарување на производ";
             this.Activated += new System.EventHandler(this.MainForm_Activated);
             this.Deactivate += new System.EventHandler(this.MainForm_Deactivate);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
-            this.Load += new System.EventHandler(this.MainForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.articlesBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mikavi)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.regionDataGridView)).EndInit();
             this.panel1.ResumeLayout(false);
@@ -319,7 +288,6 @@ namespace Viktor.IMS.Presentation {
 
     #endregion
 
-    private System.Windows.Forms.BindingSource articlesBindingSource;
     private System.Windows.Forms.BindingNavigator articlesBindingNavigator;
     private System.Windows.Forms.ToolStripLabel bindingNavigatorCountItem;
     private System.Windows.Forms.ToolStripButton bindingNavigatorMoveFirstItem;
@@ -330,17 +298,15 @@ namespace Viktor.IMS.Presentation {
     private System.Windows.Forms.ToolStripButton bindingNavigatorMoveNextItem;
     private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
     private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
-    private Mikavi mikavi;
-    public Viktor.IMS.Presentation.MikaviTableAdapters.ArticlesTableAdapter articlesTableAdapter;
     private System.Windows.Forms.TextBox textBox1;
     private System.Windows.Forms.DataGridView regionDataGridView;
     private System.Windows.Forms.Label label1;
     private System.Windows.Forms.Panel panel1;
     private System.Windows.Forms.Panel panel2;
-    private System.Windows.Forms.DataGridViewTextBoxColumn pLUDataGridViewTextBoxColumn;
-    private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
-    private System.Windows.Forms.DataGridViewTextBoxColumn priceDataGridViewTextBoxColumn;
-    private System.Windows.Forms.DataGridViewTextBoxColumn stockDataGridViewTextBoxColumn;
+    private System.Windows.Forms.DataGridViewTextBoxColumn ProductId;
+    private System.Windows.Forms.DataGridViewTextBoxColumn ProductName;
+    private System.Windows.Forms.DataGridViewTextBoxColumn UnitPrice;
+    private System.Windows.Forms.DataGridViewTextBoxColumn UnitsInStock;
   }
 }
 

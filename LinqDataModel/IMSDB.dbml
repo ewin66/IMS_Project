@@ -9,6 +9,14 @@
       <Association Name="Suplier_Product" Member="Products" ThisKey="SuplierId" OtherKey="SuplierId" Type="Product" />
     </Type>
   </Table>
+  <Table Name="dbo.BarCode" Member="BarCodes">
+    <Type Name="BarCode">
+      <Column Name="BarcodeId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Barcode" Member="Barcode1" Type="System.String" DbType="VarChar(13) NOT NULL" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Updated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
   <Table Name="dbo.Category" Member="Categories">
     <Type Name="Category">
       <Column Name="CategoryId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -82,11 +90,12 @@
       <Column Name="ProductId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="CategoryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="SuplierId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ProductName" Type="System.String" DbType="NVarChar(22)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(22) NOT NULL" CanBeNull="false" />
       <Column Name="QuantityPerUnit" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="UnitPrice" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
+      <Column Name="UnitPrice" Type="System.Decimal" DbType="Decimal(8,2) NOT NULL" CanBeNull="false" />
       <Column Name="UnitsInStock" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
       <Column Name="ReorderLevel" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
+      <Column Name="IsDomestic" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="Discontinued" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="BarCode1" Type="System.String" DbType="VarChar(13)" CanBeNull="true" />
       <Column Name="BarCode2" Type="System.String" DbType="VarChar(13)" CanBeNull="true" />
@@ -99,6 +108,15 @@
       <Association Name="Suplier_Product" Member="Suplier" ThisKey="SuplierId" OtherKey="SuplierId" Type="Suplier" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.Promet" Member="Promets">
+    <Type Name="Promet">
+      <Column Name="PrometId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Comment" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
   <Function Name="dbo.AddArticle" Method="AddArticle">
     <Parameter Name="PLU" Parameter="pLU" Type="System.Int32" DbType="Int" />
     <Parameter Name="Name" Parameter="name" Type="System.String" DbType="NVarChar(100)" />
@@ -106,6 +124,38 @@
     <Parameter Name="Bar_code" Parameter="bar_code" Type="System.String" DbType="VarChar(13)" />
     <Parameter Name="Stock" Parameter="stock" Type="System.Decimal" DbType="Decimal(8,2)" />
     <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.AddOrder" Method="AddOrder">
+    <Parameter Name="CustomerId" Parameter="customerId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="EmployeeId" Parameter="employeeId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="OrderStatusId" Parameter="orderStatusId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="OrderNumber" Parameter="orderNumber" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="Comment" Parameter="comment" Type="System.String" DbType="NVarChar(100)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.AddProduct" Method="AddProduct">
+    <Parameter Name="ProductId" Parameter="productId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="CategoryId" Parameter="categoryId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="SuplierId" Parameter="suplierId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ProductName" Parameter="productName" Type="System.String" DbType="NVarChar(22)" />
+    <Parameter Name="QuantityPerUnit" Parameter="quantityPerUnit" Type="System.Int32" DbType="Int" />
+    <Parameter Name="UnitPrice" Parameter="unitPrice" Type="System.Decimal" DbType="Decimal(8,2)" />
+    <Parameter Name="UnitsInStock" Parameter="unitsInStock" Type="System.Decimal" DbType="Decimal(8,2)" />
+    <Parameter Name="ReorderLevel" Parameter="reorderLevel" Type="System.Decimal" DbType="Decimal(8,2)" />
+    <Parameter Name="IsDomestic" Parameter="isDomestic" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="Discontinued" Parameter="discontinued" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="BarCode1" Parameter="barCode1" Type="System.String" DbType="VarChar(13)" />
+    <Parameter Name="BarCode2" Parameter="barCode2" Type="System.String" DbType="VarChar(13)" />
+    <Parameter Name="BarCode3" Parameter="barCode3" Type="System.String" DbType="VarChar(13)" />
+    <Parameter Name="BarCode4" Parameter="barCode4" Type="System.String" DbType="VarChar(13)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.AddPromet" Method="AddPromet">
+    <Parameter Name="CustomerId" Parameter="customerId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ProductId" Parameter="productId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Quantity" Parameter="quantity" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Price" Parameter="price" Type="System.Decimal" DbType="Money" />
+    <Parameter Name="Comment" Parameter="comment" Type="System.String" DbType="NVarChar(1)" />
   </Function>
   <Function Name="dbo.GetArticles" Method="GetArticles">
     <Parameter Name="PLU" Parameter="pLU" Type="System.Int32" DbType="Int" />
@@ -131,11 +181,12 @@
       <Column Name="ProductId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="CategoryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="SuplierId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ProductName" Type="System.String" DbType="NVarChar(22)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(22) NOT NULL" CanBeNull="false" />
       <Column Name="QuantityPerUnit" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="UnitPrice" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
+      <Column Name="UnitPrice" Type="System.Decimal" DbType="Decimal(8,2) NOT NULL" CanBeNull="false" />
       <Column Name="UnitsInStock" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
       <Column Name="ReorderLevel" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
+      <Column Name="IsDomestic" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="Discontinued" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="BarCode1" Type="System.String" DbType="VarChar(13)" CanBeNull="true" />
       <Column Name="BarCode2" Type="System.String" DbType="VarChar(13)" CanBeNull="true" />
@@ -156,11 +207,12 @@
       <Column Name="ProductId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="CategoryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="SuplierId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ProductName" Type="System.String" DbType="NVarChar(22)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(22) NOT NULL" CanBeNull="false" />
       <Column Name="QuantityPerUnit" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="UnitPrice" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
+      <Column Name="UnitPrice" Type="System.Decimal" DbType="Decimal(8,2) NOT NULL" CanBeNull="false" />
       <Column Name="UnitsInStock" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
       <Column Name="ReorderLevel" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
+      <Column Name="IsDomestic" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="Discontinued" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="BarCode1" Type="System.String" DbType="VarChar(13)" CanBeNull="true" />
       <Column Name="BarCode2" Type="System.String" DbType="VarChar(13)" CanBeNull="true" />
@@ -168,6 +220,17 @@
       <Column Name="BarCode4" Type="System.String" DbType="VarChar(13)" CanBeNull="true" />
       <Column Name="Created" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="Updated" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetPromet" Method="GetPromet">
+    <Parameter Name="FromDate" Parameter="fromDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="ToDate" Parameter="toDate" Type="System.DateTime" DbType="DateTime" />
+    <ElementType Name="GetPrometResult">
+      <Column Name="PrometId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Comment" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
     </ElementType>
   </Function>
 </Database>

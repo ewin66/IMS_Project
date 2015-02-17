@@ -17,7 +17,7 @@ namespace Viktor.IMS.Presentation.UI
     public partial class Sale : BaseForm
     {
         List<Product> orderDetails;
-        private BarcodeListener listener;
+        //private BarcodeListener listener;
         private NumberFormatInfo nfi;
         private SY50 _fiscalPrinter { get; set; }
 
@@ -37,9 +37,7 @@ namespace Viktor.IMS.Presentation.UI
             
             
             dataGridView1.AutoGenerateColumns = false;
-            ///
-            /// Test Method
-            NewOrder();
+            orderDetails = new List<Product>();
         }
 
         #region OldMethod
@@ -89,6 +87,7 @@ namespace Viktor.IMS.Presentation.UI
         {
             try
             {
+                if (!Program.IsFiscalPrinterConnected) return;
                 if (_fiscalPrinter == null)
                 {
                     HardwareConfigurationSection config;
@@ -108,9 +107,10 @@ namespace Viktor.IMS.Presentation.UI
                     string PID = hardware.FirstOrDefault(x => x.Key == "FiscalPrinter").Value.Split('&')[1].Replace("PID_", "");
                     var ports = Common.Helpers.DeviceHelper.GetPortByVPid(VID, PID).Distinct(); //("067B", "2303")
                     var portName = SerialPort.GetPortNames().Intersect(ports).FirstOrDefault();
+                    this.CheckPort(portName);
                     _fiscalPrinter = new SY50(portName);
                     Program.IsFiscalPrinterConnected = true;
-                    MessageBox.Show("Успешно поврзување со касата, на port :: " + portName);
+                    //MessageBox.Show("Успешно поврзување со касата, на port :: " + portName);
                 }
 
             }
@@ -278,17 +278,18 @@ namespace Viktor.IMS.Presentation.UI
             {
                 case Keys.F4:
                     listener.Pause();
-                    using (var search = new Search(this._serialPort))
+                    using (var searchForm = new Search(this._serialPort))
                     {
-                        search._repository = this._repository;
-                        search.Owner = this;
-                        search.ShowDialog();
+                        searchForm._repository = this._repository;
+                        searchForm.Owner = this;
+                        searchForm.StartPosition = FormStartPosition.CenterParent;
+                        searchForm.ShowDialog();
 
-                        if (search.CurrentProduct != null && search.CurrentProduct.ProductId > 0)
+                        if (searchForm.CurrentProduct != null && searchForm.CurrentProduct.ProductId > 0)
                         {
                             /// Add Product to LIST
                             /// ===================
-                            var query = orderDetails.Where(x => x.ProductId == search.CurrentProduct.ProductId);
+                            var query = orderDetails.Where(x => x.ProductId == searchForm.CurrentProduct.ProductId);
                             if (query.Count() > 0)
                             {
                                 ++query.Single().Quantity;
@@ -296,7 +297,7 @@ namespace Viktor.IMS.Presentation.UI
                             }
                             else
                             {
-                                var product = _repository.GetProduct(search.CurrentProduct.ProductId, null, null);
+                                var product = _repository.GetProduct(searchForm.CurrentProduct.ProductId, null, null);
                                 this.orderDetails.Add(product);
                             }
                             this.dataGridView1.DataSource = orderDetails.ToArray();

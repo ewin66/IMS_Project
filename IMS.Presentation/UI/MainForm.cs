@@ -13,7 +13,7 @@ using LinqDataModel;
 using System.IO;
 using ClosedXML.Excel;
 
-namespace Viktor.IMS.Presentation
+namespace Viktor.IMS.Presentation.UI
 {   
     //public partial class ArticlesTableAdapter
     //{
@@ -34,7 +34,7 @@ namespace Viktor.IMS.Presentation
         private InputLanguage myCurrentLanguage;
         private bool m_bLayoutCalled = false;
         private DateTime m_dt;
-        private BarcodeListener listener;
+        //private BarcodeListener listener;
         private int? totalArticles; 
         private int? articlesWithStock;
         private decimal? cumulativeAmount; 
@@ -46,14 +46,21 @@ namespace Viktor.IMS.Presentation
         public MainForm()
         {
             this.InitializeComponent();
+            convertor = new ISO9TransliterationProvider();
+            myCurrentLanguage = InputLanguage.CurrentInputLanguage;
 
             listener = new BarcodeListener(this);
             listener.BarcodeScanned += this.OnBarcodeScanned;
             
             this.Layout += new System.Windows.Forms.LayoutEventHandler(this.SplashScreen_Layout);
-            convertor = new ISO9TransliterationProvider();
-            myCurrentLanguage = InputLanguage.CurrentInputLanguage;
+            this.FormClosing += new FormClosingEventHandler(MainForm_Closing);
         }
+        void MainForm_Closing(object sender, FormClosingEventArgs e)
+        {
+            //Close Parent Tab
+            this.Parent.Dispose();
+        }
+
         public void ResumeSerialEventListener()
         {
             listener.Resume();
@@ -61,7 +68,7 @@ namespace Viktor.IMS.Presentation
         public void RefreshView(string barcode)
         {
             if (barcode != null) textBox1.Text = null;
-            this.articlesBindingSource.DataSource = _repository.GetArticlesTable(null, textBox1.Text, barcode, ref totalArticles, ref articlesWithStock, ref cumulativeAmount);
+            this.articlesBindingSource.DataSource = _repository.GetProductsTable(null, textBox1.Text, barcode, ref totalArticles, ref articlesWithStock, ref cumulativeAmount);
             lblTotalArticles.Text = totalArticles.ToString();
             lblArticlesWithStock.Text = articlesWithStock.ToString();
             lblCumulativeAmount.Text = cumulativeAmount.ToString();
@@ -148,12 +155,13 @@ namespace Viktor.IMS.Presentation
             if (null != ThisDataRow)
             {
                 listener.Pause();
-                using (var f = new RowDetails(this._serialPort))
+                using (var productDetails = new RowDetails(this._serialPort))
                 {
-                    f.dataRow = ThisDataRow;
-                    f._repository = this._repository;
-                    f.Owner = this;
-                    f.ShowDialog();
+                    productDetails.dataRow = ThisDataRow;
+                    productDetails._repository = this._repository;
+                    productDetails.Owner = this;
+                    productDetails.StartPosition = FormStartPosition.CenterParent;
+                    productDetails.ShowDialog();
                 }
                 
                 //form2 = new RowDetails(ThisDataRow);

@@ -17,6 +17,9 @@ namespace Viktor.IMS.Presentation.UI
         public Home()
         {
             InitializeComponent();
+            this.StartPosition = FormStartPosition.Manual;
+            this.Location = new Point(0, 0);
+            this.TopMost = true;
             this.Layout += new System.Windows.Forms.LayoutEventHandler(this.SplashScreen_Layout);
         }
 
@@ -38,17 +41,37 @@ namespace Viktor.IMS.Presentation.UI
 
         private void productsButton_Click(object sender, EventArgs e)
         {
+            for (int i = Application.OpenForms.Count - 1; i >= 0; i--)
+            {
+                if (Application.OpenForms[i].Name != "Home")
+                    Application.OpenForms[i].Close();
+            } 
+            
             MainForm main = new MainForm();
+            //main.MdiParent = this;
+            //main.Parent = this.formContainer;
+            //main.StartPosition = FormStartPosition.CenterScreen;
+
             main._repository = this._repository;
-            main.Owner = this;
+            //main.listener = this.listener;
+            //main.Owner = this;
             main.Show();
         }
 
         private void saleButton_Click(object sender, EventArgs e)
         {
+            for (int i = Application.OpenForms.Count - 1; i >= 0; i--)
+            {
+                if (Application.OpenForms[i].Name != "Home")
+                    Application.OpenForms[i].Close();
+            }
             Sale sale = new Sale();
+            //sale.MdiParent = this;
+            //sale.Parent = this.formContainer;
+            //sale.StartPosition = FormStartPosition.CenterScreen;
             sale._repository = this._repository;
-            sale.Owner = this;
+            //sale.listener = this.listener;
+            //sale.Owner = this;
             sale.Show();
         }
     }

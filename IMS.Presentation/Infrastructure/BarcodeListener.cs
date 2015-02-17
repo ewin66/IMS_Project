@@ -2,7 +2,7 @@
 // Copyright (c) 2009 by Nicholas Piasecki All rights reserved. 
 // </copyright>
 
-namespace Viktor.IMS.Presentation
+namespace Viktor.IMS.Presentation.UI
 {
     using System;
     using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿namespace Viktor.IMS.Presentation
+﻿namespace Viktor.IMS.Presentation.UI
 {
     partial class BaseForm
     {
@@ -28,9 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // BaseForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Name = "BaseForm";
             this.Text = "BaseForm";
+            this.ResumeLayout(false);
+
         }
 
         #endregion

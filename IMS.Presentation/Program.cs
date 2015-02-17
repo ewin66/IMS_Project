@@ -13,14 +13,13 @@ namespace Viktor.IMS.Presentation
     public static string activeFormName = "";
     public static bool IsBarcodeScannerConnected { get; set; }
     public static bool IsFiscalPrinterConnected { get; set; }
-    //public SerialPort _serialPort;
+
     /// <summary>
     /// The main entry point for the application.
     /// </summary>
     [STAThread]
     static void Main()
     {
-
         Application.EnableVisualStyles();
         Application.SetCompatibleTextRenderingDefault(false);
 
@@ -68,6 +67,7 @@ namespace Viktor.IMS.Presentation
         /// Na pocetok pretpostavuvame deka BarcodeScanner-ot e konektiran
         /// Dokolku se pojavi greshka pri obidot za inicijallizacija na istiot ova property ke se postavi na FALSE
         IsBarcodeScannerConnected = true;
+        IsFiscalPrinterConnected = true;
 
         var connectionString = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
         /*
@@ -76,7 +76,8 @@ namespace Viktor.IMS.Presentation
         //main._serialPort = _serialPort;
         Application.Run(main);
         */
-        Home home = new Home();
+        //Home home = new Home();
+        HomeTabbed home = new HomeTabbed();
         home._repository = new DataRepository(connectionString);
         Application.Run(home);
     }

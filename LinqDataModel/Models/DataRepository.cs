@@ -96,6 +96,7 @@ namespace LinqDataModel.Models
                 UnitsInStock = result.UnitsInStock,
                 ReorderLevel = result.ReorderLevel,
                 Discontinued = result.Discontinued,
+                IsDomestic = result.IsDomestic,
                 BarCode1 = result.BarCode1,
                 BarCode2 = result.BarCode2,
                 BarCode3 = result.BarCode3,
@@ -134,7 +135,53 @@ namespace LinqDataModel.Models
                     decimal.Parse(dataRow["Stock"].ToString())
                 );
         }
-        
+        public int AddProduct(int productId, int categoryId, int suplierId, string productName, int quantityPerUnit, decimal unitPrice, decimal unitsInStock, decimal reorderLevel, bool isDomestic, bool discontinued, string barCode1, string barCode2, string barCode3, string barCode4)
+        {
+            return _dataContext.AddProduct(
+                        productId, 
+                        categoryId, 
+                        suplierId, 
+                        productName, 
+                        quantityPerUnit, 
+                        unitPrice, 
+                        unitsInStock, 
+                        reorderLevel, 
+                        isDomestic, 
+                        discontinued, 
+                        barCode1, 
+                        barCode2, 
+                        barCode3, 
+                        barCode4);
+        }
+        public int AddProduct(DataRow dataRow)
+        {
+            return _dataContext.AddProduct(
+                    int.Parse(dataRow["ProductId"].ToString()),
+                    int.Parse(dataRow["CategoryId"].ToString()),
+                    int.Parse(dataRow["SuplierId"].ToString()),
+                    dataRow["ProductName"].ToString(),
+                    int.Parse(dataRow["QuantityPerUnit"].ToString()),
+                    decimal.Parse(dataRow["UnitPrice"].ToString()),
+                    decimal.Parse(dataRow["UnitsInStock"].ToString()),
+                    decimal.Parse(dataRow["ReorderLevel"].ToString()),
+                    dataRow["isDomestic"].ToString() == "1"? true : false,
+                    dataRow["Discontinued"].ToString() == "1" ? true : false,
+                    dataRow["BarCode1"].ToString(),
+                    dataRow["BarCode2"].ToString(),
+                    dataRow["BarCode3"].ToString(),
+                    dataRow["BarCode4"].ToString()
+                );
+        }
+
+        public int AddOrder(int customerId, int employeeId, int orderStatusId, string orderNumber, string comment)
+        {
+            return _dataContext.AddOrder(customerId, employeeId, orderStatusId, orderNumber, comment);
+        }
+        public DataTable GetProductsTable(int? productId, string ProductName, string Barcode, ref int? totalArticles, ref int? articlesWithStock, ref decimal? cumulativeAmount)
+        {
+            var result = _dataContext.GetProducts(productId, ProductName, Barcode, ref totalArticles, ref articlesWithStock, ref cumulativeAmount).ToList();
+            return LinqQueryToDataTable(result);
+        }
         public static DataTable LinqQueryToDataTable(IEnumerable<dynamic> v)
         {
             //We really want to know if there is any data at all

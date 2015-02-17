@@ -9,13 +9,13 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
-namespace Viktor.IMS.Presentation
+namespace Viktor.IMS.Presentation.UI
 {
     public partial class RowDetails : BaseForm
     {
         public DataRow dataRow = null;
         private bool _isDirty = false;
-        private BarcodeListener listener;
+        //private BarcodeListener listener;
 
         public RowDetails(SerialPort serialPort)
         {

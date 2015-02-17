@@ -1,6 +1,10 @@
-﻿namespace Viktor.IMS.Presentation.UI
+﻿using AC.ExtendedRenderer.Navigator;
+using AC.ExtendedRenderer.Toolkit.Drawing;
+using System.Drawing;
+using System.Windows.Forms;
+namespace Viktor.IMS.Presentation.UI
 {
-    partial class Home
+    partial class HomeTabbed
     {
         /// <summary>
         /// Required designer variable.
@@ -32,7 +36,7 @@
             this.exitButton = new System.Windows.Forms.ToolStripButton();
             this.productsButton = new System.Windows.Forms.ToolStripButton();
             this.saleButton = new System.Windows.Forms.ToolStripButton();
-            this.formContainer = new System.Windows.Forms.Panel();
+            
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -79,23 +83,48 @@
             this.saleButton.ToolTipText = "Продажба";
             this.saleButton.Click += new System.EventHandler(this.saleButton_Click);
             // 
-            // formContainer
+            // tabContainer
             // 
-            this.formContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.formContainer.Location = new System.Drawing.Point(0, 39);
-            this.formContainer.Name = "formContainer";
-            this.formContainer.Size = new System.Drawing.Size(760, 374);
-            this.formContainer.TabIndex = 1;
+            #region Tab Container
+            tabContainer = new KryptonTabControl();
+            this.tabContainer.AllowCloseButton = true;
+            this.tabContainer.AllowContextButton = true;
+            this.tabContainer.AllowNavigatorButtons = true;
+            this.tabContainer.AllowSelectedTabHigh = true;
+            this.tabContainer.BorderWidth = 1;
+            this.tabContainer.CornerRoundRadiusWidth = 12;
+            this.tabContainer.CornerSymmetry = KryptonTabControl.CornSymmetry.Both;
+            this.tabContainer.CornerType = DrawingMethods.CornerType.Rounded;
+            this.tabContainer.CornerWidth = KryptonTabControl.CornWidth.Thin;
+            this.tabContainer.Dock = DockStyle.Fill;
+            this.tabContainer.DrawMode = TabDrawMode.OwnerDrawFixed;
+            this.tabContainer.HotTrack = true;
+            this.tabContainer.ItemSize = new Size(77, 25);
+
+            //this.tabContainer.Location = new System.Drawing.Point(0, 39);
+            //this.tabContainer.Size = new System.Drawing.Size(760, 374);
+            //this.tabContainer.TabIndex = 3;
+
+            this.tabContainer.Location = new Point(0, 0);
+            this.tabContainer.Name = "tabContainer";
+            this.tabContainer.PreserveTabColor = false;
+            this.tabContainer.SelectedIndex = 0;
+            this.tabContainer.Size = new Size(641, 501);
+            this.tabContainer.TabIndex = 0;
+            this.tabContainer.UseExtendedLayout = false;
+            #endregion
+            //this.tabContainer.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabContainer_DrawItem);
+            //this.tabContainer.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tabContainer_MouseDown);
             // 
-            // Home
+            // HomeTabbed
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(760, 413);
-            this.Controls.Add(this.formContainer);
+            this.Controls.Add(this.tabContainer);
             this.Controls.Add(this.toolStrip1);
             this.IsMdiContainer = true;
-            this.Name = "Home";
+            this.Name = "HomeTabbed";
             this.Text = "Главно мени";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
@@ -110,6 +139,6 @@
         private System.Windows.Forms.ToolStripButton exitButton;
         private System.Windows.Forms.ToolStripButton productsButton;
         private System.Windows.Forms.ToolStripButton saleButton;
-        private System.Windows.Forms.Panel formContainer;
+        private KryptonTabControl tabContainer;
     }
 }

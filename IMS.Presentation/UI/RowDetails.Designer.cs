@@ -1,5 +1,6 @@
 ﻿using Viktor.IMS.Presentation.UIExtensions;
-namespace Viktor.IMS.Presentation
+
+namespace Viktor.IMS.Presentation.UI
 {
     partial class RowDetails
     {
@@ -182,7 +183,7 @@ namespace Viktor.IMS.Presentation
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "RowDetails";
-            this.Text = "RowDetails";
+            this.Text = "Детали за производот";
             this.Activated += new System.EventHandler(this.RowDetails_Activated);
             this.Load += new System.EventHandler(this.RowDetails_Load);
             this.ResumeLayout(false);

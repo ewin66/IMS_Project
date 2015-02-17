@@ -33,6 +33,9 @@ namespace LinqDataModel
     partial void InsertSuplier(Suplier instance);
     partial void UpdateSuplier(Suplier instance);
     partial void DeleteSuplier(Suplier instance);
+    partial void InsertBarCode(BarCode instance);
+    partial void UpdateBarCode(BarCode instance);
+    partial void DeleteBarCode(BarCode instance);
     partial void InsertCategory(Category instance);
     partial void UpdateCategory(Category instance);
     partial void DeleteCategory(Category instance);
@@ -57,6 +60,9 @@ namespace LinqDataModel
     partial void InsertProduct(Product instance);
     partial void UpdateProduct(Product instance);
     partial void DeleteProduct(Product instance);
+    partial void InsertPromet(Promet instance);
+    partial void UpdatePromet(Promet instance);
+    partial void DeletePromet(Promet instance);
     #endregion
 		
 		public IMSDBDataContext() : 
@@ -94,6 +100,14 @@ namespace LinqDataModel
 			get
 			{
 				return this.GetTable<Suplier>();
+			}
+		}
+		
+		public System.Data.Linq.Table<BarCode> BarCodes
+		{
+			get
+			{
+				return this.GetTable<BarCode>();
 			}
 		}
 		
@@ -161,11 +175,39 @@ namespace LinqDataModel
 			}
 		}
 		
+		public System.Data.Linq.Table<Promet> Promets
+		{
+			get
+			{
+				return this.GetTable<Promet>();
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.AddArticle")]
 		public int AddArticle([global::System.Data.Linq.Mapping.ParameterAttribute(Name="PLU", DbType="Int")] System.Nullable<int> pLU, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Name", DbType="NVarChar(100)")] string name, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Price", DbType="Decimal(8,2)")] System.Nullable<decimal> price, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Bar_code", DbType="VarChar(13)")] string bar_code, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Stock", DbType="Decimal(8,2)")] System.Nullable<decimal> stock)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), pLU, name, price, bar_code, stock);
 			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.AddOrder")]
+		public int AddOrder([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CustomerId", DbType="Int")] System.Nullable<int> customerId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="EmployeeId", DbType="Int")] System.Nullable<int> employeeId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="OrderStatusId", DbType="Int")] System.Nullable<int> orderStatusId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="OrderNumber", DbType="VarChar(100)")] string orderNumber, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Comment", DbType="NVarChar(100)")] string comment)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), customerId, employeeId, orderStatusId, orderNumber, comment);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.AddProduct")]
+		public int AddProduct([global::System.Data.Linq.Mapping.ParameterAttribute(Name="ProductId", DbType="Int")] System.Nullable<int> productId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CategoryId", DbType="Int")] System.Nullable<int> categoryId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="SuplierId", DbType="Int")] System.Nullable<int> suplierId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ProductName", DbType="NVarChar(22)")] string productName, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="QuantityPerUnit", DbType="Int")] System.Nullable<int> quantityPerUnit, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="UnitPrice", DbType="Decimal(8,2)")] System.Nullable<decimal> unitPrice, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="UnitsInStock", DbType="Decimal(8,2)")] System.Nullable<decimal> unitsInStock, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ReorderLevel", DbType="Decimal(8,2)")] System.Nullable<decimal> reorderLevel, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IsDomestic", DbType="Bit")] System.Nullable<bool> isDomestic, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Discontinued", DbType="Bit")] System.Nullable<bool> discontinued, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="BarCode1", DbType="VarChar(13)")] string barCode1, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="BarCode2", DbType="VarChar(13)")] string barCode2, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="BarCode3", DbType="VarChar(13)")] string barCode3, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="BarCode4", DbType="VarChar(13)")] string barCode4)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), productId, categoryId, suplierId, productName, quantityPerUnit, unitPrice, unitsInStock, reorderLevel, isDomestic, discontinued, barCode1, barCode2, barCode3, barCode4);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.AddPromet")]
+		public void AddPromet([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CustomerId", DbType="Int")] System.Nullable<int> customerId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ProductId", DbType="Int")] System.Nullable<int> productId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Quantity", DbType="Int")] System.Nullable<int> quantity, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Price", DbType="Money")] System.Nullable<decimal> price, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Comment", DbType="NVarChar(1)")] string comment)
+		{
+			this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), customerId, productId, quantity, price, comment);
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetArticles")]
@@ -193,6 +235,13 @@ namespace LinqDataModel
 			articlesWithStock = ((System.Nullable<int>)(result.GetParameterValue(4)));
 			cumulativeAmount = ((System.Nullable<decimal>)(result.GetParameterValue(5)));
 			return ((ISingleResult<GetProductsResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetPromet")]
+		public ISingleResult<GetPrometResult> GetPromet([global::System.Data.Linq.Mapping.ParameterAttribute(Name="FromDate", DbType="DateTime")] System.Nullable<System.DateTime> fromDate, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ToDate", DbType="DateTime")] System.Nullable<System.DateTime> toDate)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), fromDate, toDate);
+			return ((ISingleResult<GetPrometResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -355,6 +404,140 @@ namespace LinqDataModel
 		{
 			this.SendPropertyChanging();
 			entity.Suplier = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BarCode")]
+	public partial class BarCode : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _BarcodeId;
+		
+		private string _Barcode1;
+		
+		private System.DateTime _Created;
+		
+		private System.DateTime _Updated;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnBarcodeIdChanging(int value);
+    partial void OnBarcodeIdChanged();
+    partial void OnBarcode1Changing(string value);
+    partial void OnBarcode1Changed();
+    partial void OnCreatedChanging(System.DateTime value);
+    partial void OnCreatedChanged();
+    partial void OnUpdatedChanging(System.DateTime value);
+    partial void OnUpdatedChanged();
+    #endregion
+		
+		public BarCode()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BarcodeId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int BarcodeId
+		{
+			get
+			{
+				return this._BarcodeId;
+			}
+			set
+			{
+				if ((this._BarcodeId != value))
+				{
+					this.OnBarcodeIdChanging(value);
+					this.SendPropertyChanging();
+					this._BarcodeId = value;
+					this.SendPropertyChanged("BarcodeId");
+					this.OnBarcodeIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="Barcode", Storage="_Barcode1", DbType="VarChar(13) NOT NULL", CanBeNull=false)]
+		public string Barcode1
+		{
+			get
+			{
+				return this._Barcode1;
+			}
+			set
+			{
+				if ((this._Barcode1 != value))
+				{
+					this.OnBarcode1Changing(value);
+					this.SendPropertyChanging();
+					this._Barcode1 = value;
+					this.SendPropertyChanged("Barcode1");
+					this.OnBarcode1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Created", DbType="DateTime NOT NULL")]
+		public System.DateTime Created
+		{
+			get
+			{
+				return this._Created;
+			}
+			set
+			{
+				if ((this._Created != value))
+				{
+					this.OnCreatedChanging(value);
+					this.SendPropertyChanging();
+					this._Created = value;
+					this.SendPropertyChanged("Created");
+					this.OnCreatedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Updated", DbType="DateTime NOT NULL")]
+		public System.DateTime Updated
+		{
+			get
+			{
+				return this._Updated;
+			}
+			set
+			{
+				if ((this._Updated != value))
+				{
+					this.OnUpdatedChanging(value);
+					this.SendPropertyChanging();
+					this._Updated = value;
+					this.SendPropertyChanged("Updated");
+					this.OnUpdatedChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 	
@@ -1726,11 +1909,13 @@ namespace LinqDataModel
 		
 		private System.Nullable<int> _QuantityPerUnit;
 		
-		private System.Nullable<decimal> _UnitPrice;
+		private decimal _UnitPrice;
 		
 		private System.Nullable<decimal> _UnitsInStock;
 		
 		private System.Nullable<decimal> _ReorderLevel;
+		
+		private bool _IsDomestic;
 		
 		private System.Nullable<bool> _Discontinued;
 		
@@ -1766,12 +1951,14 @@ namespace LinqDataModel
     partial void OnProductNameChanged();
     partial void OnQuantityPerUnitChanging(System.Nullable<int> value);
     partial void OnQuantityPerUnitChanged();
-    partial void OnUnitPriceChanging(System.Nullable<decimal> value);
+    partial void OnUnitPriceChanging(decimal value);
     partial void OnUnitPriceChanged();
     partial void OnUnitsInStockChanging(System.Nullable<decimal> value);
     partial void OnUnitsInStockChanged();
     partial void OnReorderLevelChanging(System.Nullable<decimal> value);
     partial void OnReorderLevelChanged();
+    partial void OnIsDomesticChanging(bool value);
+    partial void OnIsDomesticChanged();
     partial void OnDiscontinuedChanging(System.Nullable<bool> value);
     partial void OnDiscontinuedChanged();
     partial void OnBarCode1Changing(string value);
@@ -1864,7 +2051,7 @@ namespace LinqDataModel
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductName", DbType="NVarChar(22)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductName", DbType="NVarChar(22) NOT NULL", CanBeNull=false)]
 		public string ProductName
 		{
 			get
@@ -1904,8 +2091,8 @@ namespace LinqDataModel
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitPrice", DbType="Decimal(8,2)")]
-		public System.Nullable<decimal> UnitPrice
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitPrice", DbType="Decimal(8,2) NOT NULL")]
+		public decimal UnitPrice
 		{
 			get
 			{
@@ -1960,6 +2147,26 @@ namespace LinqDataModel
 					this._ReorderLevel = value;
 					this.SendPropertyChanged("ReorderLevel");
 					this.OnReorderLevelChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsDomestic", DbType="Bit NOT NULL")]
+		public bool IsDomestic
+		{
+			get
+			{
+				return this._IsDomestic;
+			}
+			set
+			{
+				if ((this._IsDomestic != value))
+				{
+					this.OnIsDomesticChanging(value);
+					this.SendPropertyChanging();
+					this._IsDomestic = value;
+					this.SendPropertyChanged("IsDomestic");
+					this.OnIsDomesticChanged();
 				}
 			}
 		}
@@ -2218,6 +2425,164 @@ namespace LinqDataModel
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Promet")]
+	public partial class Promet : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _PrometId;
+		
+		private System.DateTime _Created;
+		
+		private int _Quantity;
+		
+		private string _Comment;
+		
+		private decimal _Price;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPrometIdChanging(int value);
+    partial void OnPrometIdChanged();
+    partial void OnCreatedChanging(System.DateTime value);
+    partial void OnCreatedChanged();
+    partial void OnQuantityChanging(int value);
+    partial void OnQuantityChanged();
+    partial void OnCommentChanging(string value);
+    partial void OnCommentChanged();
+    partial void OnPriceChanging(decimal value);
+    partial void OnPriceChanged();
+    #endregion
+		
+		public Promet()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PrometId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int PrometId
+		{
+			get
+			{
+				return this._PrometId;
+			}
+			set
+			{
+				if ((this._PrometId != value))
+				{
+					this.OnPrometIdChanging(value);
+					this.SendPropertyChanging();
+					this._PrometId = value;
+					this.SendPropertyChanged("PrometId");
+					this.OnPrometIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Created", DbType="DateTime NOT NULL")]
+		public System.DateTime Created
+		{
+			get
+			{
+				return this._Created;
+			}
+			set
+			{
+				if ((this._Created != value))
+				{
+					this.OnCreatedChanging(value);
+					this.SendPropertyChanging();
+					this._Created = value;
+					this.SendPropertyChanged("Created");
+					this.OnCreatedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Quantity", DbType="Int NOT NULL")]
+		public int Quantity
+		{
+			get
+			{
+				return this._Quantity;
+			}
+			set
+			{
+				if ((this._Quantity != value))
+				{
+					this.OnQuantityChanging(value);
+					this.SendPropertyChanging();
+					this._Quantity = value;
+					this.SendPropertyChanged("Quantity");
+					this.OnQuantityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comment", DbType="NVarChar(500)")]
+		public string Comment
+		{
+			get
+			{
+				return this._Comment;
+			}
+			set
+			{
+				if ((this._Comment != value))
+				{
+					this.OnCommentChanging(value);
+					this.SendPropertyChanging();
+					this._Comment = value;
+					this.SendPropertyChanged("Comment");
+					this.OnCommentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Money NOT NULL")]
+		public decimal Price
+		{
+			get
+			{
+				return this._Price;
+			}
+			set
+			{
+				if ((this._Price != value))
+				{
+					this.OnPriceChanging(value);
+					this.SendPropertyChanging();
+					this._Price = value;
+					this.SendPropertyChanged("Price");
+					this.OnPriceChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	public partial class GetArticlesResult
 	{
 		
@@ -2347,11 +2712,13 @@ namespace LinqDataModel
 		
 		private System.Nullable<int> _QuantityPerUnit;
 		
-		private System.Nullable<decimal> _UnitPrice;
+		private decimal _UnitPrice;
 		
 		private System.Nullable<decimal> _UnitsInStock;
 		
 		private System.Nullable<decimal> _ReorderLevel;
+		
+		private bool _IsDomestic;
 		
 		private System.Nullable<bool> _Discontinued;
 		
@@ -2419,7 +2786,7 @@ namespace LinqDataModel
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductName", DbType="NVarChar(22)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductName", DbType="NVarChar(22) NOT NULL", CanBeNull=false)]
 		public string ProductName
 		{
 			get
@@ -2451,8 +2818,8 @@ namespace LinqDataModel
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitPrice", DbType="Decimal(8,2)")]
-		public System.Nullable<decimal> UnitPrice
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitPrice", DbType="Decimal(8,2) NOT NULL")]
+		public decimal UnitPrice
 		{
 			get
 			{
@@ -2495,6 +2862,22 @@ namespace LinqDataModel
 				if ((this._ReorderLevel != value))
 				{
 					this._ReorderLevel = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsDomestic", DbType="Bit NOT NULL")]
+		public bool IsDomestic
+		{
+			get
+			{
+				return this._IsDomestic;
+			}
+			set
+			{
+				if ((this._IsDomestic != value))
+				{
+					this._IsDomestic = value;
 				}
 			}
 		}
@@ -2625,11 +3008,13 @@ namespace LinqDataModel
 		
 		private System.Nullable<int> _QuantityPerUnit;
 		
-		private System.Nullable<decimal> _UnitPrice;
+		private decimal _UnitPrice;
 		
 		private System.Nullable<decimal> _UnitsInStock;
 		
 		private System.Nullable<decimal> _ReorderLevel;
+		
+		private bool _IsDomestic;
 		
 		private System.Nullable<bool> _Discontinued;
 		
@@ -2697,7 +3082,7 @@ namespace LinqDataModel
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductName", DbType="NVarChar(22)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductName", DbType="NVarChar(22) NOT NULL", CanBeNull=false)]
 		public string ProductName
 		{
 			get
@@ -2729,8 +3114,8 @@ namespace LinqDataModel
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitPrice", DbType="Decimal(8,2)")]
-		public System.Nullable<decimal> UnitPrice
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitPrice", DbType="Decimal(8,2) NOT NULL")]
+		public decimal UnitPrice
 		{
 			get
 			{
@@ -2773,6 +3158,22 @@ namespace LinqDataModel
 				if ((this._ReorderLevel != value))
 				{
 					this._ReorderLevel = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsDomestic", DbType="Bit NOT NULL")]
+		public bool IsDomestic
+		{
+			get
+			{
+				return this._IsDomestic;
+			}
+			set
+			{
+				if ((this._IsDomestic != value))
+				{
+					this._IsDomestic = value;
 				}
 			}
 		}
@@ -2885,6 +3286,104 @@ namespace LinqDataModel
 				if ((this._Updated != value))
 				{
 					this._Updated = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GetPrometResult
+	{
+		
+		private int _PrometId;
+		
+		private System.DateTime _Created;
+		
+		private int _Quantity;
+		
+		private string _Comment;
+		
+		private decimal _Price;
+		
+		public GetPrometResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PrometId", DbType="Int NOT NULL")]
+		public int PrometId
+		{
+			get
+			{
+				return this._PrometId;
+			}
+			set
+			{
+				if ((this._PrometId != value))
+				{
+					this._PrometId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Created", DbType="DateTime NOT NULL")]
+		public System.DateTime Created
+		{
+			get
+			{
+				return this._Created;
+			}
+			set
+			{
+				if ((this._Created != value))
+				{
+					this._Created = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Quantity", DbType="Int NOT NULL")]
+		public int Quantity
+		{
+			get
+			{
+				return this._Quantity;
+			}
+			set
+			{
+				if ((this._Quantity != value))
+				{
+					this._Quantity = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comment", DbType="NVarChar(500)")]
+		public string Comment
+		{
+			get
+			{
+				return this._Comment;
+			}
+			set
+			{
+				if ((this._Comment != value))
+				{
+					this._Comment = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Money NOT NULL")]
+		public decimal Price
+		{
+			get
+			{
+				return this._Price;
+			}
+			set
+			{
+				if ((this._Price != value))
+				{
+					this._Price = value;
 				}
 			}
 		}
