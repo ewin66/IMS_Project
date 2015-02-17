@@ -41,6 +41,10 @@ namespace Viktor.IMS.Presentation.UI
 
         private void exitButton_Click(object sender, EventArgs e)
         {
+            for (int i = Application.OpenForms.Count - 1; i >= 0; i--)
+            {
+                Application.OpenForms[i].Close();
+            }
             System.Windows.Forms.Application.Exit();
         }
 
@@ -61,10 +65,16 @@ namespace Viktor.IMS.Presentation.UI
             //Added new TabPage
             TabPage tabPage = NewTabPage("Производи", "tbpProducts", (Control)main);
             this.tabContainer.TabPages.Add(tabPage);
+            
+
             //Added form to tabpage
             main.Dock = DockStyle.Fill;
             main.WindowState = FormWindowState.Maximized;
             main.Show();
+
+            // Duri otkako formata ke se loadira go selektirame soodvetniot tab za aktiven
+            this.tabContainer.SelectTab(tabPage);
+            this.tabContainer.SelectedTab.Controls[0].Select();
         }
 
         private void saleButton_Click(object sender, EventArgs e)
@@ -84,10 +94,15 @@ namespace Viktor.IMS.Presentation.UI
             //Added new TabPage
             TabPage tabPage = NewTabPage("Продажба", "tbpSale", (Control)sale);
             this.tabContainer.TabPages.Add(tabPage);
+            
+
             //Added form to tabpage
             sale.Dock = DockStyle.Fill;
             sale.WindowState = FormWindowState.Maximized;
             sale.Show();
+
+            this.tabContainer.SelectTab(tabPage);
+            this.tabContainer.SelectedTab.Controls[0].Select();
         }
         /* Comment
         private void tabContainer_DrawItem(object sender, DrawItemEventArgs e)
@@ -133,5 +148,12 @@ namespace Viktor.IMS.Presentation.UI
             tabPage.Name = name;
             return tabPage;
         }
+
+        private void tabContainer_Selected(object sender, EventArgs e)
+        {
+            if (this.tabContainer.SelectedTab != null)
+                this.tabContainer.SelectedTab.Controls[0].Select();
+        }
+
     }
 }

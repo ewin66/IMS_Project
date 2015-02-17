@@ -10,6 +10,7 @@ namespace LinqDataModel
     {
         //[Description("Podatoci za promenata dokolku e napravena vrz objektot: Sto e promeneto, Na koj del se odnesuva, Kakva promena")]
 
+        public int ItemNumber { get; set; }
         public decimal Quantity { get; set; }
         public decimal Discount { get; set; }
         public decimal? Price { get; set; }

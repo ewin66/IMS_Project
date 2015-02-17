@@ -51,9 +51,10 @@ namespace Viktor.IMS.Presentation.UI
 
             listener = new BarcodeListener(this);
             listener.BarcodeScanned += this.OnBarcodeScanned;
-            
             this.Layout += new System.Windows.Forms.LayoutEventHandler(this.SplashScreen_Layout);
             this.FormClosing += new FormClosingEventHandler(MainForm_Closing);
+
+            this.ActiveControl = textBox1;
         }
         void MainForm_Closing(object sender, FormClosingEventArgs e)
         {
@@ -69,6 +70,8 @@ namespace Viktor.IMS.Presentation.UI
         {
             if (barcode != null) textBox1.Text = null;
             this.articlesBindingSource.DataSource = _repository.GetProductsTable(null, textBox1.Text, barcode, ref totalArticles, ref articlesWithStock, ref cumulativeAmount);
+            this.articlesBindingNavigator.BindingSource = this.articlesBindingSource;
+
             lblTotalArticles.Text = totalArticles.ToString();
             lblArticlesWithStock.Text = articlesWithStock.ToString();
             lblCumulativeAmount.Text = cumulativeAmount.ToString();

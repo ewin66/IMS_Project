@@ -38,6 +38,8 @@ namespace Viktor.IMS.Presentation.UI
             
             dataGridView1.AutoGenerateColumns = false;
             orderDetails = new List<Product>();
+
+            this.ActiveControl = dataGridView1;
         }
 
         #region OldMethod
@@ -284,7 +286,7 @@ namespace Viktor.IMS.Presentation.UI
                         searchForm.Owner = this;
                         searchForm.StartPosition = FormStartPosition.CenterParent;
                         searchForm.ShowDialog();
-
+                        var itemNumber = 0;
                         if (searchForm.CurrentProduct != null && searchForm.CurrentProduct.ProductId > 0)
                         {
                             /// Add Product to LIST
@@ -294,19 +296,28 @@ namespace Viktor.IMS.Presentation.UI
                             {
                                 ++query.Single().Quantity;
                                 query.Single().Price = query.Single().Quantity * query.Single().UnitPrice;
+                                itemNumber = query.Single().ItemNumber;
+                                this.refreshUI(query.Single());
                             }
                             else
                             {
                                 var product = _repository.GetProduct(searchForm.CurrentProduct.ProductId, null, null);
+                                product.ItemNumber = itemNumber = this.orderDetails.Count + 1;
                                 this.orderDetails.Add(product);
+                                this.refreshUI(product);
                             }
-                            this.dataGridView1.DataSource = orderDetails.ToArray();
+                            //this.RefreshUI(product);
+                            this.dataGridView1.CurrentCell = this.dataGridView1.Rows[itemNumber - 1].Cells["Quantity"];
                         }
                         e.Handled = true;
                     }
                     break;
                 case Keys.F9:
                     ExecuteOrder();
+                    e.Handled = true;
+                    break;
+                case Keys.Delete:
+                    delete_Click();
                     e.Handled = true;
                     break;
                 case Keys.Up:
@@ -339,5 +350,38 @@ namespace Viktor.IMS.Presentation.UI
             
         }
         #endregion
+
+        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dataGridView1.Columns[e.ColumnIndex].Name == "Quantity")
+            {
+                var query = orderDetails.Where(x => x.ItemNumber == e.RowIndex + 1);
+                query.Single().Quantity = decimal.Parse(this.dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+                query.Single().Price = Math.Round(query.Single().Quantity * query.Single().UnitPrice, 2);
+                this.refreshUI(query.Single());
+            }
+        }
+        private void refreshUI(Product product)
+        {
+            if (product != null)
+            {
+                lblCurrentProduct.Text = string.Format("{0} {1} ком x {2} = {3}", product.ProductName, product.Quantity, ((decimal)product.UnitPrice).ToString("N2", nfi), ((decimal)product.Price).ToString("N2", nfi));
+            }
+            else
+            {
+                lblCurrentProduct.Text = "";
+            }
+            lblTotalValue.Text = ((decimal)orderDetails.Sum(x => x.Price)).ToString("N2", nfi);
+            this.dataGridView1.DataSource = orderDetails.ToArray();
+        }
+        private void delete_Click()
+        {
+            foreach (DataGridViewRow item in this.dataGridView1.SelectedRows)
+            {
+                dataGridView1.Rows.RemoveAt(item.Index);
+                orderDetails.RemoveAt(item.Index);
+            }
+            refreshUI(null);
+        }
     }
 }

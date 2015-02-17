@@ -36,12 +36,13 @@ namespace Viktor.IMS.Presentation.UI
             this.exitButton = new System.Windows.Forms.ToolStripButton();
             this.productsButton = new System.Windows.Forms.ToolStripButton();
             this.saleButton = new System.Windows.Forms.ToolStripButton();
-            
+            this.tabContainer = new AC.ExtendedRenderer.Navigator.KryptonTabControl();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip1
             // 
+            this.toolStrip1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exitButton,
@@ -85,36 +86,29 @@ namespace Viktor.IMS.Presentation.UI
             // 
             // tabContainer
             // 
-            #region Tab Container
-            tabContainer = new KryptonTabControl();
             this.tabContainer.AllowCloseButton = true;
             this.tabContainer.AllowContextButton = true;
             this.tabContainer.AllowNavigatorButtons = true;
             this.tabContainer.AllowSelectedTabHigh = true;
             this.tabContainer.BorderWidth = 1;
             this.tabContainer.CornerRoundRadiusWidth = 12;
-            this.tabContainer.CornerSymmetry = KryptonTabControl.CornSymmetry.Both;
-            this.tabContainer.CornerType = DrawingMethods.CornerType.Rounded;
-            this.tabContainer.CornerWidth = KryptonTabControl.CornWidth.Thin;
-            this.tabContainer.Dock = DockStyle.Fill;
-            this.tabContainer.DrawMode = TabDrawMode.OwnerDrawFixed;
+            this.tabContainer.CornerSymmetry = AC.ExtendedRenderer.Navigator.KryptonTabControl.CornSymmetry.Both;
+            this.tabContainer.CornerType = AC.ExtendedRenderer.Toolkit.Drawing.DrawingMethods.CornerType.Rounded;
+            this.tabContainer.CornerWidth = AC.ExtendedRenderer.Navigator.KryptonTabControl.CornWidth.Thin;
+            this.tabContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabContainer.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
             this.tabContainer.HotTrack = true;
-            this.tabContainer.ItemSize = new Size(77, 25);
-
-            //this.tabContainer.Location = new System.Drawing.Point(0, 39);
-            //this.tabContainer.Size = new System.Drawing.Size(760, 374);
-            //this.tabContainer.TabIndex = 3;
-
-            this.tabContainer.Location = new Point(0, 0);
+            this.tabContainer.ItemSize = new System.Drawing.Size(77, 25);
+            this.tabContainer.Location = new System.Drawing.Point(0, 39);
             this.tabContainer.Name = "tabContainer";
             this.tabContainer.PreserveTabColor = false;
             this.tabContainer.SelectedIndex = 0;
-            this.tabContainer.Size = new Size(641, 501);
+            this.tabContainer.Size = new System.Drawing.Size(760, 374);
             this.tabContainer.TabIndex = 0;
             this.tabContainer.UseExtendedLayout = false;
-            #endregion
-            //this.tabContainer.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabContainer_DrawItem);
-            //this.tabContainer.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tabContainer_MouseDown);
+            //this.tabContainer.SelectedIndexChanged += new System.EventHandler(this.tabContainer_SelectedIndexChanged);
+            this.tabContainer.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabContainer_Selected);
+            //this.tabContainer.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.tabContainer_ControlAdded);
             // 
             // HomeTabbed
             // 
