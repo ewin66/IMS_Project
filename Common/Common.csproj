@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\CommonHelper.cs" />
+    <Compile Include="Helpers\DataHelper.cs" />
     <Compile Include="Helpers\DeviceHelper.cs" />
     <Compile Include="Helpers\OrderNumberHelper.cs" />
     <Compile Include="Helpers\ISO9TransliterationProvider.cs" />

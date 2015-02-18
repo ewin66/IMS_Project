@@ -57,7 +57,7 @@ namespace Viktor.IMS.Presentation.UI
         private void SearchForm_Load(object sender, EventArgs e)
         {
             this.KeyPreview = true;
-            this.KeyUp += new System.Windows.Forms.KeyEventHandler(KeyEvent);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(KeyEvent);
 
             RefreshView(null);
 
@@ -347,6 +347,16 @@ namespace Viktor.IMS.Presentation.UI
         {
             this.CurrentProduct = new Product();
             this.CurrentProduct.ProductId = Int32.Parse(regionDataGridView.CurrentRow.Cells[0].Value.ToString());
+            Viktor.IMS.Presentation.UI.Sale saleForm = this.Owner as Viktor.IMS.Presentation.UI.Sale;
+            listener.Pause();
+            saleForm.ResumeSerialEventListener();
+            this.Close();
+        }
+
+        private void regionDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            this.CurrentProduct = new Product();
+            this.CurrentProduct.ProductId = Int32.Parse(regionDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString());
             Viktor.IMS.Presentation.UI.Sale saleForm = this.Owner as Viktor.IMS.Presentation.UI.Sale;
             listener.Pause();
             saleForm.ResumeSerialEventListener();

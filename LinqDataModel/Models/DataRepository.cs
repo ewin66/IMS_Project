@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
@@ -157,15 +158,15 @@ namespace LinqDataModel.Models
         {
             return _dataContext.AddProduct(
                     int.Parse(dataRow["ProductId"].ToString()),
-                    int.Parse(dataRow["CategoryId"].ToString()),
-                    int.Parse(dataRow["SuplierId"].ToString()),
+                    DataHelper.GetNullableInt(dataRow["CategoryId"]),
+                    DataHelper.GetNullableInt(dataRow["SuplierId"]),
                     dataRow["ProductName"].ToString(),
-                    int.Parse(dataRow["QuantityPerUnit"].ToString()),
-                    decimal.Parse(dataRow["UnitPrice"].ToString()),
-                    decimal.Parse(dataRow["UnitsInStock"].ToString()),
-                    decimal.Parse(dataRow["ReorderLevel"].ToString()),
-                    dataRow["isDomestic"].ToString() == "1"? true : false,
-                    dataRow["Discontinued"].ToString() == "1" ? true : false,
+                    DataHelper.GetNullableInt(dataRow["QuantityPerUnit"]),
+                    DataHelper.GetNullableDecimal(dataRow["UnitPrice"]),
+                    DataHelper.GetNullableDecimal(dataRow["UnitsInStock"]),
+                    DataHelper.GetNullableDecimal(dataRow["ReorderLevel"]),
+                    DataHelper.GetNullableBool(dataRow["isDomestic"]),
+                    DataHelper.GetNullableBool(dataRow["Discontinued"]),
                     dataRow["BarCode1"].ToString(),
                     dataRow["BarCode2"].ToString(),
                     dataRow["BarCode3"].ToString(),
@@ -275,5 +276,7 @@ namespace LinqDataModel.Models
             }
             return dtReturn;
         }
+
+        
     }
 }

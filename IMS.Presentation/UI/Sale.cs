@@ -353,7 +353,8 @@ namespace Viktor.IMS.Presentation.UI
 
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if (dataGridView1.Columns[e.ColumnIndex].Name == "Quantity")
+            if (dataGridView1.Columns[e.ColumnIndex].Name == "Quantity" ||
+                dataGridView1.Columns[e.ColumnIndex].Name == "UnitPrice")
             {
                 var query = orderDetails.Where(x => x.ItemNumber == e.RowIndex + 1);
                 query.Single().Quantity = decimal.Parse(this.dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
@@ -376,11 +377,9 @@ namespace Viktor.IMS.Presentation.UI
         }
         private void delete_Click()
         {
-            foreach (DataGridViewRow item in this.dataGridView1.SelectedRows)
-            {
-                dataGridView1.Rows.RemoveAt(item.Index);
-                orderDetails.RemoveAt(item.Index);
-            }
+            var rowIndex = this.dataGridView1.CurrentCell.RowIndex;
+            if (orderDetails.Any(x => x.ItemNumber == rowIndex + 1))
+                orderDetails.RemoveAt(rowIndex);
             refreshUI(null);
         }
     }

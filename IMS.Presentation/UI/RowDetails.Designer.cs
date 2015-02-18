@@ -40,6 +40,11 @@ namespace Viktor.IMS.Presentation.UI
             this.label1 = new System.Windows.Forms.Label();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.rbDomestic = new System.Windows.Forms.RadioButton();
+            this.rbForeign = new System.Windows.Forms.RadioButton();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblError = new System.Windows.Forms.Label();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBox3
@@ -47,7 +52,7 @@ namespace Viktor.IMS.Presentation.UI
             this.textBox3.AllowNegative = false;
             this.textBox3.DigitsInGroup = 0;
             this.textBox3.Flags = 65536;
-            this.textBox3.Location = new System.Drawing.Point(68, 141);
+            this.textBox3.Location = new System.Drawing.Point(224, 86);
             this.textBox3.MaxDecimalPlaces = 4;
             this.textBox3.MaxWholeDigits = 9;
             this.textBox3.Name = "textBox3";
@@ -69,13 +74,13 @@ namespace Viktor.IMS.Presentation.UI
             this.textBox2.Prefix = "";
             this.textBox2.RangeMax = 1.7976931348623157E+308D;
             this.textBox2.RangeMin = -1.7976931348623157E+308D;
-            this.textBox2.Size = new System.Drawing.Size(285, 23);
+            this.textBox2.Size = new System.Drawing.Size(129, 23);
             this.textBox2.TabIndex = 1;
             // 
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button2.Location = new System.Drawing.Point(207, 254);
+            this.button2.Location = new System.Drawing.Point(207, 275);
             this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(112, 28);
@@ -87,7 +92,7 @@ namespace Viktor.IMS.Presentation.UI
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.Location = new System.Drawing.Point(68, 254);
+            this.button1.Location = new System.Drawing.Point(68, 275);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(112, 28);
@@ -101,7 +106,7 @@ namespace Viktor.IMS.Presentation.UI
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label4.ForeColor = System.Drawing.Color.DimGray;
-            this.label4.Location = new System.Drawing.Point(65, 178);
+            this.label4.Location = new System.Drawing.Point(65, 172);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(62, 17);
@@ -113,7 +118,7 @@ namespace Viktor.IMS.Presentation.UI
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label3.ForeColor = System.Drawing.Color.DimGray;
-            this.label3.Location = new System.Drawing.Point(65, 121);
+            this.label3.Location = new System.Drawing.Point(221, 66);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(81, 17);
@@ -147,7 +152,7 @@ namespace Viktor.IMS.Presentation.UI
             // textBox4
             // 
             this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox4.Location = new System.Drawing.Point(68, 199);
+            this.textBox4.Location = new System.Drawing.Point(68, 193);
             this.textBox4.Margin = new System.Windows.Forms.Padding(4);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(285, 23);
@@ -165,11 +170,56 @@ namespace Viktor.IMS.Presentation.UI
             this.textBox1.TabIndex = 0;
             this.textBox1.Enter += new System.EventHandler(this.textBox1_Enter);
             // 
+            // rbDomestic
+            // 
+            this.rbDomestic.AutoSize = true;
+            this.rbDomestic.ForeColor = System.Drawing.Color.DimGray;
+            this.rbDomestic.Location = new System.Drawing.Point(8, 15);
+            this.rbDomestic.Name = "rbDomestic";
+            this.rbDomestic.Size = new System.Drawing.Size(116, 21);
+            this.rbDomestic.TabIndex = 8;
+            this.rbDomestic.Text = "Македонски";
+            this.rbDomestic.UseVisualStyleBackColor = true;
+            // 
+            // rbForeign
+            // 
+            this.rbForeign.AutoSize = true;
+            this.rbForeign.ForeColor = System.Drawing.Color.DimGray;
+            this.rbForeign.Location = new System.Drawing.Point(156, 15);
+            this.rbForeign.Name = "rbForeign";
+            this.rbForeign.Size = new System.Drawing.Size(79, 21);
+            this.rbForeign.TabIndex = 9;
+            this.rbForeign.Text = "Увозен";
+            this.rbForeign.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.rbDomestic);
+            this.groupBox1.Controls.Add(this.rbForeign);
+            this.groupBox1.Location = new System.Drawing.Point(68, 120);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(285, 42);
+            this.groupBox1.TabIndex = 10;
+            this.groupBox1.TabStop = false;
+            // 
+            // lblError
+            // 
+            this.lblError.AutoSize = true;
+            this.lblError.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.lblError.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblError.ForeColor = System.Drawing.Color.Red;
+            this.lblError.Location = new System.Drawing.Point(73, 239);
+            this.lblError.Name = "lblError";
+            this.lblError.Size = new System.Drawing.Size(0, 16);
+            this.lblError.TabIndex = 11;
+            // 
             // RowDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(426, 308);
+            this.ClientSize = new System.Drawing.Size(426, 323);
+            this.Controls.Add(this.lblError);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.button2);
@@ -186,6 +236,8 @@ namespace Viktor.IMS.Presentation.UI
             this.Text = "Детали за производот";
             this.Activated += new System.EventHandler(this.RowDetails_Activated);
             this.Load += new System.EventHandler(this.RowDetails_Load);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -203,5 +255,9 @@ namespace Viktor.IMS.Presentation.UI
         private System.Windows.Forms.Button button2;
         private AMS.TextBox.NumericTextBox textBox2;
         private AMS.TextBox.NumericTextBox textBox3;
+        private System.Windows.Forms.RadioButton rbDomestic;
+        private System.Windows.Forms.RadioButton rbForeign;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label lblError;
     }
 }

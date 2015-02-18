@@ -52,20 +52,46 @@ namespace Viktor.IMS.Presentation.UI
 
         private void button1_Click(object sender, EventArgs e)
         {
+            try
+            {
+            if (!rbDomestic.Checked && !rbForeign.Checked)
+            {
+                lblError.Text = "Не е одбран тип на производ!";
+                return;
+            }
+
             MainForm m = this.Owner as MainForm;
             var updated = dataRow;
-            updated["Name"] = textBox1.Text.Trim();
-            updated["Price"] = textBox2.Text.Trim();
-            updated["Stock"] = textBox3.Text.Trim();
-            updated["Bar_code"] = textBox4.Text.Trim();
+            updated["ProductName"] = textBox1.Text.Trim();
+            updated["UnitPrice"] = textBox2.Text.Trim();
+            updated["UnitsInStock"] = textBox3.Text.Trim();
+            updated["BarCode1"] = textBox4.Text.Trim();
+            updated["IsDomestic"] = rbDomestic.Checked;
             m.LastDataRow = updated;
             //m.articlesTableAdapter.Update(updated);
+
             
-            _repository.AddArticle(updated);
+
+            
+            _repository.AddProduct(updated);
+
             m.RefreshView(null);
             listener.Pause();
             m.ResumeSerialEventListener();
             Close();
+            }
+            catch (System.Data.SqlClient.SqlException exc)
+            {
+                if (exc.Message.Contains("Barcode"))
+                    lblError.Text = "Баркодот веке постои!";
+                else
+                    lblError.Text = exc.Message;
+                return;
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
 
@@ -74,10 +100,13 @@ namespace Viktor.IMS.Presentation.UI
             //Program.activeFormName = this.Name;
             this.AcceptButton = button1;
 
-            textBox1.Text = dataRow["Name"].ToString();
-            textBox2.Text = dataRow["Price"].ToString();
-            textBox3.Text = dataRow["Stock"].ToString();
-            textBox4.Text = dataRow["Bar_code"].ToString();
+            textBox1.Text = dataRow["ProductName"].ToString();
+            textBox2.Text = dataRow["UnitPrice"].ToString();
+            textBox3.Text = dataRow["UnitsInStock"].ToString();
+            bool? isDomestic = (bool?)dataRow["IsDomestic"];
+            rbDomestic.Checked = (isDomestic != null && isDomestic == true);
+            rbForeign.Checked = (isDomestic != null && isDomestic == false);
+            textBox4.Text = dataRow["BarCode1"].ToString();
         }
 
         private void OnBarcodeScanned(object sender, EventArgs e)
