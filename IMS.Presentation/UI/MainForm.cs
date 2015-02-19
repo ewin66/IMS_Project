@@ -98,7 +98,7 @@ namespace Viktor.IMS.Presentation.UI
             {
                 if (LastDataRow.RowState == DataRowState.Modified)
                 {
-                    _repository.AddArticle(LastDataRow);
+                    _repository.AddProduct(LastDataRow);
                     RefreshView(null);
                 }
             }

@@ -335,15 +335,23 @@ namespace Viktor.IMS.Presentation.UI
         }
         private void ExecuteOrder()
         {
+            PleaseWaitForm pleaseWait = new PleaseWaitForm();
+            pleaseWait.Owner = this;
+            pleaseWait.StartPosition = FormStartPosition.CenterParent;
+            pleaseWait.Show();
+
             try
             {
                 var stavki = Mapper.FiscalMapper.PrepareFiscalReceipt(orderDetails);
                 //_fiscalPrinter = new SY50("COM1");
                 _fiscalPrinter.Stavki = stavki;
                 _fiscalPrinter.FiskalnaSmetka(SY50.PaidMode.VoGotovo);
+                System.Threading.Thread.Sleep(3000);
+                pleaseWait.Close();
             }
             catch (Exception ex)
             {
+                pleaseWait.Close();
                 MessageBox.Show(ex.ToString());
             }
 
