@@ -403,9 +403,9 @@ namespace IMS.Fiscal.AccentFiscal
                   break;
           }
           if (num1 % 2 == 0)
-              streamWriter.Write(string.Format("#1{0}\t{3}\t{1}\t{2}\t0\t\t\t", (object)current.Name, (object)this.FormatNumber(current.Price, 2), (object)this.FormatNumber(current.Quantity, 3), (object)num2) + "\r\n");
+              streamWriter.Write(string.Format("#1{0}\t{3}\t{1}\t{2}\t{4}\t\t\t\r\n", (object)current.Name, (object)this.FormatNumber(current.Price, 2), (object)this.FormatNumber(current.Quantity, 3), (object)num2, current.IsDomestic ? 1 : 0));
           else
-              streamWriter.Write(string.Format(" 1{0}\t{3}\t{1}\t{2}\t0\t\t\t", (object)current.Name, (object)this.FormatNumber(current.Price, 2), (object)this.FormatNumber(current.Quantity, 3), (object)num2) + "\r\n");
+              streamWriter.Write(string.Format(" 1{0}\t{3}\t{1}\t{2}\t{4}\t\t\t\r\n", (object)current.Name, (object)this.FormatNumber(current.Price, 2), (object)this.FormatNumber(current.Quantity, 3), (object)num2, current.IsDomestic ? 1 : 0));
           checked { ++num1; }
       }
 

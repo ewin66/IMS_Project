@@ -14,6 +14,7 @@ namespace IMS.Fiscal
     private VATgroup _VAT;
     private Decimal _Quantity;
     private Decimal _Price;
+    private Boolean _IsDomestic;
 
     public string Name
     {
@@ -53,14 +54,25 @@ namespace IMS.Fiscal
 
     public Decimal Price
     {
-      get
-      {
-        return this._Price;
-      }
-      set
-      {
-        this._Price = value;
-      }
+        get
+        {
+            return this._Price;
+        }
+        set
+        {
+            this._Price = value;
+        }
+    }
+    public Boolean IsDomestic
+    {
+        get
+        {
+            return this._IsDomestic;
+        }
+        set
+        {
+            this._IsDomestic = value;
+        }
     }
 
     public Article()
@@ -69,15 +81,17 @@ namespace IMS.Fiscal
       this.VAT = VATgroup.А;
       this.Quantity = Decimal.Zero;
       this.Price = Decimal.Zero;
+      this.IsDomestic = true;
     }
 
-    public Article(string name, VATgroup ddv, Decimal quantity, Decimal price)
+    public Article(string name, VATgroup ddv, Decimal quantity, Decimal price, Boolean isDomestic)
       : this()
     {
       this.Name = name;
       this.VAT = ddv;
       this.Quantity = quantity;
       this.Price = price;
+      this.IsDomestic = isDomestic;
     }
   }
 }

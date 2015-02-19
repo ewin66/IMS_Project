@@ -17,7 +17,8 @@ namespace Viktor.IMS.Presentation.Mapper
                 article.Name = product.ProductName;
                 article.VAT = VATgroup.Г;//bez ddv
                 article.Quantity = product.Quantity;
-                article.Price = (decimal)product.UnitPrice;
+                article.Price = product.UnitPrice;
+                article.IsDomestic = product.IsDomestic;
                 fiscalReceipt.Add(article);
             }
             return fiscalReceipt;

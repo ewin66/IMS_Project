@@ -123,52 +123,10 @@ namespace Viktor.IMS.Presentation.UI
                 MessageBox.Show(this, "Неуспешно поврзување со Фискалната каса, проверете дали е приклучена!\n\nOpening serial port result :: " + ex.Message, "Информација!");
             }
         }
-        private void NewOrder()
-        {
-            orderDetails = new List<Product>();
-            AddOrders();
-        }
 
-        private void AddOrders()
-        {
-            orderDetails.Add(new Product()
-            {
-                ProductId = 16,
-                ProductName = "МЛЕКО",
-                Quantity = 1,
-                UnitPrice = 42,
-                Price = 42,
-            });
+        
 
-            dataGridView1.DataSource = orderDetails;
-        }
-
-        private void btnAddProduct_Click(object sender, EventArgs e)
-        {
-            var product = new Product()
-            {
-                ProductId = 31,
-                ProductName = "РОДЕО ЛАИТ",
-                Quantity = 1,
-                UnitPrice = 58,
-                Price = 58,
-            };
-
-            var query = orderDetails.Where(x => x.ProductId == product.ProductId);
-            if (query.Count() > 0)
-            {
-                ++query.Single().Quantity;
-                query.Single().Price = query.Single().Quantity * query.Single().UnitPrice;
-            }
-            else
-                orderDetails.Add(product);
-
-            dataGridView1.DataSource = orderDetails.ToArray();
-            lblCurrentProduct.Text = string.Format("{0} {1} ком x {2} = {3}", query.Single().ProductName, query.Single().Quantity, ((decimal)query.Single().UnitPrice).ToString("N2", nfi), ((decimal)query.Single().Price).ToString("N2", nfi));
-            lblTotalValue.Text = ((decimal)orderDetails.Sum(x => x.Price)).ToString("N2", nfi);
-        }
-
-        #region Barcode Events
+        #region BARCODE EVENTS
         public void ResumeSerialEventListener()
         {
             listener.Resume();
@@ -183,12 +141,14 @@ namespace Viktor.IMS.Presentation.UI
                 {
                     ++query.Single().Quantity;
                     query.Single().Price = query.Single().Quantity * query.Single().UnitPrice;
+                    this.refreshUI(query.Single());
                 }
                 else
+                {
                     orderDetails.Add(product);
-
+                    this.refreshUI(product);
+                }
             }
-            dataGridView1.DataSource = orderDetails;
         }
         private void OnBarcodeScanned(object sender, EventArgs e)
         {
@@ -216,58 +176,7 @@ namespace Viktor.IMS.Presentation.UI
         private void Sale_Load(object sender, EventArgs e)
         {
             this.KeyPreview = true;
-            this.KeyUp += new System.Windows.Forms.KeyEventHandler(KeyEvent);
-        }
-
-        private void moveUp()
-        {
-            if (dataGridView1.RowCount > 0)
-            {
-                if (dataGridView1.SelectedRows.Count > 0)
-                {
-                    int rowCount = dataGridView1.Rows.Count;
-                    int index = dataGridView1.SelectedCells[0].OwningRow.Index;
-
-                    if (index == 0)
-                    {
-                        return;
-                    }
-                    DataGridViewRowCollection rows = dataGridView1.Rows;
-
-                    // remove the previous row and add it behind the selected row.
-                    DataGridViewRow prevRow = rows[index - 1];
-                    rows.Remove(prevRow);
-                    prevRow.Frozen = false;
-                    rows.Insert(index, prevRow);
-                    dataGridView1.ClearSelection();
-                    dataGridView1.Rows[index - 1].Selected = true;
-                }
-            }
-        }
-        private void moveDown()
-        {
-            if (dataGridView1.RowCount > 0)
-            {
-                if (dataGridView1.SelectedRows.Count > 0)
-                {
-                    int rowCount = dataGridView1.Rows.Count;
-                    int index = dataGridView1.SelectedCells[0].OwningRow.Index;
-
-                    if (index == (rowCount - 2)) // include the header row
-                    {
-                        return;
-                    }
-                    DataGridViewRowCollection rows = dataGridView1.Rows;
-
-                    // remove the next row and add it in front of the selected row.
-                    DataGridViewRow nextRow = rows[index + 1];
-                    rows.Remove(nextRow);
-                    nextRow.Frozen = false;
-                    rows.Insert(index, nextRow);
-                    dataGridView1.ClearSelection();
-                    dataGridView1.Rows[index + 1].Selected = true;
-                }
-            }
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(KeyEvent);
         }
         /// <summary>
         /// F9-Execute Order, F6-Save, F3-LookUp.
@@ -333,24 +242,6 @@ namespace Viktor.IMS.Presentation.UI
                     break;
             }
         }
-        private void ExecuteOrder()
-        {
-            try
-            {
-                var stavki = Mapper.FiscalMapper.PrepareFiscalReceipt(orderDetails);
-                _fiscalPrinter.Stavki = stavki;
-                _fiscalPrinter.FiskalnaSmetka(SY50.PaidMode.VoGotovo);
-                //_fiscalPrinter.PrintReceipt(PaidMode.VoGotovo);
-                //_fiscalPrinter.ClosePort();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-            
-        }
-        #endregion
-
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (dataGridView1.Columns[e.ColumnIndex].Name == "Quantity" ||
@@ -360,6 +251,66 @@ namespace Viktor.IMS.Presentation.UI
                 query.Single().Quantity = decimal.Parse(this.dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
                 query.Single().Price = Math.Round(query.Single().Quantity * query.Single().UnitPrice, 2);
                 this.refreshUI(query.Single());
+            }
+        }
+        private void btnAddProduct_Click(object sender, EventArgs e)
+        {
+
+        }
+        #endregion
+
+        
+
+
+
+        private void moveUp()
+        {
+            if (dataGridView1.RowCount > 0)
+            {
+                if (dataGridView1.SelectedRows.Count > 0)
+                {
+                    int rowCount = dataGridView1.Rows.Count;
+                    int index = dataGridView1.SelectedCells[0].OwningRow.Index;
+
+                    if (index == 0)
+                    {
+                        return;
+                    }
+                    DataGridViewRowCollection rows = dataGridView1.Rows;
+
+                    // remove the previous row and add it behind the selected row.
+                    DataGridViewRow prevRow = rows[index - 1];
+                    rows.Remove(prevRow);
+                    prevRow.Frozen = false;
+                    rows.Insert(index, prevRow);
+                    dataGridView1.ClearSelection();
+                    dataGridView1.Rows[index - 1].Selected = true;
+                }
+            }
+        }
+        private void moveDown()
+        {
+            if (dataGridView1.RowCount > 0)
+            {
+                if (dataGridView1.SelectedRows.Count > 0)
+                {
+                    int rowCount = dataGridView1.Rows.Count;
+                    int index = dataGridView1.SelectedCells[0].OwningRow.Index;
+
+                    if (index == (rowCount - 2)) // include the header row
+                    {
+                        return;
+                    }
+                    DataGridViewRowCollection rows = dataGridView1.Rows;
+
+                    // remove the next row and add it in front of the selected row.
+                    DataGridViewRow nextRow = rows[index + 1];
+                    rows.Remove(nextRow);
+                    nextRow.Frozen = false;
+                    rows.Insert(index, nextRow);
+                    dataGridView1.ClearSelection();
+                    dataGridView1.Rows[index + 1].Selected = true;
+                }
             }
         }
         private void refreshUI(Product product)
@@ -381,6 +332,21 @@ namespace Viktor.IMS.Presentation.UI
             if (orderDetails.Any(x => x.ItemNumber == rowIndex + 1))
                 orderDetails.RemoveAt(rowIndex);
             refreshUI(null);
+        }
+        private void ExecuteOrder()
+        {
+            try
+            {
+                var stavki = Mapper.FiscalMapper.PrepareFiscalReceipt(orderDetails);
+                //_fiscalPrinter = new SY50("COM1");
+                _fiscalPrinter.Stavki = stavki;
+                _fiscalPrinter.FiskalnaSmetka(SY50.PaidMode.VoGotovo);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+
         }
     }
 }
