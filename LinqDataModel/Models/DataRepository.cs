@@ -174,10 +174,23 @@ namespace LinqDataModel.Models
                 );
         }
 
-        public int AddOrder(int customerId, int employeeId, int orderStatusId, string orderNumber, string comment)
+        public ISingleResult<AddOrderResult> AddOrder(int customerId, int employeeId, int orderStatusId, string orderNumber, string comment)
         {
             return _dataContext.AddOrder(customerId, employeeId, orderStatusId, orderNumber, comment);
         }
+        public ISingleResult<AddOrderResult> AddOrder(int orderStatusId, string orderNumber, string comment)
+        {
+            return _dataContext.AddOrder(null, null, orderStatusId, orderNumber, comment);
+        }
+        public int UpdateOrder(int orderId, bool receiptPrinted)
+        {
+            return _dataContext.UpdateOrder(orderId, receiptPrinted);
+        }
+        public int AddOrderDetails(int orderId, int productId, decimal quantity, decimal unitPrice, decimal discount)
+        {
+            return _dataContext.AddOrderDetails(orderId, productId, quantity, unitPrice, discount);
+        }
+        
         public DataTable GetProductsTable(int? productId, string ProductName, string Barcode, ref int? totalArticles, ref int? articlesWithStock, ref decimal? cumulativeAmount)
         {
             var result = _dataContext.GetProducts(productId, ProductName, Barcode, ref totalArticles, ref articlesWithStock, ref cumulativeAmount).ToList();

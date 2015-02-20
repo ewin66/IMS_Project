@@ -197,6 +197,7 @@ namespace Viktor.IMS.Presentation.UI
             this.regionDataGridView.AllowUserToAddRows = false;
             this.regionDataGridView.AllowUserToDeleteRows = false;
             this.regionDataGridView.AutoGenerateColumns = false;
+            this.regionDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));

@@ -76,7 +76,7 @@
       <HintPath>..\Library\AC.ExtendedRenderer.Toolkit.dll</HintPath>
     </Reference>
     <Reference Include="AMS.TextBox">
-      <HintPath>..\..\..\..\MyProgramFiles\VisualStudio\WindowsForm\CustomControls\AMS.TextBox.dll</HintPath>
+      <HintPath>..\Library\AMS.TextBox.dll</HintPath>
     </Reference>
     <Reference Include="ClosedXML">
       <HintPath>..\Library\ClosedXML.dll</HintPath>
@@ -92,6 +92,7 @@
     <Reference Include="System.Deployment" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -116,6 +117,12 @@
     <Compile Include="UI\HomeTabbed.Designer.cs">
       <DependentUpon>HomeTabbed.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\InfoDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\InfoDialog.Designer.cs">
+      <DependentUpon>InfoDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -131,11 +138,11 @@
     <Compile Include="NativeMethods.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\PleaseWaitForm.cs">
+    <Compile Include="UI\InfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\PleaseWaitForm.Designer.cs">
-      <DependentUpon>PleaseWaitForm.cs</DependentUpon>
+    <Compile Include="UI\InfoForm.Designer.cs">
+      <DependentUpon>InfoForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\RowDetails.cs">
       <SubType>Form</SubType>
@@ -176,6 +183,9 @@
     <EmbeddedResource Include="UI\HomeTabbed.resx">
       <DependentUpon>HomeTabbed.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\InfoDialog.resx">
+      <DependentUpon>InfoDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\MainForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -190,8 +200,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="UI\PleaseWaitForm.resx">
-      <DependentUpon>PleaseWaitForm.cs</DependentUpon>
+    <EmbeddedResource Include="UI\InfoForm.resx">
+      <DependentUpon>InfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\RowDetails.resx">
       <DependentUpon>RowDetails.cs</DependentUpon>

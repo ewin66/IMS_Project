@@ -423,7 +423,7 @@ namespace IMS.Fiscal.AccentFiscal
               break;
       }
       streamWriter.Write(string.Format("&5{0}\t\t", (object)num3) + "\r\n");
-      streamWriter.Write("%8");
+      streamWriter.Write("%8\r\n");
       streamWriter.Flush();
       streamWriter.Close();
     }
@@ -443,7 +443,8 @@ namespace IMS.Fiscal.AccentFiscal
         text.WriteLine(";Ini fajlot treba da bide vo ist dir. so fiscal32.exe");
         text.WriteLine("");
         text.WriteLine("[Setup]");
-        text.WriteLine(string.Format("Port=COM{0}", (object) this.ComPortNumber));
+        //text.WriteLine(string.Format("Port=COM{0}", (object) this.ComPortNumber));
+        text.WriteLine(string.Format("Port={0}", (object)this.ComPort));
         text.WriteLine("Speed=5");
         text.WriteLine("Bit=8");
         text.WriteLine("Parity=0");

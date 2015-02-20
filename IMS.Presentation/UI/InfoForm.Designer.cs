@@ -1,6 +1,6 @@
 ﻿namespace Viktor.IMS.Presentation.UI
 {
-    partial class PleaseWaitForm
+    partial class InfoForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,28 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblInfoMessage = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // label1
+            // lblInfoMessage
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(44, 51);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(237, 20);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Печатење смета, почекајте ...";
+            this.lblInfoMessage.AutoSize = true;
+            this.lblInfoMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblInfoMessage.Location = new System.Drawing.Point(44, 51);
+            this.lblInfoMessage.Name = "lblInfoMessage";
+            this.lblInfoMessage.Size = new System.Drawing.Size(237, 20);
+            this.lblInfoMessage.TabIndex = 0;
+            this.lblInfoMessage.Text = "Печатење смета, почекајте ...";
             // 
-            // PleaseWaitForm
+            // InfoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(206)))), ((int)(((byte)(230)))));
             this.ClientSize = new System.Drawing.Size(343, 129);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblInfoMessage);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "PleaseWaitForm";
+            this.Name = "InfoForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "PleaseWaitForm";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -58,6 +59,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblInfoMessage;
     }
 }

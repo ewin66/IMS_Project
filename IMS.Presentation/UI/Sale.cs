@@ -10,6 +10,7 @@ using System.Globalization;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
+using System.Transactions;
 using System.Windows.Forms;
 
 namespace Viktor.IMS.Presentation.UI
@@ -221,10 +222,19 @@ namespace Viktor.IMS.Presentation.UI
                         e.Handled = true;
                     }
                     break;
+
+                /// Pecatenje na fisskalna smetka
                 case Keys.F9:
-                    ExecuteOrder();
+                    ExecuteOrder(true);
                     e.Handled = true;
                     break;
+
+                /// Bez pecatenje na fiskalana smetka
+                case Keys.Space:
+                    ExecuteOrder(false);
+                    e.Handled = true;
+                    break;
+
                 case Keys.Delete:
                     delete_Click();
                     e.Handled = true;
@@ -333,28 +343,69 @@ namespace Viktor.IMS.Presentation.UI
                 orderDetails.RemoveAt(rowIndex);
             refreshUI(null);
         }
-        private void ExecuteOrder()
+        private void ExecuteOrder(bool printReceipt)
         {
-            PleaseWaitForm pleaseWait = new PleaseWaitForm();
-            pleaseWait.Owner = this;
-            pleaseWait.StartPosition = FormStartPosition.CenterParent;
-            pleaseWait.Show();
-
             try
             {
-                var stavki = Mapper.FiscalMapper.PrepareFiscalReceipt(orderDetails);
-                //_fiscalPrinter = new SY50("COM1");
-                _fiscalPrinter.Stavki = stavki;
-                _fiscalPrinter.FiskalnaSmetka(SY50.PaidMode.VoGotovo);
-                System.Threading.Thread.Sleep(3000);
-                pleaseWait.Close();
+                AddOrderResult addOrderResult;
+                using (var transactionScope = new TransactionScope())
+                {
+                    #region Add Order to Database
+                    addOrderResult = _repository.AddOrder(1, Common.Helpers.OrderNumberHelper.GetOrderID(4, ""), string.Empty).FirstOrDefault();
+                    
+                    foreach (var product in orderDetails)
+                    {
+                        _repository.AddOrderDetails((int)addOrderResult.OrderId, 
+                                                         product.ProductId, 
+                                                         product.Quantity, 
+                                                         product.UnitPrice, 
+                                                         product.Discount);
+                    } 
+                    
+                    #endregion
+
+                    #region Pecati Fiskalna Smetka
+                    if (printReceipt)
+                    {
+                        var stavki = Mapper.FiscalMapper.PrepareFiscalReceipt(orderDetails);
+                        //_fiscalPrinter = new SY50("COM1");
+                        _fiscalPrinter.Stavki = stavki;
+                        _fiscalPrinter.FiskalnaSmetka(SY50.PaidMode.VoGotovo);
+                    }
+                    #endregion
+
+                    transactionScope.Complete();
+                }
+
+                #region Update Order if Smetkata e ispecatena
+                if (printReceipt)
+                {
+                    InfoDialog infoDialog = new InfoDialog("Дали се испечати сметка?", true);
+                    infoDialog.ShowDialog();
+                    if (infoDialog.DialogResult == DialogResult.Yes)
+                    {
+                        _repository.UpdateOrder((int)addOrderResult.OrderId, true);
+                    }
+                    else if (infoDialog.DialogResult == DialogResult.No)
+                    {
+                        //do something else
+                    }
+                }
+                #endregion
+
+                // Pripremi forma za nova smetka
+                NewOrder();
             }
             catch (Exception ex)
             {
-                pleaseWait.Close();
                 MessageBox.Show(ex.ToString());
             }
 
+        }
+        private void NewOrder()
+        {
+            orderDetails = new List<Product>();
+            refreshUI(null);
         }
     }
 }

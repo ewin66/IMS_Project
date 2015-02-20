@@ -105,10 +105,11 @@
             // lblCurrentProduct
             // 
             this.lblCurrentProduct.AutoSize = true;
-            this.lblCurrentProduct.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblCurrentProduct.Font = new System.Drawing.Font("Arial", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblCurrentProduct.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.lblCurrentProduct.Location = new System.Drawing.Point(10, 14);
             this.lblCurrentProduct.Name = "lblCurrentProduct";
-            this.lblCurrentProduct.Size = new System.Drawing.Size(57, 20);
+            this.lblCurrentProduct.Size = new System.Drawing.Size(67, 23);
             this.lblCurrentProduct.TabIndex = 0;
             this.lblCurrentProduct.Text = "label1";
             // 
@@ -127,20 +128,20 @@
             // lblTotalValue
             // 
             this.lblTotalValue.AutoSize = true;
-            this.lblTotalValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblTotalValue.Location = new System.Drawing.Point(138, 7);
+            this.lblTotalValue.Font = new System.Drawing.Font("Arial", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblTotalValue.Location = new System.Drawing.Point(153, 5);
             this.lblTotalValue.Name = "lblTotalValue";
-            this.lblTotalValue.Size = new System.Drawing.Size(58, 25);
+            this.lblTotalValue.Size = new System.Drawing.Size(68, 32);
             this.lblTotalValue.TabIndex = 7;
             this.lblTotalValue.Text = "0.00";
             // 
             // lblTotalName
             // 
             this.lblTotalName.AutoSize = true;
-            this.lblTotalName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblTotalName.Location = new System.Drawing.Point(43, 7);
+            this.lblTotalName.Font = new System.Drawing.Font("Arial", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblTotalName.Location = new System.Drawing.Point(26, 3);
             this.lblTotalName.Name = "lblTotalName";
-            this.lblTotalName.Size = new System.Drawing.Size(97, 25);
+            this.lblTotalName.Size = new System.Drawing.Size(121, 32);
             this.lblTotalName.TabIndex = 6;
             this.lblTotalName.Text = "Вкупно:";
             // 

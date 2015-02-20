@@ -125,14 +125,6 @@
     <Parameter Name="Stock" Parameter="stock" Type="System.Decimal" DbType="Decimal(8,2)" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.AddOrder" Method="AddOrder">
-    <Parameter Name="CustomerId" Parameter="customerId" Type="System.Int32" DbType="Int" />
-    <Parameter Name="EmployeeId" Parameter="employeeId" Type="System.Int32" DbType="Int" />
-    <Parameter Name="OrderStatusId" Parameter="orderStatusId" Type="System.Int32" DbType="Int" />
-    <Parameter Name="OrderNumber" Parameter="orderNumber" Type="System.String" DbType="VarChar(100)" />
-    <Parameter Name="Comment" Parameter="comment" Type="System.String" DbType="NVarChar(100)" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.AddProduct" Method="AddProduct">
     <Parameter Name="ProductId" Parameter="productId" Type="System.Int32" DbType="Int" />
     <Parameter Name="CategoryId" Parameter="categoryId" Type="System.Int32" DbType="Int" />
@@ -150,12 +142,13 @@
     <Parameter Name="BarCode4" Parameter="barCode4" Type="System.String" DbType="VarChar(13)" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.AddPromet" Method="AddPromet">
+  <Function Name="dbo.AddPromet" Method="AddPromet" IsComposable="true">
     <Parameter Name="CustomerId" Parameter="customerId" Type="System.Int32" DbType="Int" />
     <Parameter Name="ProductId" Parameter="productId" Type="System.Int32" DbType="Int" />
     <Parameter Name="Quantity" Parameter="quantity" Type="System.Int32" DbType="Int" />
     <Parameter Name="Price" Parameter="price" Type="System.Decimal" DbType="Money" />
     <Parameter Name="Comment" Parameter="comment" Type="System.String" DbType="NVarChar(1)" />
+    <Return Type="object" />
   </Function>
   <Function Name="dbo.GetArticles" Method="GetArticles">
     <Parameter Name="PLU" Parameter="pLU" Type="System.Int32" DbType="Int" />
@@ -231,6 +224,29 @@
       <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Comment" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
       <Column Name="Price" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.AddOrderDetails" Method="AddOrderDetails">
+    <Parameter Name="OrderId" Parameter="orderId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ProductId" Parameter="productId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Quantity" Parameter="quantity" Type="System.Decimal" DbType="Decimal(8,2)" />
+    <Parameter Name="UnitPrice" Parameter="unitPrice" Type="System.Decimal" DbType="Decimal(8,2)" />
+    <Parameter Name="Discount" Parameter="discount" Type="System.Decimal" DbType="Decimal(8,2)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpdateOrder" Method="UpdateOrder">
+    <Parameter Name="OrderId" Parameter="orderId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ReceiptPrinted" Parameter="receiptPrinted" Type="System.Boolean" DbType="Bit" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.AddOrder" Method="AddOrder">
+    <Parameter Name="CustomerId" Parameter="customerId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="EmployeeId" Parameter="employeeId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="OrderStatusId" Parameter="orderStatusId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="OrderNumber" Parameter="orderNumber" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="Comment" Parameter="comment" Type="System.String" DbType="NVarChar(100)" />
+    <ElementType Name="AddOrderResult">
+      <Column Name="OrderId" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>
