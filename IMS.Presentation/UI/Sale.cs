@@ -25,6 +25,15 @@ namespace Viktor.IMS.Presentation.UI
         public Sale()
         {
             InitializeComponent();
+            this.KeyPreview = true;
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(KeyEvent);
+
+            dataGridView1.AutoGenerateColumns = false;
+            dataGridView1.Columns["Quantity"].DefaultCellStyle.Format = "n";
+            //dataGridView1.EditMode = DataGridViewEditMode.EditOnKeystroke;
+            //dataGridView1.Columns["Quantity"].ReadOnly = false;
+            //dataGridView1.Columns["UnitPrice"].ReadOnly = false;
+
             lblCurrentProduct.Text = string.Empty;
             lblTotalValue.Text = "0.00";
             this.nfi = new NumberFormatInfo();
@@ -36,8 +45,6 @@ namespace Viktor.IMS.Presentation.UI
             
             InitializeFiscalPrinter();
             
-            
-            dataGridView1.AutoGenerateColumns = false;
             orderDetails = new List<Product>();
 
             this.ActiveControl = dataGridView1;
@@ -176,8 +183,8 @@ namespace Viktor.IMS.Presentation.UI
         #region FORM EVENTS
         private void Sale_Load(object sender, EventArgs e)
         {
-            this.KeyPreview = true;
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(KeyEvent);
+            //this.KeyPreview = true;
+            //this.KeyDown += new System.Windows.Forms.KeyEventHandler(KeyEvent);
         }
         /// <summary>
         /// F9-Execute Order, F6-Save, F3-LookUp.
@@ -186,6 +193,37 @@ namespace Viktor.IMS.Presentation.UI
         /// <param name="e"></param>
         private void KeyEvent(object sender, KeyEventArgs e) //Keyup Event 
         {
+            /*
+            // Boolean flag used to determine when a character other than a number is entered. 
+            if (e.KeyCode < Keys.D0 || e.KeyCode > Keys.D9)
+            {
+                // Determine whether the keystroke is a number from the keypad. 
+                if (e.KeyCode < Keys.NumPad0 || e.KeyCode > Keys.NumPad9)
+                {
+                    // Determine whether the keystroke is a backspace. 
+                    if (e.KeyCode != Keys.Back)
+                    {
+                        // A non-numerical keystroke was pressed. 
+                        // Set the flag to true and evaluate in KeyPress event.
+                        //nonNumberEntered = true;
+                        e.SuppressKeyPress = true;
+                    }
+                }
+            }
+            */
+
+            if (e.KeyData == Keys.Decimal || e.KeyData == Keys.OemPeriod)
+            {
+                e.SuppressKeyPress = true;
+                SendKeys.Send(",");
+            }
+
+            //if (e.KeyValue == 46) e.KeyValue = 44;
+            //if (e.KeyValue == 110 || e.KeyValue == 190)
+            //{
+            //    e.Handled = true;
+            //    base.OnKeyPress(new KeyPressEventArgs(','));
+            //}
             switch (e.KeyCode)
             {
                 case Keys.F4:
@@ -248,7 +286,6 @@ namespace Viktor.IMS.Presentation.UI
                     e.Handled = true;
                     break;
                 default:
-                    e.Handled = true;
                     break;
             }
         }
@@ -258,7 +295,8 @@ namespace Viktor.IMS.Presentation.UI
                 dataGridView1.Columns[e.ColumnIndex].Name == "UnitPrice")
             {
                 var query = orderDetails.Where(x => x.ItemNumber == e.RowIndex + 1);
-                query.Single().Quantity = decimal.Parse(this.dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+                query.Single().Quantity = decimal.Parse(this.dataGridView1.Rows[e.RowIndex].Cells["Quantity"].Value.ToString());
+                query.Single().UnitPrice = decimal.Parse(this.dataGridView1.Rows[e.RowIndex].Cells["UnitPrice"].Value.ToString());
                 query.Single().Price = Math.Round(query.Single().Quantity * query.Single().UnitPrice, 2);
                 this.refreshUI(query.Single());
             }
@@ -268,10 +306,6 @@ namespace Viktor.IMS.Presentation.UI
 
         }
         #endregion
-
-        
-
-
 
         private void moveUp()
         {
@@ -307,7 +341,7 @@ namespace Viktor.IMS.Presentation.UI
                     int rowCount = dataGridView1.Rows.Count;
                     int index = dataGridView1.SelectedCells[0].OwningRow.Index;
 
-                    if (index == (rowCount - 2)) // include the header row
+                    if (index == (rowCount)) // -2 include the header row
                     {
                         return;
                     }
@@ -407,5 +441,99 @@ namespace Viktor.IMS.Presentation.UI
             orderDetails = new List<Product>();
             refreshUI(null);
         }
+
+        /// <summary>
+        /// Form.KeyPreview is a bit of an anachronism, inherited from the Visual Basic object model for form design. 
+        /// Back in the VB6 days, you needed KeyPreview to be able to implement short-cut keystrokes. 
+        /// That isn't needed anymore in Windows Forms, overriding the ProcessCmdKey() is the better solution:
+        /// But KeyPreview was supported to help the legion of VB6 programmers switch to .NET back in the early 2000's. 
+        /// The point of KeyPreview or ProcessCmdKey() is to allow your UI to respond to shortcut keystrokes. 
+        /// Keyboard messages are normally sent to the control that has the focus. The Windows Forms message loop 
+        /// allows code to have a peek at that message before the control sees it. That's important for short-cut keys, 
+        /// implementing the KeyDown event for every control that might get the focus to detect them is very impractical.
+        /// Setting KeyPreview to True doesn't cause problems. The form's KeyDown event will run, 
+        /// it will only have an affect if it has code that does something with the keystroke. 
+        /// But do beware that it closely follows the VB6 usage, you can't see the kind of keystrokes that are used 
+        /// for navigation. Like the cursor keys and Tab, Escape and Enter for a dialog. 
+        /// Not a problem with ProcessCmdKey().
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="keyData"></param>
+        /// <returns></returns>
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.Control | Keys.F))
+            {
+                //DoSomething();   // Implement the Ctrl+F short-cut keystroke
+                return true;     // This keystroke was handled, don't pass to the control with the focus
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+        private bool alreadyExist(string _text, ref char KeyChar)
+        {
+            if (_text.IndexOf('.') > -1)
+            {
+                KeyChar = '.';
+                return true;
+            }
+            if (_text.IndexOf(',') > -1)
+            {
+                KeyChar = ',';
+                return true;
+            }
+            return false;
+        }
+        /*
+        private void txtValormetrocubico_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar)
+                    && !char.IsDigit(e.KeyChar)
+                    && e.KeyChar != '.' && e.KeyChar != ',')
+            {
+                e.Handled = true;
+            }
+
+            //check if '.' , ',' pressed
+            char sepratorChar = 's';
+            if (e.KeyChar == '.' || e.KeyChar == ',')
+            {
+                // check if it's in the beginning of text not accept
+                if (txtValormetrocubico.Text.Length == 0) e.Handled = true;
+                // check if it's in the beginning of text not accept
+                if (txtValormetrocubico.SelectionStart == 0) e.Handled = true;
+                // check if there is already exist a '.' , ','
+                if (alreadyExist(txtValormetrocubico.Text, ref sepratorChar)) e.Handled = true;
+                //check if '.' or ',' is in middle of a number and after it is not a number greater than 99
+                if (txtValormetrocubico.SelectionStart != txtValormetrocubico.Text.Length && e.Handled == false)
+                {
+                    // '.' or ',' is in the middle
+                    string AfterDotString = txtValormetrocubico.Text.Substring(txtValormetrocubico.SelectionStart);
+
+                    if (AfterDotString.Length > 2)
+                    {
+                        e.Handled = true;
+                    }
+                }
+            }
+            //check if a number pressed
+
+            if (Char.IsDigit(e.KeyChar))
+            {
+                //check if a coma or dot exist
+                if (alreadyExist(txtValormetrocubico.Text, ref sepratorChar))
+                {
+                    int sepratorPosition = txtValormetrocubico.Text.IndexOf(sepratorChar);
+                    string afterSepratorString = txtValormetrocubico.Text.Substring(sepratorPosition + 1);
+                    if (txtValormetrocubico.SelectionStart > sepratorPosition && afterSepratorString.Length > 1)
+                    {
+                        e.Handled = true;
+                    }
+
+                }
+            }
+
+
+        }
+        */
     }
 }

@@ -6,6 +6,7 @@ using System.Configuration;
 using System.IO.Ports;
 using System.Windows.Forms;
 using Viktor.IMS.Presentation.UI;
+using System.Globalization;
 
 namespace Viktor.IMS.Presentation
 {
@@ -20,6 +21,10 @@ namespace Viktor.IMS.Presentation
     [STAThread]
     static void Main()
     {
+        CultureInfo culture = new CultureInfo(System.Threading.Thread.CurrentThread.CurrentCulture.Name, true);
+        culture.NumberFormat.NumberDecimalSeparator = ",";
+        System.Threading.Thread.CurrentThread.CurrentCulture = culture;
+
         Application.EnableVisualStyles();
         Application.SetCompatibleTextRenderingDefault(false);
 
