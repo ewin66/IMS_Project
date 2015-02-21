@@ -226,7 +226,9 @@ namespace Viktor.IMS.Presentation.UI
             //}
             switch (e.KeyCode)
             {
+                #region LEFT ALT/RIGHT ALT: SearchForm (Prebaruvanje na proizvod)
                 case Keys.F4:
+                case Keys.RButton | Keys.ShiftKey:
                     listener.Pause();
                     using (var searchForm = new Search(this._serialPort))
                     {
@@ -260,29 +262,44 @@ namespace Viktor.IMS.Presentation.UI
                         e.Handled = true;
                     }
                     break;
+                #endregion
 
-                /// Pecatenje na fisskalna smetka
-                case Keys.F9:
+                #region SPACE: Pecatenje na fiskalna smetka
+                case Keys.Space:
                     ExecuteOrder(true);
                     e.Handled = true;
                     break;
+                #endregion
 
-                /// Bez pecatenje na fiskalana smetka
-                case Keys.Space:
+                #region RIGHT SHIFT : Zatvaranje na smetka bez pecatenje na fiskalana smetka
+                case Keys.ShiftKey:
                     ExecuteOrder(false);
                     e.Handled = true;
                     break;
+                #endregion
 
+                #region DELETE Brishenje na prozvod
                 case Keys.Delete:
+                case Keys.Back:
                     delete_Click();
                     e.Handled = true;
                     break;
+                #endregion
+
                 case Keys.Up:
                     moveUp();
                     e.Handled = true;
                     break;
                 case Keys.Down:
                     moveDown();
+                    e.Handled = true;
+                    break;
+                case Keys.Escape:
+                    for (int i = Application.OpenForms.Count - 1; i >= 0; i--)
+                    {
+                        Application.OpenForms[i].Close();
+                    }
+                    System.Windows.Forms.Application.Exit();
                     e.Handled = true;
                     break;
                 default:
@@ -381,6 +398,12 @@ namespace Viktor.IMS.Presentation.UI
         {
             try
             {
+                if (orderDetails.Count == 0)
+                {
+                    MessageBox.Show(this, "Нема производи за продавање!", "Информација!");
+                    return;
+                }
+
                 AddOrderResult addOrderResult;
                 using (var transactionScope = new TransactionScope())
                 {
@@ -415,6 +438,19 @@ namespace Viktor.IMS.Presentation.UI
                 if (printReceipt)
                 {
                     InfoDialog infoDialog = new InfoDialog("Дали се испечати сметка?", true);
+                    infoDialog.ShowDialog();
+                    if (infoDialog.DialogResult == DialogResult.Yes)
+                    {
+                        _repository.UpdateOrder((int)addOrderResult.OrderId, true);
+                    }
+                    else if (infoDialog.DialogResult == DialogResult.No)
+                    {
+                        //do something else
+                    }
+                }
+                else
+                {
+                    InfoDialog infoDialog = new InfoDialog("Дали е наплатена сметката?", true);
                     infoDialog.ShowDialog();
                     if (infoDialog.DialogResult == DialogResult.Yes)
                     {

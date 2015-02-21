@@ -299,8 +299,11 @@ namespace Viktor.IMS.Presentation.UI
                     enter();
                     e.Handled = true;
                     break;
-                default:
+                case Keys.Escape:
+                    this.Close();
                     e.Handled = true;
+                    break;
+                default:
                     break;
             }
         }

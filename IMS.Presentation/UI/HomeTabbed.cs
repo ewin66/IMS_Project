@@ -24,7 +24,8 @@ namespace Viktor.IMS.Presentation.UI
 
             this.StartPosition = FormStartPosition.Manual;
             this.Location = new Point(0, 0);
-            this.TopMost = true;
+            //this.TopMost = true;
+            this.WindowState = FormWindowState.Maximized;
             this.Layout += new System.Windows.Forms.LayoutEventHandler(this.SplashScreen_Layout);            
         }
 
@@ -153,6 +154,11 @@ namespace Viktor.IMS.Presentation.UI
         {
             if (this.tabContainer.SelectedTab != null)
                 this.tabContainer.SelectedTab.Controls[0].Select();
+        }
+
+        private void tabContainer_Selected(object sender, TabControlEventArgs e)
+        {
+
         }
 
     }

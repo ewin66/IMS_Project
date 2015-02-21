@@ -32,6 +32,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btnAddProduct = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -44,9 +47,8 @@
             this.ItemNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProductId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            //this.UnitPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Quantity = new ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxColumn();
             this.UnitPrice = new ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxColumn();
-            this.Quantity = new ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxColumn(); 
             this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -106,11 +108,11 @@
             // lblCurrentProduct
             // 
             this.lblCurrentProduct.AutoSize = true;
-            this.lblCurrentProduct.Font = new System.Drawing.Font("Arial", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblCurrentProduct.Font = new System.Drawing.Font("Arial", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblCurrentProduct.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.lblCurrentProduct.Location = new System.Drawing.Point(10, 14);
             this.lblCurrentProduct.Name = "lblCurrentProduct";
-            this.lblCurrentProduct.Size = new System.Drawing.Size(67, 23);
+            this.lblCurrentProduct.Size = new System.Drawing.Size(71, 24);
             this.lblCurrentProduct.TabIndex = 0;
             this.lblCurrentProduct.Text = "label1";
             // 
@@ -151,13 +153,16 @@
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ItemNumber,
             this.ProductId,
             this.ProductName,
-            this.UnitPrice,
             this.Quantity,
+            this.UnitPrice,
             this.Price});
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(3, 53);
@@ -170,8 +175,8 @@
             // ItemNumber
             // 
             this.ItemNumber.DataPropertyName = "ItemNumber";
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.ItemNumber.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
+            this.ItemNumber.DefaultCellStyle = dataGridViewCellStyle2;
             this.ItemNumber.FillWeight = 74.63474F;
             this.ItemNumber.HeaderText = "Број";
             this.ItemNumber.Name = "ItemNumber";
@@ -180,6 +185,8 @@
             // ProductId
             // 
             this.ProductId.DataPropertyName = "ProductId";
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
+            this.ProductId.DefaultCellStyle = dataGridViewCellStyle3;
             this.ProductId.FillWeight = 68.14109F;
             this.ProductId.HeaderText = "Шифра";
             this.ProductId.Name = "ProductId";
@@ -188,40 +195,46 @@
             // ProductName
             // 
             this.ProductName.DataPropertyName = "ProductName";
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ProductName.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ProductName.DefaultCellStyle = dataGridViewCellStyle4;
             this.ProductName.FillWeight = 132.1035F;
             this.ProductName.HeaderText = "Назив";
-            this.ProductName.MinimumWidth = 100;
+            this.ProductName.MinimumWidth = 250;
             this.ProductName.Name = "ProductName";
             this.ProductName.ReadOnly = true;
             this.ProductName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.ProductName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
-            // UnitPrice
-            // 
-            this.UnitPrice.DataPropertyName = "UnitPrice";
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.UnitPrice.DefaultCellStyle = dataGridViewCellStyle3;
-            this.UnitPrice.FillWeight = 132.1035F;
-            this.UnitPrice.HeaderText = "Цена";
-            this.UnitPrice.Name = "UnitPrice";
-            
-            // 
             // Quantity
             // 
             this.Quantity.DataPropertyName = "Quantity";
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
+            this.Quantity.DefaultCellStyle = dataGridViewCellStyle5;
             this.Quantity.FillWeight = 60.9137F;
             this.Quantity.HeaderText = "Количина";
+            this.Quantity.MinimumWidth = 80;
             this.Quantity.Name = "Quantity";
+            this.Quantity.Width = 80;
+            // 
+            // UnitPrice
+            // 
+            this.UnitPrice.DataPropertyName = "UnitPrice";
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
+            this.UnitPrice.DefaultCellStyle = dataGridViewCellStyle6;
+            this.UnitPrice.FillWeight = 132.1035F;
+            this.UnitPrice.HeaderText = "Цена";
+            this.UnitPrice.MinimumWidth = 80;
+            this.UnitPrice.Name = "UnitPrice";
+            this.UnitPrice.Width = 147;
             // 
             // Price
             // 
             this.Price.DataPropertyName = "Price";
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.Price.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
+            this.Price.DefaultCellStyle = dataGridViewCellStyle7;
             this.Price.FillWeight = 132.1035F;
             this.Price.HeaderText = "Износ";
+            this.Price.MinimumWidth = 80;
             this.Price.Name = "Price";
             this.Price.ReadOnly = true;
             // 
@@ -260,8 +273,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ItemNumber;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProductId;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProductName;
-        private ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxColumn UnitPrice;
         private ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxColumn Quantity;
+        private ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxColumn UnitPrice;
         private System.Windows.Forms.DataGridViewTextBoxColumn Price;
 
     }
