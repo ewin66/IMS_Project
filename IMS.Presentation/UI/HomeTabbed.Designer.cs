@@ -37,6 +37,7 @@ namespace Viktor.IMS.Presentation.UI
             this.exitButton = new System.Windows.Forms.ToolStripButton();
             this.productsButton = new System.Windows.Forms.ToolStripButton();
             this.saleButton = new System.Windows.Forms.ToolStripButton();
+            this.saleHomeButton = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,6 +54,7 @@ namespace Viktor.IMS.Presentation.UI
             this.tabContainer.CornerWidth = AC.ExtendedRenderer.Navigator.KryptonTabControl.CornWidth.Thin;
             this.tabContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabContainer.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
+            this.tabContainer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tabContainer.HotTrack = true;
             this.tabContainer.ItemSize = new System.Drawing.Size(77, 25);
             this.tabContainer.Location = new System.Drawing.Point(0, 39);
@@ -71,7 +73,8 @@ namespace Viktor.IMS.Presentation.UI
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exitButton,
             this.productsButton,
-            this.saleButton});
+            this.saleButton,
+            this.saleHomeButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(822, 39);
@@ -93,6 +96,7 @@ namespace Viktor.IMS.Presentation.UI
             this.productsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.productsButton.Image = global::Viktor.IMS.Presentation.Properties.Resources.Goods32;
             this.productsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.productsButton.Margin = new System.Windows.Forms.Padding(20, 1, 0, 2);
             this.productsButton.Name = "productsButton";
             this.productsButton.Size = new System.Drawing.Size(36, 36);
             this.productsButton.ToolTipText = "Производи";
@@ -103,10 +107,21 @@ namespace Viktor.IMS.Presentation.UI
             this.saleButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.saleButton.Image = global::Viktor.IMS.Presentation.Properties.Resources.TradePoint32;
             this.saleButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.saleButton.Margin = new System.Windows.Forms.Padding(20, 1, 0, 2);
             this.saleButton.Name = "saleButton";
             this.saleButton.Size = new System.Drawing.Size(36, 36);
             this.saleButton.ToolTipText = "Продажба";
             this.saleButton.Click += new System.EventHandler(this.saleButton_Click);
+            // 
+            // saleHomeButton
+            // 
+            this.saleHomeButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.saleHomeButton.Image = global::Viktor.IMS.Presentation.Properties.Resources.Location32;
+            this.saleHomeButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.saleHomeButton.Margin = new System.Windows.Forms.Padding(20, 1, 0, 2);
+            this.saleHomeButton.Name = "saleHomeButton";
+            this.saleHomeButton.Size = new System.Drawing.Size(36, 36);
+            this.saleHomeButton.Click += new System.EventHandler(this.saleHomeButton_Click);
             // 
             // HomeTabbed
             // 
@@ -132,5 +147,6 @@ namespace Viktor.IMS.Presentation.UI
         private System.Windows.Forms.ToolStripButton productsButton;
         private System.Windows.Forms.ToolStripButton saleButton;
         private KryptonTabControl tabContainer;
+        private ToolStripButton saleHomeButton;
     }
 }

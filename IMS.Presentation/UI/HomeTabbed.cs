@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Viktor.IMS.Presentation.Enums;
 
 namespace Viktor.IMS.Presentation.UI
 {
@@ -87,7 +88,7 @@ namespace Viktor.IMS.Presentation.UI
                     Application.OpenForms[i].Close();
             }
             */
-            Sale sale = new Sale();
+            Sale sale = new Sale(CustomerType.RETAIL);
             sale.FormBorderStyle = FormBorderStyle.None;
             sale._repository = this._repository;
             sale.TopLevel = false;
@@ -96,6 +97,34 @@ namespace Viktor.IMS.Presentation.UI
             TabPage tabPage = NewTabPage("Продажба", "tbpSale", (Control)sale);
             this.tabContainer.TabPages.Add(tabPage);
             
+
+            //Added form to tabpage
+            sale.Dock = DockStyle.Fill;
+            sale.WindowState = FormWindowState.Maximized;
+            sale.Show();
+
+            this.tabContainer.SelectTab(tabPage);
+            this.tabContainer.SelectedTab.Controls[0].Select();
+        }
+
+        private void saleHomeButton_Click(object sender, EventArgs e)
+        {
+            /*
+            for (int i = Application.OpenForms.Count - 1; i >= 0; i--)
+            {
+                if (Application.OpenForms[i].Name != "HomeTabbed")
+                    Application.OpenForms[i].Close();
+            }
+            */
+            Sale sale = new Sale(CustomerType.HOME);
+            sale.FormBorderStyle = FormBorderStyle.None;
+            sale._repository = this._repository;
+            sale.TopLevel = false;
+
+            //Added new TabPage
+            TabPage tabPage = NewTabPage("Продажба", "tbpSale", (Control)sale);
+            this.tabContainer.TabPages.Add(tabPage);
+
 
             //Added form to tabpage
             sale.Dock = DockStyle.Fill;

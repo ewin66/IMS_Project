@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Viktor.IMS.Presentation.Enums;
 
 namespace Viktor.IMS.Presentation.UI
 {
@@ -65,7 +66,7 @@ namespace Viktor.IMS.Presentation.UI
                 if (Application.OpenForms[i].Name != "Home")
                     Application.OpenForms[i].Close();
             }
-            Sale sale = new Sale();
+            Sale sale = new Sale(CustomerType.RETAIL);
             //sale.MdiParent = this;
             //sale.Parent = this.formContainer;
             //sale.StartPosition = FormStartPosition.CenterScreen;

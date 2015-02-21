@@ -12,18 +12,21 @@ using System.Linq;
 using System.Text;
 using System.Transactions;
 using System.Windows.Forms;
+using Viktor.IMS.Presentation.Enums;
 
 namespace Viktor.IMS.Presentation.UI
 {
     public partial class Sale : BaseForm
     {
         List<Product> orderDetails;
+        CustomerType _currentCustomer;
         //private BarcodeListener listener;
         private NumberFormatInfo nfi;
         private SY50 _fiscalPrinter { get; set; }
 
-        public Sale()
+        public Sale(CustomerType currentCustomer)
         {
+            _currentCustomer = currentCustomer;
             InitializeComponent();
             this.KeyPreview = true;
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(KeyEvent);
@@ -408,7 +411,7 @@ namespace Viktor.IMS.Presentation.UI
                 using (var transactionScope = new TransactionScope())
                 {
                     #region Add Order to Database
-                    addOrderResult = _repository.AddOrder(1, Common.Helpers.OrderNumberHelper.GetOrderID(4, ""), string.Empty).FirstOrDefault();
+                    addOrderResult = _repository.AddOrder((int)_currentCustomer, null, 1, Common.Helpers.OrderNumberHelper.GetOrderID(4, ""), string.Empty).FirstOrDefault();
                     
                     foreach (var product in orderDetails)
                     {
@@ -454,7 +457,8 @@ namespace Viktor.IMS.Presentation.UI
                     infoDialog.ShowDialog();
                     if (infoDialog.DialogResult == DialogResult.Yes)
                     {
-                        _repository.UpdateOrder((int)addOrderResult.OrderId, true);
+                        //nema potreba za update
+                        //_repository.UpdateOrder((int)addOrderResult.OrderId, false);
                     }
                     else if (infoDialog.DialogResult == DialogResult.No)
                     {

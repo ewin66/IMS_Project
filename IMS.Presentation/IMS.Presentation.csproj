@@ -97,6 +97,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\CutomerType.cs" />
     <Compile Include="UI\BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -299,9 +300,12 @@
     <Content Include="Icons\Goods32.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Icons\Location32.png" />
+    <Content Include="Icons\Purchase32.png" />
     <Content Include="Icons\Sale32.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Icons\Settings32.png" />
     <Content Include="Icons\TradePoint32.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

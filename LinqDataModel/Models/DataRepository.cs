@@ -174,7 +174,7 @@ namespace LinqDataModel.Models
                 );
         }
 
-        public ISingleResult<AddOrderResult> AddOrder(int customerId, int employeeId, int orderStatusId, string orderNumber, string comment)
+        public ISingleResult<AddOrderResult> AddOrder(int customerId, int? employeeId, int orderStatusId, string orderNumber, string comment)
         {
             return _dataContext.AddOrder(customerId, employeeId, orderStatusId, orderNumber, comment);
         }
