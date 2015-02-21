@@ -297,14 +297,6 @@ namespace Viktor.IMS.Presentation.UI
                     moveDown();
                     e.Handled = true;
                     break;
-                case Keys.Escape:
-                    for (int i = Application.OpenForms.Count - 1; i >= 0; i--)
-                    {
-                        Application.OpenForms[i].Close();
-                    }
-                    System.Windows.Forms.Application.Exit();
-                    e.Handled = true;
-                    break;
                 default:
                     break;
             }

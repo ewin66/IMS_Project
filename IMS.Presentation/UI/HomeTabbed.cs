@@ -21,7 +21,8 @@ namespace Viktor.IMS.Presentation.UI
         public HomeTabbed()
         {
             InitializeComponent();
-            
+            this.KeyPreview = true;
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(KeyEvent);
 
             this.StartPosition = FormStartPosition.Manual;
             this.Location = new Point(0, 0);
@@ -122,7 +123,7 @@ namespace Viktor.IMS.Presentation.UI
             sale.TopLevel = false;
 
             //Added new TabPage
-            TabPage tabPage = NewTabPage("Продажба", "tbpSale", (Control)sale);
+            TabPage tabPage = NewTabPage("Продажба дома", "tbpSale", (Control)sale);
             this.tabContainer.TabPages.Add(tabPage);
 
 
@@ -189,6 +190,19 @@ namespace Viktor.IMS.Presentation.UI
         {
 
         }
-
+        private void KeyEvent(object sender, KeyEventArgs e) //Keyup Event 
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Escape:
+                    for (int i = Application.OpenForms.Count - 1; i >= 0; i--)
+                    {
+                        Application.OpenForms[i].Close();
+                    }
+                    System.Windows.Forms.Application.Exit();
+                    e.Handled = true;
+                    break;
+            }
+        }
     }
 }
