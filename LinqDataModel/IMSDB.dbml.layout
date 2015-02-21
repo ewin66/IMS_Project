@@ -75,7 +75,7 @@
         <classShapeMoniker Id="93060ff4-1fbd-4cde-aff8-e84af5569816" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 4.34375); (6.24478916666667 : 4.34375 : JumpStart); (6.41145583333333 : 4.34375 : JumpEnd); (6.46875 : 4.34375); (6.46875 : 3.03049967447917)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(5.5 : 4.34375); (6.46875 : 4.34375); (6.46875 : 3.03049967447917)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/IMSDBDataContext/Customer/Customer_Order" />
       <nodes>
         <classShapeMoniker Id="050bffda-eae6-47e4-a86c-a9174d27680b" />

@@ -408,7 +408,7 @@ namespace Viktor.IMS.Presentation.UI
                     foreach (var product in orderDetails)
                     {
                         _repository.AddOrderDetails((int)addOrderResult.OrderId, 
-                                                         product.ProductId, 
+                                                         product.ProductName, 
                                                          product.Quantity, 
                                                          product.UnitPrice, 
                                                          product.Discount);

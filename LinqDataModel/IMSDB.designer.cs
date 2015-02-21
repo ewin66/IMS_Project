@@ -237,13 +237,6 @@ namespace LinqDataModel
 			return ((ISingleResult<GetPrometResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.AddOrderDetails")]
-		public int AddOrderDetails([global::System.Data.Linq.Mapping.ParameterAttribute(Name="OrderId", DbType="Int")] System.Nullable<int> orderId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ProductId", DbType="Int")] System.Nullable<int> productId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Quantity", DbType="Decimal(8,2)")] System.Nullable<decimal> quantity, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="UnitPrice", DbType="Decimal(8,2)")] System.Nullable<decimal> unitPrice, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Discount", DbType="Decimal(8,2)")] System.Nullable<decimal> discount)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), orderId, productId, quantity, unitPrice, discount);
-			return ((int)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.UpdateOrder")]
 		public int UpdateOrder([global::System.Data.Linq.Mapping.ParameterAttribute(Name="OrderId", DbType="Int")] System.Nullable<int> orderId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ReceiptPrinted", DbType="Bit")] System.Nullable<bool> receiptPrinted)
 		{
@@ -256,6 +249,13 @@ namespace LinqDataModel
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), customerId, employeeId, orderStatusId, orderNumber, comment);
 			return ((ISingleResult<AddOrderResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.AddOrderDetails")]
+		public int AddOrderDetails([global::System.Data.Linq.Mapping.ParameterAttribute(Name="OrderId", DbType="Int")] System.Nullable<int> orderId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ProductName", DbType="NVarChar(22)")] string productName, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Quantity", DbType="Decimal(8,2)")] System.Nullable<decimal> quantity, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="UnitPrice", DbType="Decimal(8,2)")] System.Nullable<decimal> unitPrice, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Discount", DbType="Decimal(8,2)")] System.Nullable<decimal> discount)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), orderId, productName, quantity, unitPrice, discount);
+			return ((int)(result.ReturnValue));
 		}
 	}
 	

@@ -186,9 +186,9 @@ namespace LinqDataModel.Models
         {
             return _dataContext.UpdateOrder(orderId, receiptPrinted);
         }
-        public int AddOrderDetails(int orderId, int productId, decimal quantity, decimal unitPrice, decimal discount)
+        public int AddOrderDetails(int orderId, string productName, decimal quantity, decimal unitPrice, decimal discount)
         {
-            return _dataContext.AddOrderDetails(orderId, productId, quantity, unitPrice, discount);
+            return _dataContext.AddOrderDetails(orderId, productName, quantity, unitPrice, discount);
         }
         
         public DataTable GetProductsTable(int? productId, string ProductName, string Barcode, ref int? totalArticles, ref int? articlesWithStock, ref decimal? cumulativeAmount)
