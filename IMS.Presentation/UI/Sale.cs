@@ -353,7 +353,7 @@ namespace Viktor.IMS.Presentation.UI
                     int rowCount = dataGridView1.Rows.Count;
                     int index = dataGridView1.SelectedCells[0].OwningRow.Index;
 
-                    if (index == (rowCount)) // -2 include the header row
+                    if (index == (rowCount-1)) // -2 include the header row
                     {
                         return;
                     }
@@ -384,10 +384,13 @@ namespace Viktor.IMS.Presentation.UI
         }
         private void delete_Click()
         {
-            var rowIndex = this.dataGridView1.CurrentCell.RowIndex;
-            if (orderDetails.Any(x => x.ItemNumber == rowIndex + 1))
-                orderDetails.RemoveAt(rowIndex);
-            refreshUI(null);
+            var productId = this.dataGridView1.Rows[this.dataGridView1.CurrentCell.RowIndex].Cells["ProductId"].Value.ToString();
+            var product = orderDetails.FirstOrDefault(x => x.ProductId.ToString() == productId);
+            if (product != null)
+            {
+                orderDetails.Remove(product);
+                refreshUI(null);
+            }
         }
         private void ExecuteOrder(bool printReceipt)
         {
@@ -408,6 +411,7 @@ namespace Viktor.IMS.Presentation.UI
                     foreach (var product in orderDetails)
                     {
                         _repository.AddOrderDetails((int)addOrderResult.OrderId, 
+                                                         product.ProductId,
                                                          product.ProductName, 
                                                          product.Quantity, 
                                                          product.UnitPrice, 

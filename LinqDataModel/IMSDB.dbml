@@ -243,6 +243,7 @@
   </Function>
   <Function Name="dbo.AddOrderDetails" Method="AddOrderDetails">
     <Parameter Name="OrderId" Parameter="orderId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ProductId" Parameter="productId" Type="System.Int32" DbType="Int" />
     <Parameter Name="ProductName" Parameter="productName" Type="System.String" DbType="NVarChar(22)" />
     <Parameter Name="Quantity" Parameter="quantity" Type="System.Decimal" DbType="Decimal(8,2)" />
     <Parameter Name="UnitPrice" Parameter="unitPrice" Type="System.Decimal" DbType="Decimal(8,2)" />

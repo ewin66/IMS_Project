@@ -336,7 +336,7 @@ namespace Viktor.IMS.Presentation.UI
                     //int index = regionDataGridView.SelectedCells[0].OwningRow.Index;
                     int index = regionDataGridView.CurrentRow.Index;
 
-                    if (index == (rowCount - 2)) // include the header row
+                    if (index == (rowCount - 1)) // include the header row
                     {
                         return;
                     }

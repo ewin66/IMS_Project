@@ -17,16 +17,19 @@ namespace Viktor.IMS.Presentation.UI
         
         private bool m_bLayoutCalled = false;
         private DateTime m_dt;
+        private int _oldIndex = -1;
 
         public HomeTabbed()
         {
             InitializeComponent();
-            this.KeyPreview = true;
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(KeyEvent);
 
+            #region Custom Init
+            this.tabContainer.Deselecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabContainer_Deselecting);
+            #endregion
+
+            //this.TopMost = true;
             this.StartPosition = FormStartPosition.Manual;
             this.Location = new Point(0, 0);
-            //this.TopMost = true;
             this.WindowState = FormWindowState.Maximized;
             this.Layout += new System.Windows.Forms.LayoutEventHandler(this.SplashScreen_Layout);            
         }
@@ -180,29 +183,60 @@ namespace Viktor.IMS.Presentation.UI
             return tabPage;
         }
 
-        private void tabContainer_Selected(object sender, EventArgs e)
-        {
-            if (this.tabContainer.SelectedTab != null)
-                this.tabContainer.SelectedTab.Controls[0].Select();
-        }
-
         private void tabContainer_Selected(object sender, TabControlEventArgs e)
         {
-
-        }
-        private void KeyEvent(object sender, KeyEventArgs e) //Keyup Event 
-        {
-            switch (e.KeyCode)
+            if (this.tabContainer.SelectedTab != null)
             {
-                case Keys.Escape:
-                    for (int i = Application.OpenForms.Count - 1; i >= 0; i--)
-                    {
-                        Application.OpenForms[i].Close();
-                    }
-                    System.Windows.Forms.Application.Exit();
-                    e.Handled = true;
-                    break;
+                BaseForm baseForm = (BaseForm)this.tabContainer.SelectedTab.Controls.Cast<Control>().FirstOrDefault(x => x is BaseForm);
+                if (baseForm != null)
+                {
+                    baseForm.Select();
+                    baseForm.listener.Resume();
+                }
             }
+        }
+        private void tabContainer_Deselecting(object sender, TabControlCancelEventArgs e)
+        {
+            //_oldIndex = e.TabPageIndex;
+            TabPage previousTab = e.TabPage;
+            BaseForm baseForm = (BaseForm)previousTab.Controls.Cast<Control>().FirstOrDefault(x => x is BaseForm);
+            if (baseForm != null)
+            {
+                baseForm.Select();
+                baseForm.listener.Pause();
+            }
+        }
+
+
+        /// <summary>
+        ///  Sega za sega ne se koristat ovie metodi
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
+        {
+            if (_oldIndex != -1)
+            {
+                if (CanChangeTab(_oldIndex, e.TabPageIndex))
+                {
+                    e.Cancel = true;
+                }
+            }
+        }
+        private bool CanChangeTab(int fromIndex, int toIndex)
+        {
+            // Put your logic here
+            return true;
+        }
+        private void tabContainer_Selected()
+        {
+            //var picBox = this.tabContainer.TabPages.Cast<Control>()
+            //.SelectMany(page => page.Controls.OfType<PictureBox>())
+            //.First();
+            //picBox.ImageLocation = "...";
+            //TabPage tabPage = this.tabContainer.SelectedTab.Controls[0];
+            //if (this.tabContainer.SelectedTab.Controls[0].Contains(BaseForm)     Contains.ContainsKey("rtb"))
+            //RichTextBox selectedRtb = (RichTextBox)selectedTab.Controls["rtb"];
         }
     }
 }
