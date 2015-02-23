@@ -4,7 +4,7 @@
 // MVID: 0F67EA74-8FA1-4626-BF9D-4F6BED24CDA7
 // Assembly location: G:\GitHub\IMS_Project\Library\_Fiskalni\Bujar.Fiscal.dll
 
-namespace IMS.Fiscal
+namespace Viktor.IMS.Fiscal
 {
   public enum VATgroup
   {

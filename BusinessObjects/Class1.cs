@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace IMS.Resources
+namespace BusinessObjects
 {
     public class Class1
     {

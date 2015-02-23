@@ -400,7 +400,6 @@ namespace Viktor.IMS.Presentation.UI
             this.Activated += new System.EventHandler(this.MainForm_Activated);
             this.Deactivate += new System.EventHandler(this.MainForm_Deactivate);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
-            this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.articlesBindingNavigator)).EndInit();
             this.articlesBindingNavigator.ResumeLayout(false);
             this.articlesBindingNavigator.PerformLayout();

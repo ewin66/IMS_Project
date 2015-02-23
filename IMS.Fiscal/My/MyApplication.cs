@@ -9,7 +9,7 @@ using System.CodeDom.Compiler;
 using System.ComponentModel;
 using System.Diagnostics;
 
-namespace IMS.Fiscal.My
+namespace Viktor.IMS.Fiscal.My
 {
   [EditorBrowsable(EditorBrowsableState.Never)]
   [GeneratedCode("MyTemplate", "8.0.0.0")]

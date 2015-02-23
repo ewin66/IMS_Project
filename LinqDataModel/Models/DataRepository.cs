@@ -86,28 +86,31 @@ namespace LinqDataModel.Models
         public Product GetProduct(int? productId, string productName, string barCode)
         {
             var result = _dataContext.GetProduct(productId, productName, barCode).FirstOrDefault();
-            return new Product
-            {
-                ProductId = result.ProductId,
-                CategoryId = result.CategoryId,
-                SuplierId = result.SuplierId,
-                ProductName = result.ProductName,
-                QuantityPerUnit = result.QuantityPerUnit,
-                UnitPrice = result.UnitPrice,
-                UnitsInStock = result.UnitsInStock,
-                ReorderLevel = result.ReorderLevel,
-                Discontinued = result.Discontinued,
-                IsDomestic = result.IsDomestic,
-                BarCode1 = result.BarCode1,
-                BarCode2 = result.BarCode2,
-                BarCode3 = result.BarCode3,
-                BarCode4 = result.BarCode4,
-                Created = result.Created,
-                Updated = result.Updated,
-                Quantity = 1,
-                Discount = 0,
-                Price = result.UnitPrice
-            };
+            if (result != null)
+                return new Product
+                {
+                    ProductId = result.ProductId,
+                    CategoryId = result.CategoryId,
+                    SuplierId = result.SuplierId,
+                    ProductName = result.ProductName,
+                    QuantityPerUnit = result.QuantityPerUnit,
+                    UnitPrice = result.UnitPrice,
+                    UnitsInStock = result.UnitsInStock,
+                    ReorderLevel = result.ReorderLevel,
+                    Discontinued = result.Discontinued,
+                    IsDomestic = result.IsDomestic,
+                    BarCode1 = result.BarCode1,
+                    BarCode2 = result.BarCode2,
+                    BarCode3 = result.BarCode3,
+                    BarCode4 = result.BarCode4,
+                    Created = result.Created,
+                    Updated = result.Updated,
+                    Quantity = 1,
+                    Discount = 0,
+                    Price = result.UnitPrice
+                };
+            else
+                return null;
         }
         public IList<GetProductsResult> GetProducts(int? productId, string productName, string barCode, ref int? totalArticles, ref int? articlesWithStock, ref decimal? cumulativeAmount)
         {

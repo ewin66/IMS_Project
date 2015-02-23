@@ -15,6 +15,8 @@ namespace Viktor.IMS.Presentation.UI
     using System.Text;
     using System.Text.RegularExpressions;
     using System.Windows.Forms;
+    using Viktor.IMS.BusinessObjects;
+    using Viktor.IMS.BusinessObjects.Enums;
 
     /// <summary>
     /// This class uses Windows's native Raw Input API to listen for input from
@@ -53,18 +55,18 @@ namespace Viktor.IMS.Presentation.UI
         /// for raw input devices</exception>
         /// <exception cref="ConfigurationErrorsException">if an error occurs
         /// during configuration</exception>
-        public BarcodeListener(Form form)
+        public BarcodeListener(Form currentForm)
         {
-            if (!Program.IsBarcodeScannerConnected) return;
+            //if (((BaseForm)currentForm)._serialPort != null) return;
 
             IntPtr hwnd;
 
-            if (form == null)
+            if (currentForm == null)
             {
                 throw new ArgumentNullException("form");
             }
 
-            hwnd = form.Handle;
+            hwnd = currentForm.Handle;
 
             //this.devices = new Dictionary<IntPtr, BarcodeScannerDeviceInfo>();
             //this.keystrokeBuffer = new StringBuilder();
@@ -82,12 +84,12 @@ namespace Viktor.IMS.Presentation.UI
             //        break;
             //}
 
-            _serialPort = ((BaseForm)form)._serialPort;
+            _serialPort = ((BaseForm)currentForm)._serialPort;
             this.InitializeBarcodeScannerDeviceHandles();
-            ((BaseForm)form)._serialPort = _serialPort;
+            ((BaseForm)currentForm)._serialPort = _serialPort;
             
             //HookRawInput(hwnd);
-            this.HookHandleEvents(form);
+            this.HookHandleEvents(currentForm);
 
             //this.AssignHandle(hwnd);
         }
@@ -95,17 +97,42 @@ namespace Viktor.IMS.Presentation.UI
         /// <summary>
         /// Event fired when a barcode is scanned.
         /// </summary>
-        public event EventHandler BarcodeScanned;
-
-        public void Pause()
+        //public event EventHandler BarcodeScanned;
+        //private bool _eventHasSubscribers = false;
+        private EventHandler _barcodeScanned;
+        public event EventHandler BarcodeScanned
         {
-            if (_serialPort != null)
-                _serialPort.DataReceived -= new SerialDataReceivedEventHandler(DataReceivedHandler);
+            add
+            {
+                if (_barcodeScanned == null || !_barcodeScanned.GetInvocationList().Contains(value))
+                {
+                    _barcodeScanned += value;
+                }
+            }
+            remove
+            {
+                _barcodeScanned -= value;
+            }
         }
-        public void Resume()
+
+        public void RemoveDataReceivedHandler()
         {
             if (_serialPort != null)
-                _serialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
+            {
+                _serialPort.DataReceived -= new SerialDataReceivedEventHandler(DataReceivedHandler);
+                Program.EventHasSubscribers = false;
+            }
+        }
+        public void AddDataReceivedHandler()
+        {
+            if (_serialPort != null)
+            {
+                if (!Program.EventHasSubscribers)
+                {
+                    _serialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
+                    Program.EventHasSubscribers = true;
+                }
+            }
         }
         /// <summary>
         /// Hook into the form's WndProc message. We listen for WM_INPUT and do
@@ -303,7 +330,7 @@ namespace Viktor.IMS.Presentation.UI
             EventHandler handler;
 
             //barcode = this.keystrokeBuffer.ToString();
-            handler = this.BarcodeScanned;
+            handler = this._barcodeScanned;
 
             //this.keystrokeBuffer = new StringBuilder();
 
@@ -331,7 +358,8 @@ namespace Viktor.IMS.Presentation.UI
             }
             catch (Exception ex)
             {
-                throw;
+                var i = 1;
+                //throw;
             }
 
         }
@@ -353,10 +381,20 @@ namespace Viktor.IMS.Presentation.UI
         /// during configuration</exception>
         private void InitializeBarcodeScannerDeviceHandles()
         {
+            var device = Program.UserDevices.FirstOrDefault(x => x.DeviceType == DeviceType.BarcodeScanner);
+            if (device != null && !device.IsConnected) return;
             try
             {
                 if (_serialPort == null)
                 {
+                    if (device == null)
+                    {
+                        device = new Device();
+                        device.DeviceType = DeviceType.BarcodeScanner;
+                        device.IsConnected = true;
+                        Program.UserDevices.Add(device);
+                    }
+                    
                     HardwareConfigurationSection config;
                     HardwareConfigurationElementCollection hardwareIdsConfig;
                     //List<string> hardwareIds;
@@ -373,20 +411,27 @@ namespace Viktor.IMS.Presentation.UI
                         hardware.Add(new KeyValuePair<string, string>(hardwareId.Name, hardwareId.Id));
                     }
 
-                    string VID = hardware.FirstOrDefault(x => x.Key == "BarcodeScanner").Value.Split('&')[0].Replace("VID_", "");
-                    string PID = hardware.FirstOrDefault(x => x.Key == "BarcodeScanner").Value.Split('&')[1].Replace("PID_", "");
+                    string VID = hardware.FirstOrDefault(x => x.Key == "SerialDevice").Value.Split('&')[0].Replace("VID_", "");
+                    string PID = hardware.FirstOrDefault(x => x.Key == "SerialDevice").Value.Split('&')[1].Replace("PID_", "");
                     var ports = Common.Helpers.DeviceHelper.GetPortByVPid(VID, PID).Distinct(); //("067B", "2303")
-                    var com_port = SerialPort.GetPortNames().Intersect(ports).FirstOrDefault();
-                    _serialPort = new SerialPort(com_port); //give your barcode serial port 
+                    /// Prviot port koj ne e veke dodelen
+                    var com_port = SerialPort.GetPortNames().Intersect(ports).FirstOrDefault(x => !Program.UserDevices.Any(y => y.PortName == x));
+                    _serialPort = new SerialPort("COM1"); //give your barcode serial port 
                     _serialPort.BaudRate = 9600;
                     _serialPort.Parity = Parity.None;
                     _serialPort.StopBits = StopBits.One;
                     _serialPort.DataBits = 8;
                     _serialPort.Handshake = Handshake.None;
                     _serialPort.ReadTimeout = 500;
-                    _serialPort.WriteTimeout = 500;
+                    _serialPort.WriteTimeout = 500;                    
+
+                    device.PortName = com_port;
+                    device.SerialPort = _serialPort;
                 }
-                _serialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
+                //_serialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);         
+                this.AddDataReceivedHandler();
+                
+
                 // Makes sure serial port is open before trying to write
 
                 if (!_serialPort.IsOpen)
@@ -398,7 +443,7 @@ namespace Viktor.IMS.Presentation.UI
             }
             catch (Exception ex)
             {
-                Program.IsBarcodeScannerConnected = false;
+                device.IsConnected = false;
                 SplashScreen.SplashScreen.CloseForm();
                 MessageBox.Show(this, "Баркод читачот не е успешно активиран или не е приклучен!\n\nOpening serial port result :: " + ex.Message, "Информација!");
             }
@@ -500,10 +545,20 @@ namespace Viktor.IMS.Presentation.UI
 
         private void InitializeFiscalPrinterDeviceHandles()
         {
+            var device = Program.UserDevices.FirstOrDefault(x => x.DeviceType == DeviceType.FiscalPrinter);
+            if (device != null && !device.IsConnected) return;
             try
             {
                 if (_serialPort == null)
                 {
+                    if (device == null)
+                    {
+                        device = new Device();
+                        device.DeviceType = DeviceType.FiscalPrinter;
+                        device.IsConnected = true;
+                        Program.UserDevices.Add(device);
+                    }
+
                     HardwareConfigurationSection config;
                     HardwareConfigurationElementCollection hardwareIdsConfig;
                     //List<string> hardwareIds;
@@ -532,10 +587,13 @@ namespace Viktor.IMS.Presentation.UI
                     _serialPort.Handshake = Handshake.None;
                     _serialPort.ReadTimeout = 500;
                     _serialPort.WriteTimeout = 500;
-                }
-                _serialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
-                // Makes sure serial port is open before trying to write
 
+                    device.PortName = com_port;
+                    device.SerialPort = _serialPort;
+                }
+                //_serialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
+                AddDataReceivedHandler();
+                // Makes sure serial port is open before trying to write
                 if (!_serialPort.IsOpen)
                 {
                     _serialPort.Open();
@@ -545,7 +603,7 @@ namespace Viktor.IMS.Presentation.UI
             }
             catch (Exception ex)
             {
-                Program.IsBarcodeScannerConnected = false;
+                device.IsConnected = false;
                 SplashScreen.SplashScreen.CloseForm();
                 MessageBox.Show(this, "Баркод читачот не е успешно активиран или не е приклучен!\n\nOpening serial port result :: " + ex.Message, "Информација!");
             }
@@ -560,6 +618,12 @@ namespace Viktor.IMS.Presentation.UI
         {
             form.HandleCreated += this.OnHandleCreated;
             form.HandleDestroyed += this.OnHandleDestroyed;
+        }
+
+        public void RemoveHandleEvents(Form form)
+        {
+            form.HandleCreated -= this.OnHandleCreated;
+            form.HandleDestroyed -= this.OnHandleDestroyed;
         }
 
         /// <summary>

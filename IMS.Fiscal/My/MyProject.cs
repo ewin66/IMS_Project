@@ -16,7 +16,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace IMS.Fiscal.My
+namespace Viktor.IMS.Fiscal.My
 {
   [GeneratedCode("MyTemplate", "8.0.0.0")]
   [HideModuleName]

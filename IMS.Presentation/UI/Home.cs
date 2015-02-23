@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Viktor.IMS.Presentation.Enums;
+using Viktor.IMS.BusinessObjects.Enums;
 
 namespace Viktor.IMS.Presentation.UI
 {
@@ -48,7 +48,7 @@ namespace Viktor.IMS.Presentation.UI
                     Application.OpenForms[i].Close();
             } 
             
-            MainForm main = new MainForm();
+            MainForm main = new MainForm(this._serialPort);
             //main.MdiParent = this;
             //main.Parent = this.formContainer;
             //main.StartPosition = FormStartPosition.CenterScreen;
@@ -66,7 +66,7 @@ namespace Viktor.IMS.Presentation.UI
                 if (Application.OpenForms[i].Name != "Home")
                     Application.OpenForms[i].Close();
             }
-            Sale sale = new Sale(CustomerType.RETAIL);
+            Sale sale = new Sale(this._serialPort, this._fiscalPrinter, CustomerType.RETAIL);
             //sale.MdiParent = this;
             //sale.Parent = this.formContainer;
             //sale.StartPosition = FormStartPosition.CenterScreen;

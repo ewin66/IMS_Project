@@ -1,5 +1,5 @@
 ﻿using Common.Helpers;
-using IMS.Fiscal.AccentFiscal;
+using Viktor.IMS.Fiscal.AccentFiscal;
 using LinqDataModel;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,9 @@ using System.Linq;
 using System.Text;
 using System.Transactions;
 using System.Windows.Forms;
-using Viktor.IMS.Presentation.Enums;
+using Viktor.IMS.BusinessObjects;
+using Viktor.IMS.BusinessObjects.Enums;
+using Viktor.IMS.Presentation.Infrastructure;
 
 namespace Viktor.IMS.Presentation.UI
 {
@@ -22,12 +24,23 @@ namespace Viktor.IMS.Presentation.UI
         CustomerType _currentCustomer;
         //private BarcodeListener listener;
         private NumberFormatInfo nfi;
-        private SY50 _fiscalPrinter { get; set; }
 
-        public Sale(CustomerType currentCustomer)
+        private int? totalArticles;
+        private int? articlesWithStock;
+        private decimal? cumulativeAmount;
+
+
+        public Sale(SerialPort serialPort, SY50 fiscalPrinter, CustomerType currentCustomer)
         {
-            _currentCustomer = currentCustomer;
             InitializeComponent();
+            this._currentCustomer = currentCustomer;
+            this._serialPort = serialPort;
+            this._fiscalPrinter = fiscalPrinter;
+            //if (Program.ActiveForms.Count == 0) 
+            this._listener = new BarcodeListener(this);
+            this.SerialEventListener_Start();
+            this.InitializeFiscalPrinter();
+            
             this.KeyPreview = true;
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(KeyEvent);
 
@@ -43,14 +56,17 @@ namespace Viktor.IMS.Presentation.UI
             this.nfi.NumberDecimalSeparator = ".";
             convertor = new ISO9TransliterationProvider();
             myCurrentLanguage = InputLanguage.CurrentInputLanguage;
-            listener = new BarcodeListener(this);
-            listener.BarcodeScanned += this.OnBarcodeScanned;
-            
-            InitializeFiscalPrinter();
             
             orderDetails = new List<Product>();
-
-            this.ActiveControl = dataGridView1;
+            this.ActiveControl = dataGridView1;            
+        }
+        protected override void OnLoad(EventArgs e)
+        {
+            // do stuff before Load-event is raised
+            base.OnLoad(e);
+            // do stuff after Load-event was raised
+            this.FormId = Program.ActiveForms.Count + 1;
+            Program.ActiveForms.Add(new FormData(this, true));
         }
 
         #region OldMethod
@@ -98,11 +114,20 @@ namespace Viktor.IMS.Presentation.UI
 
         private void InitializeFiscalPrinter()
         {
+            var device = Program.UserDevices.FirstOrDefault(x => x.DeviceType == DeviceType.FiscalPrinter);
+            if (device != null && !device.IsConnected) return;
             try
             {
-                if (!Program.IsFiscalPrinterConnected) return;
                 if (_fiscalPrinter == null)
                 {
+                    if (device == null)
+                    {
+                        device = new Device();
+                        device.DeviceType = DeviceType.FiscalPrinter;
+                        device.IsConnected = true;
+                        Program.UserDevices.Add(device);
+                    }
+
                     HardwareConfigurationSection config;
                     HardwareConfigurationElementCollection hardwareIdsConfig;
                     List<KeyValuePair<string, string>> hardware;
@@ -116,52 +141,53 @@ namespace Viktor.IMS.Presentation.UI
                         hardware.Add(new KeyValuePair<string, string>(hardwareId.Name, hardwareId.Id));
                     }
 
-                    string VID = hardware.FirstOrDefault(x => x.Key == "FiscalPrinter").Value.Split('&')[0].Replace("VID_", "");
-                    string PID = hardware.FirstOrDefault(x => x.Key == "FiscalPrinter").Value.Split('&')[1].Replace("PID_", "");
+                    string VID = hardware.FirstOrDefault(x => x.Key == "SerialDevice").Value.Split('&')[0].Replace("VID_", "");
+                    string PID = hardware.FirstOrDefault(x => x.Key == "SerialDevice").Value.Split('&')[1].Replace("PID_", "");
                     var ports = Common.Helpers.DeviceHelper.GetPortByVPid(VID, PID).Distinct(); //("067B", "2303")
-                    var portName = SerialPort.GetPortNames().Intersect(ports).FirstOrDefault();
+                    var portName = SerialPort.GetPortNames().Intersect(ports).FirstOrDefault(x => !Program.UserDevices.Any(y => y.PortName == x));
                     this.CheckPort(portName);
                     _fiscalPrinter = new SY50(portName);
-                    Program.IsFiscalPrinterConnected = true;
+
+                    device.PortName = portName;
                     //MessageBox.Show("Успешно поврзување со касата, на port :: " + portName);
                 }
 
             }
             catch (Exception ex)
             {
-                Program.IsFiscalPrinterConnected = false;
-                SplashScreen.SplashScreen.CloseForm();
+                device.IsConnected = false;
                 MessageBox.Show(this, "Неуспешно поврзување со Фискалната каса, проверете дали е приклучена!\n\nOpening serial port result :: " + ex.Message, "Информација!");
             }
         }
 
-        
-
         #region BARCODE EVENTS
         public void ResumeSerialEventListener()
         {
-            listener.Resume();
+            _listener.AddDataReceivedHandler();
         }
         public void AddProduct(string barcode)
         {
             if (barcode != null)
             {
-                var product = _repository.GetProduct(null, barcode, null);
-                var query = orderDetails.Where(x => x.ProductId == product.ProductId);
-                if (query.Count() > 0)
+                var product = _repository.GetProduct(null, null, barcode);
+                if (product != null)
                 {
-                    ++query.Single().Quantity;
-                    query.Single().Price = query.Single().Quantity * query.Single().UnitPrice;
-                    this.refreshUI(query.Single());
-                }
-                else
-                {
-                    orderDetails.Add(product);
-                    this.refreshUI(product);
+                    var query = orderDetails.Where(x => x.ProductId == product.ProductId);
+                    if (query.Count() > 0)
+                    {
+                        ++query.Single().Quantity;
+                        query.Single().Price = query.Single().Quantity * query.Single().UnitPrice;
+                        this.refreshUI(query.Single());
+                    }
+                    else
+                    {
+                        orderDetails.Add(product);
+                        this.refreshUI(product);
+                    }
                 }
             }
         }
-        private void OnBarcodeScanned(object sender, EventArgs e)
+        public override void OnBarcodeScanned(object sender, EventArgs e)
         {
             BarcodeScannedEventArgs be;
 
@@ -232,7 +258,7 @@ namespace Viktor.IMS.Presentation.UI
                 #region LEFT ALT/RIGHT ALT: SearchForm (Prebaruvanje na proizvod)
                 case Keys.F4:
                 case Keys.RButton | Keys.ShiftKey:
-                    listener.Pause();
+                    _listener.RemoveDataReceivedHandler();
                     using (var searchForm = new Search(this._serialPort))
                     {
                         searchForm._repository = this._repository;
@@ -401,6 +427,11 @@ namespace Viktor.IMS.Presentation.UI
                     MessageBox.Show(this, "Нема производи за продавање!", "Информација!");
                     return;
                 }
+                if (printReceipt && _fiscalPrinter == null)
+                {
+                    MessageBox.Show(this, "Фискалната каса не е успешно поврзана!", "Информација!");
+                    return;
+                }
 
                 AddOrderResult addOrderResult;
                 using (var transactionScope = new TransactionScope())
@@ -436,11 +467,13 @@ namespace Viktor.IMS.Presentation.UI
                 #region Update Order if Smetkata e ispecatena
                 if (printReceipt)
                 {
-                    InfoDialog infoDialog = new InfoDialog("Дали се испечати сметка?", true);
+                    _repository.UpdateOrder((int)addOrderResult.OrderId, true);
+
+                    InfoDialog infoDialog = new InfoDialog("Сметката е процесирана.", true);
                     infoDialog.ShowDialog();
                     if (infoDialog.DialogResult == DialogResult.Yes)
                     {
-                        _repository.UpdateOrder((int)addOrderResult.OrderId, true);
+                        //_repository.UpdateOrder((int)addOrderResult.OrderId, true);
                     }
                     else if (infoDialog.DialogResult == DialogResult.No)
                     {
@@ -449,7 +482,7 @@ namespace Viktor.IMS.Presentation.UI
                 }
                 else
                 {
-                    InfoDialog infoDialog = new InfoDialog("Дали е наплатена сметката?", true);
+                    InfoDialog infoDialog = new InfoDialog("Сметката е процесирана.", true);
                     infoDialog.ShowDialog();
                     if (infoDialog.DialogResult == DialogResult.Yes)
                     {

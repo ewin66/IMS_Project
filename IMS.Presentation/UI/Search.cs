@@ -35,20 +35,22 @@ namespace Viktor.IMS.Presentation.UI
             myCurrentLanguage = InputLanguage.CurrentInputLanguage;
 
             this._serialPort = serialPort;
-            listener = new BarcodeListener(this);
-            listener.BarcodeScanned += this.OnBarcodeScanned;
+            _listener = new BarcodeListener(this);
+            _listener.BarcodeScanned += this.OnBarcodeScanned;
             regionDataGridView.AutoGenerateColumns = false;
         }
         public void ResumeSerialEventListener()
         {
-            listener.Resume();
+            _listener.AddDataReceivedHandler();
         }
         public void RefreshView(string barcode)
         {
             if (barcode != null) textBox1.Text = null;
             
-            this.regionDataGridView.DataSource = _repository.GetProducts(null, textBox1.Text, barcode, ref totalArticles, ref articlesWithStock, ref cumulativeAmount);
-            this.regionDataGridView.Rows[0].Selected = true; //It is also possible to color the row backgroud
+            var result = _repository.GetProducts(null, textBox1.Text, barcode, ref totalArticles, ref articlesWithStock, ref cumulativeAmount);
+            this.regionDataGridView.DataSource = result;
+            if (result.Count > 0)
+                this.regionDataGridView.Rows[0].Selected = true; //It is also possible to color the row backgroud
 
             //this.articlesBindingSource.DataSource = _repository.GetProductsTable(null, textBox1.Text, barcode, ref totalArticles, ref articlesWithStock, ref cumulativeAmount);
             //this.regionDataGridView.FirstDisplayedScrollingRowIndex = i;
@@ -351,7 +353,7 @@ namespace Viktor.IMS.Presentation.UI
             this.CurrentProduct = new Product();
             this.CurrentProduct.ProductId = Int32.Parse(regionDataGridView.CurrentRow.Cells[0].Value.ToString());
             Viktor.IMS.Presentation.UI.Sale saleForm = this.Owner as Viktor.IMS.Presentation.UI.Sale;
-            listener.Pause();
+            _listener.RemoveDataReceivedHandler();
             saleForm.ResumeSerialEventListener();
             this.Close();
         }
@@ -361,7 +363,7 @@ namespace Viktor.IMS.Presentation.UI
             this.CurrentProduct = new Product();
             this.CurrentProduct.ProductId = Int32.Parse(regionDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString());
             Viktor.IMS.Presentation.UI.Sale saleForm = this.Owner as Viktor.IMS.Presentation.UI.Sale;
-            listener.Pause();
+            _listener.RemoveDataReceivedHandler();
             saleForm.ResumeSerialEventListener();
             this.Close();
         }

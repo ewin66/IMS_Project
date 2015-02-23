@@ -4,14 +4,14 @@
 // MVID: 0F67EA74-8FA1-4626-BF9D-4F6BED24CDA7
 // Assembly location: G:\GitHub\IMS_Project\Library\_Fiskalni\Bujar.Fiscal.dll
 
-using IMS.Fiscal.My;
+using Viktor.IMS.Fiscal.My;
 using System;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
 
-namespace IMS.Fiscal
+namespace Viktor.IMS.Fiscal
 {
   public class AppConfig
   {

@@ -16,7 +16,7 @@ namespace Viktor.IMS.Presentation.UI
             InitializeComponent();
             lblMessage.Text = message;
             button1.Visible = showYesNo;
-            button2.Visible = showYesNo;
+            //button2.Visible = showYesNo;
         }
 
         private void button1_Click(object sender, EventArgs e)

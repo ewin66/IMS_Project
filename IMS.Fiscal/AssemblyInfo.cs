@@ -2,8 +2,8 @@
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyCompany("IMS Ademi")]
-[assembly: AssemblyTitle("IMS.Fiscal")]
-[assembly: AssemblyProduct("IMS.Fiscal")]
+[assembly: AssemblyTitle("Viktor.IMS.Fiscal")]
+[assembly: AssemblyProduct("Viktor.IMS.Fiscal")]
 [assembly: AssemblyCopyright("Copyright © IMS 2015")]
 [assembly: AssemblyDescription("MK Fiscal")]
 [assembly: AssemblyFileVersion("2.0.0.0")]

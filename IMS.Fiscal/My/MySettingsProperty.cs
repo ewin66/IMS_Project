@@ -10,7 +10,7 @@ using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
-namespace IMS.Fiscal.My
+namespace Viktor.IMS.Fiscal.My
 {
   [StandardModule]
   [HideModuleName]

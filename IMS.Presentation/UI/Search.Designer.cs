@@ -62,13 +62,14 @@ namespace Viktor.IMS.Presentation.UI
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 52);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(616, 335);
+            this.panel2.Size = new System.Drawing.Size(536, 335);
             this.panel2.TabIndex = 8;
             // 
             // regionDataGridView
             // 
             this.regionDataGridView.AllowUserToAddRows = false;
             this.regionDataGridView.AllowUserToDeleteRows = false;
+            this.regionDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -89,7 +90,7 @@ namespace Viktor.IMS.Presentation.UI
             this.regionDataGridView.ReadOnly = true;
             this.regionDataGridView.RowHeadersWidth = 60;
             this.regionDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.regionDataGridView.Size = new System.Drawing.Size(616, 335);
+            this.regionDataGridView.Size = new System.Drawing.Size(536, 335);
             this.regionDataGridView.TabIndex = 1;
             this.regionDataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.regionDataGridView_CellDoubleClick);
             // 
@@ -100,7 +101,7 @@ namespace Viktor.IMS.Presentation.UI
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(616, 52);
+            this.panel1.Size = new System.Drawing.Size(536, 52);
             this.panel1.TabIndex = 7;
             // 
             // label1
@@ -147,7 +148,7 @@ namespace Viktor.IMS.Presentation.UI
             this.articlesBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.articlesBindingNavigator.Name = "articlesBindingNavigator";
             this.articlesBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.articlesBindingNavigator.Size = new System.Drawing.Size(616, 25);
+            this.articlesBindingNavigator.Size = new System.Drawing.Size(536, 25);
             this.articlesBindingNavigator.TabIndex = 0;
             this.articlesBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -225,7 +226,9 @@ namespace Viktor.IMS.Presentation.UI
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial Narrow", 14.25F, System.Drawing.FontStyle.Bold);
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.ProductId.DefaultCellStyle = dataGridViewCellStyle2;
+            this.ProductId.FillWeight = 104.3147F;
             this.ProductId.HeaderText = "Шифра";
+            this.ProductId.MinimumWidth = 40;
             this.ProductId.Name = "ProductId";
             this.ProductId.ReadOnly = true;
             // 
@@ -236,10 +239,11 @@ namespace Viktor.IMS.Presentation.UI
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial Narrow", 14.25F, System.Drawing.FontStyle.Bold);
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.SeaGreen;
             this.ProductName.DefaultCellStyle = dataGridViewCellStyle3;
+            this.ProductName.FillWeight = 104.3147F;
             this.ProductName.HeaderText = "Производ";
+            this.ProductName.MinimumWidth = 100;
             this.ProductName.Name = "ProductName";
             this.ProductName.ReadOnly = true;
-            this.ProductName.Width = 200;
             // 
             // UnitPrice
             // 
@@ -248,7 +252,9 @@ namespace Viktor.IMS.Presentation.UI
             dataGridViewCellStyle4.Font = new System.Drawing.Font("Arial Narrow", 14.25F, System.Drawing.FontStyle.Bold);
             dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.SeaGreen;
             this.UnitPrice.DefaultCellStyle = dataGridViewCellStyle4;
+            this.UnitPrice.FillWeight = 91.37056F;
             this.UnitPrice.HeaderText = "Цена";
+            this.UnitPrice.MinimumWidth = 100;
             this.UnitPrice.Name = "UnitPrice";
             this.UnitPrice.ReadOnly = true;
             // 
@@ -256,7 +262,7 @@ namespace Viktor.IMS.Presentation.UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(616, 412);
+            this.ClientSize = new System.Drawing.Size(536, 412);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.articlesBindingNavigator);

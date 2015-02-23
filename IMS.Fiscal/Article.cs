@@ -6,7 +6,7 @@
 
 using System;
 
-namespace IMS.Fiscal
+namespace Viktor.IMS.Fiscal
 {
   public sealed class Article
   {

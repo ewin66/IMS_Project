@@ -2,7 +2,7 @@
 using System.Threading;
 
 
-namespace IMS.Resources
+namespace Viktor.IMS.Resources
 {
     public class ResourceHandler
     {

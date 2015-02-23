@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -12,6 +13,7 @@ using System.Text.RegularExpressions;
 using LinqDataModel;
 using System.IO;
 using ClosedXML.Excel;
+using Viktor.IMS.Presentation.Infrastructure;
 
 namespace Viktor.IMS.Presentation.UI
 {   
@@ -43,19 +45,34 @@ namespace Viktor.IMS.Presentation.UI
 
 
         RowDetails form2;
-        public MainForm()
-        {
+        public MainForm(SerialPort serialPort)
+        {            
             this.InitializeComponent();
+            this._serialPort = serialPort;
+            //if (Program.ActiveForms.Count == 0)
+            this._listener = new BarcodeListener(this);
+            this.SerialEventListener_Start();
+
             convertor = new ISO9TransliterationProvider();
             myCurrentLanguage = InputLanguage.CurrentInputLanguage;
 
-            listener = new BarcodeListener(this);
-            listener.BarcodeScanned += this.OnBarcodeScanned;
             this.Layout += new System.Windows.Forms.LayoutEventHandler(this.SplashScreen_Layout);
             this.FormClosing += new FormClosingEventHandler(MainForm_Closing);
 
             this.ActiveControl = textBox1;
         }
+        protected override void OnLoad(EventArgs e)
+        {
+            RefreshView(null);
+            //resize the column once, but allow the ussers to change it. - Vazno: Resize se pravi otkako ke se povlecat podatocite
+            this.regionDataGridView.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+            // do stuff before Load-event is raised
+            base.OnLoad(e);
+            // do stuff after Load-event was raised
+            this.FormId = Program.ActiveForms.Count + 1;
+            Program.ActiveForms.Add(new FormData(this, true));
+        }
+
         void MainForm_Closing(object sender, FormClosingEventArgs e)
         {
             //Close Parent Tab
@@ -64,7 +81,7 @@ namespace Viktor.IMS.Presentation.UI
 
         public void ResumeSerialEventListener()
         {
-            listener.Resume();
+            _listener.AddDataReceivedHandler();
         }
         public void RefreshView(string barcode)
         {
@@ -75,18 +92,6 @@ namespace Viktor.IMS.Presentation.UI
             lblTotalArticles.Text = totalArticles.ToString();
             lblArticlesWithStock.Text = articlesWithStock.ToString();
             lblCumulativeAmount.Text = cumulativeAmount.ToString();
-        }
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            // TODO: This line of code loads data into the 'mikavi.Articles' table. You can move, or remove it, as needed.
-            //this.articlesTableAdapter.Fill(this.mikavi.Articles);
-
-            RefreshView(null);
-
-            //resize the column once, but allow the ussers to change it.
-            this.regionDataGridView.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-
-            //Program.activeFormName = this.Name;
         }
 
         /// <summary>
@@ -157,7 +162,7 @@ namespace Viktor.IMS.Presentation.UI
             //DataRow ThisDataRow = ((DataRowView)thisBindingSource.Current).Row;
             if (null != ThisDataRow)
             {
-                listener.Pause();
+                _listener.RemoveDataReceivedHandler();
                 using (var productDetails = new RowDetails(this._serialPort))
                 {
                     productDetails.dataRow = ThisDataRow;
@@ -179,26 +184,8 @@ namespace Viktor.IMS.Presentation.UI
         {
             UpdateRowToDatabase();
             SetKeyboardLayout(myCurrentLanguage);
-            CloseSerialConnection();
+            //CloseSerialConnection();
             //Program._serialPort.Close();
-        }
-
-        public bool CloseSerialConnection()
-        {
-            try
-            {
-                //_serialPort.Write("LOCAL\r");
-                //System.Threading.Thread.Sleep(100);
-                string test = _serialPort.ReadLine();
-                _serialPort.DiscardInBuffer();
-                _serialPort.Close();
-                _serialPort.Dispose();
-                return true;
-            }
-            catch (Exception e)
-            {
-                return false;
-            }
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -271,7 +258,7 @@ namespace Viktor.IMS.Presentation.UI
 
 
         #region Barcode Events
-        private void OnBarcodeScanned(object sender, EventArgs e)
+        public override void OnBarcodeScanned(object sender, EventArgs e)
         {
             BarcodeScannedEventArgs be;
 

@@ -38,6 +38,7 @@ namespace Viktor.IMS.Presentation.UI
             this.productsButton = new System.Windows.Forms.ToolStripButton();
             this.saleButton = new System.Windows.Forms.ToolStripButton();
             this.saleHomeButton = new System.Windows.Forms.ToolStripButton();
+            this.reverseInitDevices = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,8 +64,7 @@ namespace Viktor.IMS.Presentation.UI
             this.tabContainer.SelectedIndex = 0;
             this.tabContainer.Size = new System.Drawing.Size(822, 371);
             this.tabContainer.TabIndex = 0;
-            this.tabContainer.UseExtendedLayout = false;
-            this.tabContainer.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabContainer_Selected);
+            this.tabContainer.UseExtendedLayout = false;            
             // 
             // toolStrip1
             // 
@@ -74,7 +74,8 @@ namespace Viktor.IMS.Presentation.UI
             this.exitButton,
             this.productsButton,
             this.saleButton,
-            this.saleHomeButton});
+            this.saleHomeButton,
+            this.reverseInitDevices});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(822, 39);
@@ -123,6 +124,17 @@ namespace Viktor.IMS.Presentation.UI
             this.saleHomeButton.Size = new System.Drawing.Size(36, 36);
             this.saleHomeButton.Click += new System.EventHandler(this.saleHomeButton_Click);
             // 
+            // reverseInitDevices
+            // 
+            this.reverseInitDevices.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.reverseInitDevices.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.reverseInitDevices.Image = global::Viktor.IMS.Presentation.Properties.Resources.Settings32;
+            this.reverseInitDevices.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.reverseInitDevices.Name = "reverseInitDevices";
+            this.reverseInitDevices.Size = new System.Drawing.Size(36, 36);
+            this.reverseInitDevices.Text = "Повторна иницијализација на уреди";
+            this.reverseInitDevices.Click += new System.EventHandler(this.reverseInitDevices_Click);
+            // 
             // HomeTabbed
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -148,5 +160,6 @@ namespace Viktor.IMS.Presentation.UI
         private System.Windows.Forms.ToolStripButton saleButton;
         private KryptonTabControl tabContainer;
         private ToolStripButton saleHomeButton;
+        private ToolStripButton reverseInitDevices;
     }
 }

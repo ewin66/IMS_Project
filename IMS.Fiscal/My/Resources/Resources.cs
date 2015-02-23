@@ -13,7 +13,7 @@ using System.Globalization;
 using System.Resources;
 using System.Runtime.CompilerServices;
 
-namespace IMS.Fiscal.My.Resources
+namespace Viktor.IMS.Fiscal.My.Resources
 {
   [HideModuleName]
   [GeneratedCode("System.Resources.Tools.StronglyTypedResourceBuilder", "2.0.0.0")]
@@ -31,7 +31,7 @@ namespace IMS.Fiscal.My.Resources
       get
       {
           if (object.ReferenceEquals((object)Resources2.resourceMan, (object)null))
-              Resources2.resourceMan = new ResourceManager("IMS.Fiscal.Properties.Resources", typeof(Resources2).Assembly);
+              Resources2.resourceMan = new ResourceManager("Viktor.IMS.Fiscal.Properties.Resources", typeof(Resources2).Assembly);
           return Resources2.resourceMan;
       }
     }

@@ -25,8 +25,8 @@ namespace Viktor.IMS.Presentation.UI
             myCurrentLanguage = InputLanguage.CurrentInputLanguage;
 
             this._serialPort = serialPort;
-            listener = new BarcodeListener(this);
-            listener.BarcodeScanned += this.OnBarcodeScanned;
+            _listener = new BarcodeListener(this);
+            _listener.BarcodeScanned += this.OnBarcodeScanned;
         }
         public RowDetails(DataRow prodDetails)
         {
@@ -41,7 +41,7 @@ namespace Viktor.IMS.Presentation.UI
         private void btnCancel_Click(object sender, EventArgs e)
         {
             MainForm m = this.Owner as MainForm;
-            listener.Pause();
+            _listener.RemoveDataReceivedHandler();
             m.ResumeSerialEventListener();
             this.Close();
         }
@@ -76,7 +76,7 @@ namespace Viktor.IMS.Presentation.UI
             _repository.AddProduct(updated);
 
             m.RefreshView(null);
-            listener.Pause();
+            _listener.RemoveDataReceivedHandler();
             m.ResumeSerialEventListener();
             Close();
             }

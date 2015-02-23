@@ -4,9 +4,8 @@
 // MVID: 0F67EA74-8FA1-4626-BF9D-4F6BED24CDA7
 // Assembly location: G:\GitHub\IMS_Project\Library\_Fiskalni\Bujar.Fiscal.dll
 
-using IMS.Fiscal;
-using IMS.Fiscal.My.Resources;
-using IMS.Fiscal.Properties;
+using Viktor.IMS.Fiscal;
+using Viktor.IMS.Fiscal.My.Resources;
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.CompilerServices;
 using System;
@@ -14,8 +13,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
+using Viktor.IMS.Fiscal.Properties;
 
-namespace IMS.Fiscal.AccentFiscal
+namespace Viktor.IMS.Fiscal.AccentFiscal
 {
   [ComVisible(true)]
   public sealed class SY50

@@ -1,4 +1,4 @@
-﻿using IMS.Fiscal;
+﻿using Viktor.IMS.Fiscal;
 using LinqDataModel;
 using System;
 using System.Collections.Generic;

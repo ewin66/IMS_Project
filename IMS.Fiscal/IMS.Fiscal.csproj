@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{B00F05A6-CEC4-44E5-8721-4EDB34BE619E}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AssemblyName>IMS.Fiscal</AssemblyName>
-    <RootNamespace>IMS.Fiscal</RootNamespace>
+    <AssemblyName>Viktor.IMS.Fiscal</AssemblyName>
+    <RootNamespace>Viktor.IMS.Fiscal</RootNamespace>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>

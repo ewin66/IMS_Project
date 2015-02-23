@@ -97,7 +97,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enums\CutomerType.cs" />
+    <Compile Include="Infrastructure\DeviceManager.cs" />
+    <Compile Include="Infrastructure\FiscalPrinter.cs" />
+    <Compile Include="UIExtensions\ControlExtensions.cs" />
     <Compile Include="UI\BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,7 +113,8 @@
     <Compile Include="Infrastructure\HardwareConfigurationElement.cs" />
     <Compile Include="Infrastructure\HardwareConfigurationElementCollection.cs" />
     <Compile Include="Infrastructure\HardwareConfigurationSection.cs" />
-    <Compile Include="Infrastructure\FiscalPrinter.cs" />
+    <Compile Include="Infrastructure\UserDevices.cs" />
+    <Compile Include="Infrastructure\FormData.cs" />
     <Compile Include="UI\HomeTabbed.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -222,7 +225,7 @@
     <EmbeddedResource Include="UI\Sale.resx">
       <DependentUpon>Sale.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="app.config" />
+    <None Include="App.Config" />
     <None Include="IMS.Presentation_TemporaryKey.pfx" />
     <None Include="Mikavi.xsc">
       <DependentUpon>Mikavi.xsd</DependentUpon>
@@ -278,6 +281,10 @@
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{50ecb7f4-77f2-45d4-bc0f-4d26acd8466a}</Project>
       <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IMS.BusinessObjects\IMS.BusinessObjects.csproj">
+      <Project>{2dbf56bf-d06e-48ea-b184-2bd727528cd1}</Project>
+      <Name>IMS.BusinessObjects</Name>
     </ProjectReference>
     <ProjectReference Include="..\IMS.Fiscal\IMS.Fiscal.csproj">
       <Project>{b00f05a6-cec4-44e5-8721-4edb34be619e}</Project>
