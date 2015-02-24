@@ -15,6 +15,7 @@ using System.Windows.Forms;
 using Viktor.IMS.BusinessObjects;
 using Viktor.IMS.BusinessObjects.Enums;
 using Viktor.IMS.Presentation.Infrastructure;
+using System.Configuration;
 
 namespace Viktor.IMS.Presentation.UI
 {
@@ -392,13 +393,13 @@ namespace Viktor.IMS.Presentation.UI
         {
             if (product != null)
             {
-                lblCurrentProduct.Text = string.Format("{0} {1} ком x {2} = {3}", product.ProductName, product.Quantity, ((decimal)product.UnitPrice).ToString("N2", nfi), ((decimal)product.Price).ToString("N2", nfi));
+                lblCurrentProduct.Text = string.Format("{0}  {1} ком.  x  {2}  =  {3}", product.ProductName, product.Quantity, ((decimal)product.UnitPrice).ToString("N2", nfi), ((decimal)product.Price).ToString("N2", nfi));
             }
             else
             {
                 lblCurrentProduct.Text = "";
             }
-            lblTotalValue.Text = ((decimal)orderDetails.Sum(x => x.Price)).ToString("N2", nfi);
+            lblTotalValue.Text = decimal.Round(((decimal)orderDetails.Sum(x => x.Price))) .ToString("N2", nfi);
             this.dataGridView1.DataSource = orderDetails.ToArray();
         }
         private void delete_Click()
@@ -551,12 +552,18 @@ namespace Viktor.IMS.Presentation.UI
 
         private void updateFont()
         {
-            float fontSize = float.Parse(System.Configuration.ConfigurationManager.AppSettings["FontSize"].ToString());
+            float fontSize = float.Parse(ConfigurationManager.AppSettings["FontSize"].ToString());
+            int paddingSize = int.Parse(ConfigurationManager.AppSettings["PaddingSize"].ToString());
             //Change cell font
             foreach (DataGridViewColumn c in this.dataGridView1.Columns)
             {
-                c.DefaultCellStyle.Font = new Font("Arial Narrow", fontSize, System.Drawing.FontStyle.Bold);
+                c.DefaultCellStyle.Font = new Font("Arial Narrow", fontSize, FontStyle.Bold);//Arial Narrow
+                c.DefaultCellStyle.Padding = new Padding(paddingSize);
             }
+            this.dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Arial Narrow", fontSize, FontStyle.Bold);//Tahoma
+            this.dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.Red;
+            //this.dataGridView1.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
         }
         private void increaseFont()
         {
@@ -567,6 +574,8 @@ namespace Viktor.IMS.Presentation.UI
                 size += 2;
                 c.DefaultCellStyle.Font = new Font("Arial Narrow", size, System.Drawing.FontStyle.Bold);
             }
+            this.dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            //this.dataGridView1.AutoResizeColumns();//DataGridViewAutoSizeColumnsMode.Fill
         }
         private void decreaseFont()
         {

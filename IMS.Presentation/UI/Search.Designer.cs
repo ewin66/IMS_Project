@@ -235,7 +235,7 @@ namespace Viktor.IMS.Presentation.UI
             // ProductName
             // 
             this.ProductName.DataPropertyName = "ProductName";
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.MediumSeaGreen;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial Narrow", 14.25F, System.Drawing.FontStyle.Bold);
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.SeaGreen;
             this.ProductName.DefaultCellStyle = dataGridViewCellStyle3;
@@ -248,7 +248,7 @@ namespace Viktor.IMS.Presentation.UI
             // UnitPrice
             // 
             this.UnitPrice.DataPropertyName = "UnitPrice";
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.LightGreen;
             dataGridViewCellStyle4.Font = new System.Drawing.Font("Arial Narrow", 14.25F, System.Drawing.FontStyle.Bold);
             dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.SeaGreen;
             this.UnitPrice.DefaultCellStyle = dataGridViewCellStyle4;

@@ -29,6 +29,13 @@ namespace Viktor.IMS.Presentation.UI
         public Search()
         {
             this.InitializeComponent();
+            foreach (DataGridViewColumn c in this.regionDataGridView.Columns)
+            {
+                //c.DefaultCellStyle.Font = new Font("Arial Narrow", fontSize, System.Drawing.FontStyle.Bold);
+                //c.DefaultCellStyle.Padding = new Padding(1);
+            }
+            this.regionDataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+
             this.Load += new System.EventHandler(this.SearchForm_Load);
 
             convertor = new ISO9TransliterationProvider();
@@ -350,12 +357,15 @@ namespace Viktor.IMS.Presentation.UI
         }
         private void enter()
         {
-            this.CurrentProduct = new Product();
-            this.CurrentProduct.ProductId = Int32.Parse(regionDataGridView.CurrentRow.Cells[0].Value.ToString());
-            //Viktor.IMS.Presentation.UI.Sale saleForm = this.Owner as Viktor.IMS.Presentation.UI.Sale;
-            //_listener.RemoveDataReceivedHandler();
-            //saleForm.ResumeSerialEventListener();
-            this.Close();
+            if (regionDataGridView.CurrentRow != null)
+            {
+                this.CurrentProduct = new Product();
+                this.CurrentProduct.ProductId = Int32.Parse(regionDataGridView.CurrentRow.Cells[0].Value.ToString());
+                //Viktor.IMS.Presentation.UI.Sale saleForm = this.Owner as Viktor.IMS.Presentation.UI.Sale;
+                //_listener.RemoveDataReceivedHandler();
+                //saleForm.ResumeSerialEventListener();
+                this.Close();
+            }                   
         }
 
         private void regionDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
