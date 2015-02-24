@@ -33,6 +33,7 @@ namespace Viktor.IMS.Presentation.UI
         public Sale(SerialPort serialPort, SY50 fiscalPrinter, CustomerType currentCustomer)
         {
             InitializeComponent();
+            this.updateFont();
             this._currentCustomer = currentCustomer;
             this._serialPort = serialPort;
             this._fiscalPrinter = fiscalPrinter;
@@ -165,11 +166,12 @@ namespace Viktor.IMS.Presentation.UI
         {
             _listener.AddDataReceivedHandler();
         }
-        public void AddProduct(string barcode)
+        public void AddProduct(int? productId, string productName, string barcode)
         {
-            if (barcode != null)
+            if (productId != null || productName != null || barcode != null)
             {
-                var product = _repository.GetProduct(null, null, barcode);
+                var itemNumber = 0;
+                var product = _repository.GetProduct(productId, productName, barcode);
                 if (product != null)
                 {
                     var query = orderDetails.Where(x => x.ProductId == product.ProductId);
@@ -177,13 +179,17 @@ namespace Viktor.IMS.Presentation.UI
                     {
                         ++query.Single().Quantity;
                         query.Single().Price = query.Single().Quantity * query.Single().UnitPrice;
+                        itemNumber = query.Single().ItemNumber;
                         this.refreshUI(query.Single());
                     }
                     else
                     {
-                        orderDetails.Add(product);
+                        product.ItemNumber = itemNumber = this.orderDetails.Count + 1;
+                        this.orderDetails.Add(product);
                         this.refreshUI(product);
                     }
+
+                    this.dataGridView1.CurrentCell = this.dataGridView1.Rows[itemNumber - 1].Cells["Quantity"];
                 }
             }
         }
@@ -200,7 +206,7 @@ namespace Viktor.IMS.Presentation.UI
                     this.Invoke(new MethodInvoker(delegate
                     {
                         // load the control with the appropriate data
-                        AddProduct(be.Barcode);
+                        AddProduct(null, null, be.Barcode);
                     }));
                     return;
                 }
@@ -258,35 +264,21 @@ namespace Viktor.IMS.Presentation.UI
                 #region LEFT ALT/RIGHT ALT: SearchForm (Prebaruvanje na proizvod)
                 case Keys.F4:
                 case Keys.RButton | Keys.ShiftKey:
-                    _listener.RemoveDataReceivedHandler();
-                    using (var searchForm = new Search(this._serialPort))
+
+                    //this.SerialEventListener_Pause();
+                    //_listener.RemoveDataReceivedHandler();
+
+                    using (var searchForm = new Search())
                     {
                         searchForm._repository = this._repository;
                         searchForm.Owner = this;
                         searchForm.StartPosition = FormStartPosition.CenterParent;
                         searchForm.ShowDialog();
-                        var itemNumber = 0;
                         if (searchForm.CurrentProduct != null && searchForm.CurrentProduct.ProductId > 0)
                         {
                             /// Add Product to LIST
                             /// ===================
-                            var query = orderDetails.Where(x => x.ProductId == searchForm.CurrentProduct.ProductId);
-                            if (query.Count() > 0)
-                            {
-                                ++query.Single().Quantity;
-                                query.Single().Price = query.Single().Quantity * query.Single().UnitPrice;
-                                itemNumber = query.Single().ItemNumber;
-                                this.refreshUI(query.Single());
-                            }
-                            else
-                            {
-                                var product = _repository.GetProduct(searchForm.CurrentProduct.ProductId, null, null);
-                                product.ItemNumber = itemNumber = this.orderDetails.Count + 1;
-                                this.orderDetails.Add(product);
-                                this.refreshUI(product);
-                            }
-                            //this.RefreshUI(product);
-                            this.dataGridView1.CurrentCell = this.dataGridView1.Rows[itemNumber - 1].Cells["Quantity"];
+                            AddProduct(searchForm.CurrentProduct.ProductId, null, null);
                         }
                         e.Handled = true;
                     }
@@ -337,6 +329,7 @@ namespace Viktor.IMS.Presentation.UI
                 query.Single().UnitPrice = decimal.Parse(this.dataGridView1.Rows[e.RowIndex].Cells["UnitPrice"].Value.ToString());
                 query.Single().Price = Math.Round(query.Single().Quantity * query.Single().UnitPrice, 2);
                 this.refreshUI(query.Single());
+                this.dataGridView1.CurrentCell = this.dataGridView1.Rows[e.RowIndex].Cells["Quantity"];
             }
         }
         private void btnAddProduct_Click(object sender, EventArgs e)
@@ -410,12 +403,15 @@ namespace Viktor.IMS.Presentation.UI
         }
         private void delete_Click()
         {
-            var productId = this.dataGridView1.Rows[this.dataGridView1.CurrentCell.RowIndex].Cells["ProductId"].Value.ToString();
-            var product = orderDetails.FirstOrDefault(x => x.ProductId.ToString() == productId);
-            if (product != null)
+            if (orderDetails.Count > 0 && this.dataGridView1.CurrentCell != null && this.dataGridView1.CurrentCell.RowIndex >= 0)
             {
-                orderDetails.Remove(product);
-                refreshUI(null);
+                var productId = this.dataGridView1.Rows[this.dataGridView1.CurrentCell.RowIndex].Cells["ProductId"].Value.ToString();
+                var product = orderDetails.FirstOrDefault(x => x.ProductId.ToString() == productId);
+                if (product != null)
+                {
+                    orderDetails.Remove(product);
+                    refreshUI(null);
+                }
             }
         }
         private void ExecuteOrder(bool printReceipt)
@@ -551,6 +547,36 @@ namespace Viktor.IMS.Presentation.UI
                 return true;
             }
             return false;
+        }
+
+        private void updateFont()
+        {
+            float fontSize = float.Parse(System.Configuration.ConfigurationManager.AppSettings["FontSize"].ToString());
+            //Change cell font
+            foreach (DataGridViewColumn c in this.dataGridView1.Columns)
+            {
+                c.DefaultCellStyle.Font = new Font("Arial Narrow", fontSize, System.Drawing.FontStyle.Bold);
+            }
+        }
+        private void increaseFont()
+        {
+            //Change cell font
+            foreach (DataGridViewColumn c in this.dataGridView1.Columns)
+            {
+                float size = c.DefaultCellStyle.Font.Size;
+                size += 2;
+                c.DefaultCellStyle.Font = new Font("Arial Narrow", size, System.Drawing.FontStyle.Bold);
+            }
+        }
+        private void decreaseFont()
+        {
+            //Change cell font
+            foreach (DataGridViewColumn c in this.dataGridView1.Columns)
+            {
+                float size = c.DefaultCellStyle.Font.Size;
+                size -= 2;
+                c.DefaultCellStyle.Font = new Font("Arial Narrow", size, System.Drawing.FontStyle.Bold);
+            }
         }
         /*
         private void txtValormetrocubico_KeyPress(object sender, KeyPressEventArgs e)

@@ -416,7 +416,7 @@ namespace Viktor.IMS.Presentation.UI
                     var ports = Common.Helpers.DeviceHelper.GetPortByVPid(VID, PID).Distinct(); //("067B", "2303")
                     /// Prviot port koj ne e veke dodelen
                     var com_port = SerialPort.GetPortNames().Intersect(ports).FirstOrDefault(x => !Program.UserDevices.Any(y => y.PortName == x));
-                    _serialPort = new SerialPort("COM1"); //give your barcode serial port 
+                    _serialPort = new SerialPort(com_port); //give your barcode serial port 
                     _serialPort.BaudRate = 9600;
                     _serialPort.Parity = Parity.None;
                     _serialPort.StopBits = StopBits.One;

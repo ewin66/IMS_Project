@@ -26,7 +26,7 @@ namespace Viktor.IMS.Presentation.UI
         private int? articlesWithStock;
         private decimal? cumulativeAmount;
 
-        public Search(SerialPort serialPort)
+        public Search()
         {
             this.InitializeComponent();
             this.Load += new System.EventHandler(this.SearchForm_Load);
@@ -34,9 +34,9 @@ namespace Viktor.IMS.Presentation.UI
             convertor = new ISO9TransliterationProvider();
             myCurrentLanguage = InputLanguage.CurrentInputLanguage;
 
-            this._serialPort = serialPort;
-            _listener = new BarcodeListener(this);
-            _listener.BarcodeScanned += this.OnBarcodeScanned;
+            //this._serialPort = serialPort;
+            //_listener = new BarcodeListener(this);
+            //_listener.BarcodeScanned += this.OnBarcodeScanned;
             regionDataGridView.AutoGenerateColumns = false;
         }
         public void ResumeSerialEventListener()
@@ -90,7 +90,7 @@ namespace Viktor.IMS.Presentation.UI
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             SetKeyboardLayout(myCurrentLanguage);
-            CloseSerialConnection();
+            //CloseSerialConnection();
         }
 
         public bool CloseSerialConnection()
@@ -352,9 +352,9 @@ namespace Viktor.IMS.Presentation.UI
         {
             this.CurrentProduct = new Product();
             this.CurrentProduct.ProductId = Int32.Parse(regionDataGridView.CurrentRow.Cells[0].Value.ToString());
-            Viktor.IMS.Presentation.UI.Sale saleForm = this.Owner as Viktor.IMS.Presentation.UI.Sale;
-            _listener.RemoveDataReceivedHandler();
-            saleForm.ResumeSerialEventListener();
+            //Viktor.IMS.Presentation.UI.Sale saleForm = this.Owner as Viktor.IMS.Presentation.UI.Sale;
+            //_listener.RemoveDataReceivedHandler();
+            //saleForm.ResumeSerialEventListener();
             this.Close();
         }
 
@@ -362,9 +362,9 @@ namespace Viktor.IMS.Presentation.UI
         {
             this.CurrentProduct = new Product();
             this.CurrentProduct.ProductId = Int32.Parse(regionDataGridView.Rows[e.RowIndex].Cells[0].Value.ToString());
-            Viktor.IMS.Presentation.UI.Sale saleForm = this.Owner as Viktor.IMS.Presentation.UI.Sale;
-            _listener.RemoveDataReceivedHandler();
-            saleForm.ResumeSerialEventListener();
+            //Viktor.IMS.Presentation.UI.Sale saleForm = this.Owner as Viktor.IMS.Presentation.UI.Sale;
+            //_listener.RemoveDataReceivedHandler();
+            //saleForm.ResumeSerialEventListener();
             this.Close();
         }
     }

@@ -64,7 +64,7 @@ namespace Viktor.IMS.Presentation.UI
             this.tabContainer.SelectedIndex = 0;
             this.tabContainer.Size = new System.Drawing.Size(822, 371);
             this.tabContainer.TabIndex = 0;
-            this.tabContainer.UseExtendedLayout = false;            
+            this.tabContainer.UseExtendedLayout = false;
             // 
             // toolStrip1
             // 
@@ -133,6 +133,7 @@ namespace Viktor.IMS.Presentation.UI
             this.reverseInitDevices.Name = "reverseInitDevices";
             this.reverseInitDevices.Size = new System.Drawing.Size(36, 36);
             this.reverseInitDevices.Text = "Повторна иницијализација на уреди";
+            this.reverseInitDevices.Visible = false;
             this.reverseInitDevices.Click += new System.EventHandler(this.reverseInitDevices_Click);
             // 
             // HomeTabbed
