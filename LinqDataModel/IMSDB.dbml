@@ -226,11 +226,6 @@
       <Column Name="Price" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
     </ElementType>
   </Function>
-  <Function Name="dbo.UpdateOrder" Method="UpdateOrder">
-    <Parameter Name="OrderId" Parameter="orderId" Type="System.Int32" DbType="Int" />
-    <Parameter Name="ReceiptPrinted" Parameter="receiptPrinted" Type="System.Boolean" DbType="Bit" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.AddOrder" Method="AddOrder">
     <Parameter Name="CustomerId" Parameter="customerId" Type="System.Int32" DbType="Int" />
     <Parameter Name="EmployeeId" Parameter="employeeId" Type="System.Int32" DbType="Int" />
@@ -249,5 +244,17 @@
     <Parameter Name="UnitPrice" Parameter="unitPrice" Type="System.Decimal" DbType="Decimal(8,2)" />
     <Parameter Name="Discount" Parameter="discount" Type="System.Decimal" DbType="Decimal(8,2)" />
     <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpdateOrder" Method="UpdateOrder">
+    <Parameter Name="OrderId" Parameter="orderId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ReceiptPrinted" Parameter="receiptPrinted" Type="System.Boolean" DbType="Bit" />
+    <ElementType Name="UpdateOrderResult">
+      <Column Name="TodayTurnover" Type="System.Decimal" DbType="Decimal(38,4) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetTodayTurnover" Method="GetTodayTurnover">
+    <ElementType Name="GetTodayTurnoverResult">
+      <Column Name="TodayTurnover" Type="System.Decimal" DbType="Decimal(38,4) NOT NULL" CanBeNull="false" />
+    </ElementType>
   </Function>
 </Database>

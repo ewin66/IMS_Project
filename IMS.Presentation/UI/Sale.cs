@@ -64,6 +64,8 @@ namespace Viktor.IMS.Presentation.UI
         }
         protected override void OnLoad(EventArgs e)
         {
+            var result = _repository.GetTodayTurnover().FirstOrDefault();
+            lblTodayTurnover.Text = decimal.Round(result.TodayTurnover).ToString("N2", nfi);
             // do stuff before Load-event is raised
             base.OnLoad(e);
             // do stuff after Load-event was raised
@@ -458,14 +460,15 @@ namespace Viktor.IMS.Presentation.UI
                     }
                     #endregion
 
+                    var result = _repository.UpdateOrder((int)addOrderResult.OrderId, true).FirstOrDefault();
+                    lblTodayTurnover.Text = decimal.Round(result.TodayTurnover).ToString("N2", nfi);
+
                     transactionScope.Complete();
                 }
 
                 #region Update Order if Smetkata e ispecatena
                 if (printReceipt)
                 {
-                    _repository.UpdateOrder((int)addOrderResult.OrderId, true);
-
                     InfoDialog infoDialog = new InfoDialog("Сметката е процесирана.", true);
                     infoDialog.ShowDialog();
                     if (infoDialog.DialogResult == DialogResult.Yes)

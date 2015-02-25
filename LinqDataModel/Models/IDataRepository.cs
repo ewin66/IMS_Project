@@ -28,7 +28,7 @@ namespace LinqDataModel.Models
         ISingleResult<AddOrderResult> AddOrder(int customerId, int? employeeId, int orderStatusId, string orderNumber, string comment);
         ISingleResult<AddOrderResult> AddOrder(int orderStatusId, string orderNumber, string comment);
         int AddOrderDetails(int orderId, int productId, string productName, decimal quantity, decimal unitPrice, decimal discount);
-        int UpdateOrder(int orderId, bool receiptPrinted);
-
+        ISingleResult<UpdateOrderResult> UpdateOrder(int orderId, bool receiptPrinted);
+        ISingleResult<GetTodayTurnoverResult> GetTodayTurnover();
     }
 }

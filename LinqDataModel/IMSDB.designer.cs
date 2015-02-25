@@ -237,13 +237,6 @@ namespace LinqDataModel
 			return ((ISingleResult<GetPrometResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.UpdateOrder")]
-		public int UpdateOrder([global::System.Data.Linq.Mapping.ParameterAttribute(Name="OrderId", DbType="Int")] System.Nullable<int> orderId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ReceiptPrinted", DbType="Bit")] System.Nullable<bool> receiptPrinted)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), orderId, receiptPrinted);
-			return ((int)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.AddOrder")]
 		public ISingleResult<AddOrderResult> AddOrder([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CustomerId", DbType="Int")] System.Nullable<int> customerId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="EmployeeId", DbType="Int")] System.Nullable<int> employeeId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="OrderStatusId", DbType="Int")] System.Nullable<int> orderStatusId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="OrderNumber", DbType="VarChar(100)")] string orderNumber, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Comment", DbType="NVarChar(100)")] string comment)
 		{
@@ -256,6 +249,20 @@ namespace LinqDataModel
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), orderId, productId, productName, quantity, unitPrice, discount);
 			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.UpdateOrder")]
+		public ISingleResult<UpdateOrderResult> UpdateOrder([global::System.Data.Linq.Mapping.ParameterAttribute(Name="OrderId", DbType="Int")] System.Nullable<int> orderId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ReceiptPrinted", DbType="Bit")] System.Nullable<bool> receiptPrinted)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), orderId, receiptPrinted);
+			return ((ISingleResult<UpdateOrderResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetTodayTurnover")]
+		public ISingleResult<GetTodayTurnoverResult> GetTodayTurnover()
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<GetTodayTurnoverResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -3424,6 +3431,58 @@ namespace LinqDataModel
 				if ((this._OrderId != value))
 				{
 					this._OrderId = value;
+				}
+			}
+		}
+	}
+	
+	public partial class UpdateOrderResult
+	{
+		
+		private decimal _TodayTurnover;
+		
+		public UpdateOrderResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TodayTurnover", DbType="Decimal(38,4) NOT NULL")]
+		public decimal TodayTurnover
+		{
+			get
+			{
+				return this._TodayTurnover;
+			}
+			set
+			{
+				if ((this._TodayTurnover != value))
+				{
+					this._TodayTurnover = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GetTodayTurnoverResult
+	{
+		
+		private decimal _TodayTurnover;
+		
+		public GetTodayTurnoverResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TodayTurnover", DbType="Decimal(38,4) NOT NULL")]
+		public decimal TodayTurnover
+		{
+			get
+			{
+				return this._TodayTurnover;
+			}
+			set
+			{
+				if ((this._TodayTurnover != value))
+				{
+					this._TodayTurnover = value;
 				}
 			}
 		}

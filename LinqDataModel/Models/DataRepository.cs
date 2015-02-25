@@ -185,7 +185,7 @@ namespace LinqDataModel.Models
         {
             return _dataContext.AddOrder(null, null, orderStatusId, orderNumber, comment);
         }
-        public int UpdateOrder(int orderId, bool receiptPrinted)
+        public ISingleResult<UpdateOrderResult> UpdateOrder(int orderId, bool receiptPrinted)
         {
             return _dataContext.UpdateOrder(orderId, receiptPrinted);
         }
@@ -293,6 +293,10 @@ namespace LinqDataModel.Models
             return dtReturn;
         }
 
+        public ISingleResult<GetTodayTurnoverResult> GetTodayTurnover()
+        {
+            return _dataContext.GetTodayTurnover();
+        }
         
     }
 }
