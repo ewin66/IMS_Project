@@ -11,7 +11,7 @@ namespace Common.Helpers
             if (obj == null || obj == DBNull.Value)
                 return null;
             int i;
-            if (Int32.TryParse((string)obj, out i)) return i;
+            if (Int32.TryParse(obj.ToString(), out i)) return i;
             return null;
         }
         public static bool? GetNullableBool(object obj)

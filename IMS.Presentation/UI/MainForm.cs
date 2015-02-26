@@ -162,7 +162,9 @@ namespace Viktor.IMS.Presentation.UI
             //DataRow ThisDataRow = ((DataRowView)thisBindingSource.Current).Row;
             if (null != ThisDataRow)
             {
-                _listener.RemoveDataReceivedHandler();
+                //Izbrishi gi event handler-ite
+                this.SerialEventListener_Pause();
+                this._listener.RemoveDataReceivedHandler();
                 using (var productDetails = new RowDetails(this._serialPort))
                 {
                     productDetails.dataRow = ThisDataRow;
@@ -171,7 +173,10 @@ namespace Viktor.IMS.Presentation.UI
                     productDetails.StartPosition = FormStartPosition.CenterParent;
                     productDetails.ShowDialog();
                 }
-                
+                //Vrati gi event hadler-ite
+                this._listener = new BarcodeListener(this);
+                this.SerialEventListener_Start();
+
                 //form2 = new RowDetails(ThisDataRow);
                 //form2.ShowDialog();
 
