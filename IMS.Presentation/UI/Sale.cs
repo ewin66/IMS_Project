@@ -23,9 +23,7 @@ namespace Viktor.IMS.Presentation.UI
     {
         List<Product> orderDetails;
         CustomerType _currentCustomer;
-        //private BarcodeListener listener;
         private NumberFormatInfo nfi;
-
         private int? totalArticles;
         private int? articlesWithStock;
         private decimal? cumulativeAmount;
@@ -72,49 +70,6 @@ namespace Viktor.IMS.Presentation.UI
             this.FormId = Program.ActiveForms.Count + 1;
             Program.ActiveForms.Add(new FormData(this, true));
         }
-
-        #region OldMethod
-        /*
-        private void InitializeFiscalPrinter2()
-        {
-            try
-            {
-                if (_fiscalPrinter == null)
-                {
-                    HardwareConfigurationSection config;
-                    HardwareConfigurationElementCollection hardwareIdsConfig;
-                    List<KeyValuePair<string, string>> hardware;
-
-                    config = HardwareConfigurationSection.GetConfiguration();
-                    hardwareIdsConfig = config.HardwareIds;
-                    hardware = new List<KeyValuePair<string, string>>();
-
-                    foreach (HardwareConfigurationElement hardwareId in hardwareIdsConfig)
-                    {
-                        hardware.Add(new KeyValuePair<string, string>(hardwareId.Name, hardwareId.Id));
-                    }
-
-                    string VID = hardware.FirstOrDefault(x => x.Key == "FiscalPrinter").Value.Split('&')[0].Replace("VID_", "");
-                    string PID = hardware.FirstOrDefault(x => x.Key == "FiscalPrinter").Value.Split('&')[1].Replace("PID_", "");
-                    var ports = Common.Helpers.DeviceHelper.GetPortByVPid(VID, PID).Distinct(); //("067B", "2303")
-                    var portName = SerialPort.GetPortNames().Intersect(ports).FirstOrDefault();
-                    var baudRate = 9600;
-                    _fiscalPrinter = new PF550(portName, baudRate);
-                    _fiscalPrinter.OpenPort();
-                    Program.IsFiscalPrinterConnected = true;
-                    MessageBox.Show("Успешно поврзување со касата, на port :: " + portName);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Program.IsFiscalPrinterConnected = false;
-                SplashScreen.SplashScreen.CloseForm();
-                MessageBox.Show(this, "Неуспешно поврзување со Фискалната каса, проверете дали е приклучена!\n\nOpening serial port result :: " + ex.Message, "Информација!");
-            }
-        }
-        */
-        #endregion
 
         private void InitializeFiscalPrinter()
         {
@@ -305,8 +260,11 @@ namespace Viktor.IMS.Presentation.UI
                 #region DELETE Brishenje na prozvod
                 case Keys.Delete:
                 case Keys.Back:
-                    delete_Click();
-                    e.Handled = true;
+                    if (!dataGridView1.IsCurrentCellInEditMode)
+                    {
+                        delete_Click();
+                        e.Handled = true;
+                    }
                     break;
                 #endregion
 
@@ -322,18 +280,74 @@ namespace Viktor.IMS.Presentation.UI
                     break;
             }
         }
+        private void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            e.Control.KeyPress -= new KeyPressEventHandler(Column1_KeyPress);
+            if (dataGridView1.CurrentCell.ColumnIndex == 3) //Desired Column
+            {
+                ComponentFactory.Krypton.Toolkit.KryptonTextBox tb = e.Control as ComponentFactory.Krypton.Toolkit.KryptonTextBox;
+                if (tb != null)
+                {
+                    tb.KeyPress += new KeyPressEventHandler(Column1_KeyPress);
+                }
+            }
+        }
+
+        private void Column1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            /*
+            ^ - means start of the string
+            []* - could contain any number of characters between brackets
+            a-zA-Z0-9 - any alphanumeric characters
+            \s - any space characters (space/tab/etc.)
+            , - commas
+            $ - end of the string
+            
+            This solution will match the updated requirements:
+
+            ^\d+(?:[\.\,]\d+)?$
+            Here is a basic expression that allows only one dot or comma, and requires the rest of the expression to be digits.
+
+            ^\d*[\.\,]\d*$
+            This would also match just . or just ,, even if there were no digits.
+
+            If you want to require at least one digit on each side of the dot or comma, use this:
+
+            ^\d+[\.\,]\d+$
+            (I think that is the one you want, based on your sample data).
+
+            If you only need to require at least one digit total, use this (using look-ahead):
+
+            ^(?=.*\d)\d*[\.\,]\d*$
+            This would also make the dot/comma optional:
+
+            ^(?=.*\d)\d*[\.\,]?\d*$
+             
+            */
+            System.Text.RegularExpressions.Regex rg = new System.Text.RegularExpressions.Regex(@"^[0-9\,]*$");
+            if (!char.IsControl(e.KeyChar) && !rg.IsMatch(e.KeyChar.ToString()))
+            //if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if (dataGridView1.Columns[e.ColumnIndex].Name == "Quantity" ||
-                dataGridView1.Columns[e.ColumnIndex].Name == "UnitPrice")
-            {
-                var query = orderDetails.Where(x => x.ItemNumber == e.RowIndex + 1);
-                query.Single().Quantity = decimal.Parse(this.dataGridView1.Rows[e.RowIndex].Cells["Quantity"].Value.ToString());
-                query.Single().UnitPrice = decimal.Parse(this.dataGridView1.Rows[e.RowIndex].Cells["UnitPrice"].Value.ToString());
-                query.Single().Price = Math.Round(query.Single().Quantity * query.Single().UnitPrice, 2);
-                this.refreshUI(query.Single());
-                this.dataGridView1.CurrentCell = this.dataGridView1.Rows[e.RowIndex].Cells["Quantity"];
-            }
+            if (e.RowIndex != -1
+                && dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != DBNull.Value
+                && !String.IsNullOrWhiteSpace(dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString())
+                )
+                if (dataGridView1.Columns[e.ColumnIndex].Name == "Quantity" ||
+                    dataGridView1.Columns[e.ColumnIndex].Name == "UnitPrice")
+                {
+                    var query = orderDetails.Where(x => x.ItemNumber == e.RowIndex + 1);
+                    query.Single().Quantity = decimal.Parse(this.dataGridView1.Rows[e.RowIndex].Cells["Quantity"].Value.ToString());
+                    query.Single().UnitPrice = decimal.Parse(this.dataGridView1.Rows[e.RowIndex].Cells["UnitPrice"].Value.ToString());
+                    query.Single().Price = Math.Round(query.Single().Quantity * query.Single().UnitPrice, 2);
+                    this.refreshUI(query.Single());
+                    this.dataGridView1.CurrentCell = this.dataGridView1.Rows[e.RowIndex].Cells["Quantity"];
+                }
         }
         private void btnAddProduct_Click(object sender, EventArgs e)
         {
@@ -404,8 +418,10 @@ namespace Viktor.IMS.Presentation.UI
             lblTotalValue.Text = decimal.Round(((decimal)orderDetails.Sum(x => x.Price))) .ToString("N2", nfi);
             this.dataGridView1.DataSource = orderDetails.ToArray();
         }
+
         private void delete_Click()
         {
+
             if (orderDetails.Count > 0 && this.dataGridView1.CurrentCell != null && this.dataGridView1.CurrentCell.RowIndex >= 0)
             {
                 var productId = this.dataGridView1.Rows[this.dataGridView1.CurrentCell.RowIndex].Cells["ProductId"].Value.ToString();
