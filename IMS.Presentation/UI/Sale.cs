@@ -28,6 +28,25 @@ namespace Viktor.IMS.Presentation.UI
         private int? articlesWithStock;
         private decimal? cumulativeAmount;
 
+        int rowindex;
+        int colindex;
+        private ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxEditingControl temp_text;
+        private ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxEditingControl editigncntrl;
+
+        private void DataGridView1_CellClick(object sender, System.Windows.Forms.DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                rowindex = e.RowIndex;
+                colindex = e.ColumnIndex;
+            }
+        }
+
+        private void DataGridView1_EditingControlShowing(object sender, System.Windows.Forms.DataGridViewEditingControlShowingEventArgs e)
+        {
+            editigncntrl = (ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxEditingControl)e.Control;
+            editigncntrl.KeyUp += editingControl_KeyUp;
+        }
 
         public Sale(SerialPort serialPort, SY50 fiscalPrinter, CustomerType currentCustomer)
         {
@@ -60,6 +79,7 @@ namespace Viktor.IMS.Presentation.UI
             orderDetails = new List<Product>();
             this.ActiveControl = dataGridView1;            
         }
+
         protected override void OnLoad(EventArgs e)
         {
             var result = _repository.GetTodayTurnover().FirstOrDefault();
@@ -245,7 +265,10 @@ namespace Viktor.IMS.Presentation.UI
 
                 #region SPACE: Pecatenje na fiskalna smetka
                 case Keys.Space:
-                    ExecuteOrder(true);
+                    if (!this.dataGridView1.IsCurrentCellInEditMode)
+                    {
+                        ExecuteOrder(true);
+                    }
                     e.Handled = true;
                     break;
                 #endregion
@@ -268,32 +291,34 @@ namespace Viktor.IMS.Presentation.UI
                     break;
                 #endregion
 
-                case Keys.Up:
-                    moveUp();
-                    e.Handled = true;
-                    break;
-                case Keys.Down:
-                    moveDown();
-                    e.Handled = true;
-                    break;
+                //case Keys.Up:
+                //    moveUp();
+                //    e.Handled = true;
+                //    break;
+                //case Keys.Down:
+                //    moveDown();
+                //    e.Handled = true;
+                //    break;
                 default:
                     break;
             }
         }
         private void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
-            e.Control.KeyPress -= new KeyPressEventHandler(Column1_KeyPress);
+            e.Control.KeyPress -= new KeyPressEventHandler(editingControl_KeyPress);
+            e.Control.KeyUp -= new KeyEventHandler(editingControl_KeyUp);
             if (dataGridView1.CurrentCell.ColumnIndex == 3) //Desired Column
             {
                 ComponentFactory.Krypton.Toolkit.KryptonTextBox tb = e.Control as ComponentFactory.Krypton.Toolkit.KryptonTextBox;
                 if (tb != null)
                 {
-                    tb.KeyPress += new KeyPressEventHandler(Column1_KeyPress);
+                    tb.KeyPress += new KeyPressEventHandler(editingControl_KeyPress);
+                    tb.KeyUp += new KeyEventHandler(editingControl_KeyUp);
                 }
             }
         }
 
-        private void Column1_KeyPress(object sender, KeyPressEventArgs e)
+        private void editingControl_KeyPress(object sender, KeyPressEventArgs e)
         {
             /*
             ^ - means start of the string
@@ -332,6 +357,31 @@ namespace Viktor.IMS.Presentation.UI
             }
         }
 
+        private void editingControl_KeyUp(object sender, KeyEventArgs e)
+        {
+            temp_text = (ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxEditingControl)sender;
+            //if (rowindex >= 0 & colindex >= 0)
+            //{
+                if (string.IsNullOrEmpty(temp_text.Text))
+                {
+                    //temp_text.BackColor = Color.Red;
+                    if (dataGridView1.CurrentCell.Style.BackColor != Color.Red)
+                    {
+                        dataGridView1.CurrentCell.Style.BackColor = Color.Red;
+                    }
+                }
+                else
+                {
+                    //temp_text.BackColor = Color.Blue;
+                    if (dataGridView1.CurrentCell.Style.BackColor != Color.Blue)
+                    {
+                        dataGridView1.CurrentCell.Style.BackColor = Color.Blue;
+                    }
+
+                }
+            //}
+        }
+
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex != -1
@@ -362,12 +412,16 @@ namespace Viktor.IMS.Presentation.UI
                 if (dataGridView1.SelectedRows.Count > 0)
                 {
                     int rowCount = dataGridView1.Rows.Count;
-                    int index = dataGridView1.SelectedCells[0].OwningRow.Index;
+                    int index = dataGridView1.CurrentRow.Index;
+                    //int index = dataGridView1.SelectedCells[0].OwningRow.Index;
 
                     if (index == 0)
                     {
                         return;
                     }
+                    dataGridView1.CurrentCell = dataGridView1.Rows[index - 1].Cells[1];
+                    dataGridView1.Rows[index - 1].Selected = true;
+                    /*
                     DataGridViewRowCollection rows = dataGridView1.Rows;
 
                     // remove the previous row and add it behind the selected row.
@@ -377,6 +431,7 @@ namespace Viktor.IMS.Presentation.UI
                     rows.Insert(index, prevRow);
                     dataGridView1.ClearSelection();
                     dataGridView1.Rows[index - 1].Selected = true;
+                    */
                 }
             }
         }
@@ -387,12 +442,16 @@ namespace Viktor.IMS.Presentation.UI
                 if (dataGridView1.SelectedRows.Count > 0)
                 {
                     int rowCount = dataGridView1.Rows.Count;
-                    int index = dataGridView1.SelectedCells[0].OwningRow.Index;
+                    int index = dataGridView1.CurrentRow.Index;
+                    //int index = dataGridView1.SelectedCells[0].OwningRow.Index;
 
                     if (index == (rowCount-1)) // -2 include the header row
                     {
                         return;
                     }
+                    dataGridView1.CurrentCell = dataGridView1.Rows[index + 1].Cells[1];
+                    dataGridView1.Rows[index + 1].Selected = true;
+                    /*
                     DataGridViewRowCollection rows = dataGridView1.Rows;
 
                     // remove the next row and add it in front of the selected row.
@@ -402,6 +461,7 @@ namespace Viktor.IMS.Presentation.UI
                     rows.Insert(index, nextRow);
                     dataGridView1.ClearSelection();
                     dataGridView1.Rows[index + 1].Selected = true;
+                    */
                 }
             }
         }
@@ -580,7 +640,7 @@ namespace Viktor.IMS.Presentation.UI
             }
             this.dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Arial Narrow", fontSize, FontStyle.Bold);//Tahoma
             this.dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.Red;
-            this.dataGridView1.AlternatingRowsDefaultCellStyle.BackColor = Color.LightYellow;
+            this.dataGridView1.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGoldenrodYellow;
             //this.dataGridView1.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
         }
