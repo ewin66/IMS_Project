@@ -473,12 +473,11 @@ namespace Viktor.IMS.Presentation.UI
                         //_fiscalPrinter = new SY50("COM1");
                         _fiscalPrinter.Stavki = stavki;
                         _fiscalPrinter.FiskalnaSmetka(SY50.PaidMode.VoGotovo);
+
+                        var result = _repository.UpdateOrder((int)addOrderResult.OrderId, true).FirstOrDefault();
+                        lblTodayTurnover.Text = decimal.Round(result.TodayTurnover).ToString("N2", nfi);
                     }
                     #endregion
-
-                    var result = _repository.UpdateOrder((int)addOrderResult.OrderId, true).FirstOrDefault();
-                    lblTodayTurnover.Text = decimal.Round(result.TodayTurnover).ToString("N2", nfi);
-
                     transactionScope.Complete();
                 }
 
