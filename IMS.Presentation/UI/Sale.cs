@@ -581,6 +581,7 @@ namespace Viktor.IMS.Presentation.UI
             }
             this.dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Arial Narrow", fontSize, FontStyle.Bold);//Tahoma
             this.dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.Red;
+            this.dataGridView1.AlternatingRowsDefaultCellStyle.BackColor = Color.LightYellow;
             //this.dataGridView1.DefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
         }
