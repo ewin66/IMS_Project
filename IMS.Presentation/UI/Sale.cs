@@ -183,7 +183,11 @@ namespace Viktor.IMS.Presentation.UI
                     // after we've done all the processing, 
                     this.Invoke(new MethodInvoker(delegate
                     {
-                        // load the control with the appropriate data
+                        /// Dokolku kelijata bila vo edit mode i pri toa se klikne na funkcisko kopce, 
+                        /// avtomatski da se zacuva izmenata (isto kako da e kliknat <enter>)
+                        this.dataGridView1.EndEdit();
+
+                        /// load the control with the appropriate data
                         AddProduct(null, null, be.Barcode);
                     }));
                     return;
@@ -242,10 +246,11 @@ namespace Viktor.IMS.Presentation.UI
                 #region LEFT ALT/RIGHT ALT: SearchForm (Prebaruvanje na proizvod)
                 case Keys.F4:
                 case Keys.RButton | Keys.ShiftKey:
-
-                    //this.SerialEventListener_Pause();
-                    //_listener.RemoveDataReceivedHandler();
-
+                    
+                    /// Dokolku kelijata bila vo edit mode i pri toa se klikne na funkcisko kopce, 
+                    /// avtomatski da se zacuva izmenata (isto kako da e kliknat <enter>)
+                    this.dataGridView1.EndEdit();
+                    
                     using (var searchForm = new Search())
                     {
                         searchForm._repository = this._repository;
@@ -265,6 +270,10 @@ namespace Viktor.IMS.Presentation.UI
 
                 #region SPACE: Pecatenje na fiskalna smetka
                 case Keys.Space:
+                    /// Dokolku kelijata bila vo edit mode i pri toa se klikne na funkcisko kopce, 
+                    /// avtomatski da se zacuva izmenata (isto kako da e kliknat <enter>)
+                    this.dataGridView1.EndEdit();
+
                     if (!this.dataGridView1.IsCurrentCellInEditMode)
                     {
                         ExecuteOrder(true);
@@ -275,6 +284,10 @@ namespace Viktor.IMS.Presentation.UI
 
                 #region RIGHT SHIFT : Zatvaranje na smetka bez pecatenje na fiskalana smetka
                 case Keys.ShiftKey:
+                    /// Dokolku kelijata bila vo edit mode i pri toa se klikne na funkcisko kopce, 
+                    /// avtomatski da se zacuva izmenata (isto kako da e kliknat <enter>)
+                    this.dataGridView1.EndEdit();
+
                     ExecuteOrder(false);
                     e.Handled = true;
                     break;
@@ -291,14 +304,23 @@ namespace Viktor.IMS.Presentation.UI
                     break;
                 #endregion
 
-                //case Keys.Up:
-                //    moveUp();
-                //    e.Handled = true;
-                //    break;
-                //case Keys.Down:
-                //    moveDown();
-                //    e.Handled = true;
-                //    break;
+                #region UP & DOWN
+                case Keys.Up:
+                    /// Dokolku kelijata bila vo edit mode i pri toa se klikne na funkcisko kopce, 
+                    /// avtomatski da se zacuva izmenata (isto kako da e kliknat <enter>)
+                    this.dataGridView1.EndEdit();
+                    //moveUp();
+                    //e.Handled = true;
+                    break;
+                case Keys.Down:
+                    /// Dokolku kelijata bila vo edit mode i pri toa se klikne na funkcisko kopce, 
+                    /// avtomatski da se zacuva izmenata (isto kako da e kliknat <enter>)
+                    this.dataGridView1.EndEdit();
+                    //moveDown();
+                    //e.Handled = true;
+                    break; 
+                #endregion
+
                 default:
                     break;
             }
