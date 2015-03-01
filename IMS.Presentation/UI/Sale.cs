@@ -243,6 +243,9 @@ namespace Viktor.IMS.Presentation.UI
             //}
             switch (e.KeyCode)
             {
+                case Keys.F1:
+                    AddEmptyRow();
+                    break;
                 #region LEFT ALT/RIGHT ALT: SearchForm (Prebaruvanje na proizvod)
                 case Keys.F4:
                 case Keys.RButton | Keys.ShiftKey:
@@ -325,6 +328,7 @@ namespace Viktor.IMS.Presentation.UI
                     break;
             }
         }
+        
         private void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             e.Control.KeyPress -= new KeyPressEventHandler(editingControl_KeyPress);
@@ -498,7 +502,15 @@ namespace Viktor.IMS.Presentation.UI
                 lblCurrentProduct.Text = "";
             }
             lblTotalValue.Text = decimal.Round(((decimal)orderDetails.Sum(x => x.Price))) .ToString("N2", nfi);
+
+            /// Add empty product to create and empty row
+            //orderDetails.Add(new Product());
+
             this.dataGridView1.DataSource = orderDetails.ToArray();
+            
+            /// Set focus
+            //dataGridView1.CurrentCell = dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[1];
+            //dataGridView1.CurrentCell.ReadOnly = false;
         }
 
         private void delete_Click()
@@ -511,7 +523,13 @@ namespace Viktor.IMS.Presentation.UI
                 if (product != null)
                 {
                     orderDetails.Remove(product);
+                    for (int i = 1; i <= orderDetails.Count; i++)
+                    {
+                        orderDetails[i - 1].ItemNumber = i;
+                    }
                     refreshUI(null);
+                    if (product.ItemNumber > 1)
+                        this.dataGridView1.CurrentCell = this.dataGridView1.Rows[product.ItemNumber - 2].Cells["Quantity"];
                 }
             }
         }
@@ -606,6 +624,12 @@ namespace Viktor.IMS.Presentation.UI
         {
             orderDetails = new List<Product>();
             refreshUI(null);
+        }
+        private void AddEmptyRow()
+        {
+            dataGridView1.Rows.Add();
+            dataGridView1.CurrentCell = dataGridView1.Rows[dataGridView1.Rows.Count-1].Cells[1];
+            dataGridView1.CurrentCell.ReadOnly = false;
         }
 
         /// <summary>
