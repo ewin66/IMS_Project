@@ -316,6 +316,12 @@
     <Content Include="Icons\TradePoint32.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\Ok64_Green.png" />
+    <None Include="Resources\Ok64_Document.png" />
+    <None Include="Resources\Ok64_Blue.png" />
+    <None Include="Resources\Loader_green_48.gif" />
+    <None Include="Resources\Loader_blue_48.gif" />
+    <None Include="Resources\Tick64.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

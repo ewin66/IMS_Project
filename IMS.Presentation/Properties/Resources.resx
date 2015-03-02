@@ -124,8 +124,23 @@
   <data name="Goods32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\Goods32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Loader_blue_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Loader_blue_48.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Loader_green_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Loader_green_48.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Location32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\Location32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Ok64_Blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Ok64_Blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Ok64_Document" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Ok64_Document.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Ok64_Green" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Ok64_Green.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Purchase32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\Purchase32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -135,6 +150,9 @@
   </data>
   <data name="Settings32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\Settings32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Tick64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Tick64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="TradePoint32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\TradePoint32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

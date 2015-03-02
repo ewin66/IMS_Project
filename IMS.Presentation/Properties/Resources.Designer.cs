@@ -83,9 +83,59 @@ namespace Viktor.IMS.Presentation.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Loader_blue_48 {
+            get {
+                object obj = ResourceManager.GetObject("Loader_blue_48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Loader_green_48 {
+            get {
+                object obj = ResourceManager.GetObject("Loader_green_48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Location32 {
             get {
                 object obj = ResourceManager.GetObject("Location32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Ok64_Blue {
+            get {
+                object obj = ResourceManager.GetObject("Ok64_Blue", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Ok64_Document {
+            get {
+                object obj = ResourceManager.GetObject("Ok64_Document", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Ok64_Green {
+            get {
+                object obj = ResourceManager.GetObject("Ok64_Green", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -116,6 +166,16 @@ namespace Viktor.IMS.Presentation.Properties {
         internal static System.Drawing.Bitmap Settings32 {
             get {
                 object obj = ResourceManager.GetObject("Settings32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Tick64 {
+            get {
+                object obj = ResourceManager.GetObject("Tick64", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

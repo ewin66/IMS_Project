@@ -51,6 +51,7 @@ namespace Viktor.IMS.Presentation.UI
         public Sale(SerialPort serialPort, SY50 fiscalPrinter, CustomerType currentCustomer)
         {
             InitializeComponent();
+            
             this.updateFont();
             this._currentCustomer = currentCustomer;
             this._serialPort = serialPort;
@@ -243,9 +244,13 @@ namespace Viktor.IMS.Presentation.UI
             //}
             switch (e.KeyCode)
             {
-                case Keys.F1:
-                    AddEmptyRow();
-                    break;
+                //case Keys.F1:
+                //    AddEmptyRow();
+                //    break;
+                //case Keys.F2:
+                //    InfoDialog infoDialog = new InfoDialog("Сметката е регистрирана.", true);
+                //    infoDialog.ShowDialog();
+                //    break;
                 #region LEFT ALT/RIGHT ALT: SearchForm (Prebaruvanje na proizvod)
                 case Keys.F4:
                 case Keys.RButton | Keys.ShiftKey:
@@ -584,7 +589,7 @@ namespace Viktor.IMS.Presentation.UI
                 #region Update Order if Smetkata e ispecatena
                 if (printReceipt)
                 {
-                    InfoDialog infoDialog = new InfoDialog("Сметката е процесирана.", true);
+                    InfoDialog infoDialog = new InfoDialog("Сметката е регистрирана.", true);
                     infoDialog.ShowDialog();
                     if (infoDialog.DialogResult == DialogResult.Yes)
                     {
@@ -597,7 +602,7 @@ namespace Viktor.IMS.Presentation.UI
                 }
                 else
                 {
-                    InfoDialog infoDialog = new InfoDialog("Сметката е процесирана.", true);
+                    InfoDialog infoDialog = new InfoDialog("Сметката е регистрирана.", true);
                     infoDialog.ShowDialog();
                     if (infoDialog.DialogResult == DialogResult.Yes)
                     {
@@ -764,5 +769,6 @@ namespace Viktor.IMS.Presentation.UI
 
         }
         */
+        
     }
 }

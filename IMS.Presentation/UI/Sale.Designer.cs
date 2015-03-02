@@ -145,6 +145,7 @@
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AllowUserToResizeRows = false;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
@@ -180,8 +181,9 @@
             this.ItemNumber.DataPropertyName = "ItemNumber";
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
             this.ItemNumber.DefaultCellStyle = dataGridViewCellStyle2;
-            this.ItemNumber.FillWeight = 74.63474F;
+            this.ItemNumber.FillWeight = 60F;
             this.ItemNumber.HeaderText = "Број";
+            this.ItemNumber.MinimumWidth = 60;
             this.ItemNumber.Name = "ItemNumber";
             this.ItemNumber.ReadOnly = true;
             // 
@@ -190,8 +192,9 @@
             this.ProductId.DataPropertyName = "ProductId";
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
             this.ProductId.DefaultCellStyle = dataGridViewCellStyle3;
-            this.ProductId.FillWeight = 68.14109F;
+            this.ProductId.FillWeight = 60F;
             this.ProductId.HeaderText = "Шифра";
+            this.ProductId.MinimumWidth = 80;
             this.ProductId.Name = "ProductId";
             this.ProductId.ReadOnly = true;
             // 
@@ -213,31 +216,29 @@
             this.Quantity.DataPropertyName = "Quantity";
             dataGridViewCellStyle5.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
             this.Quantity.DefaultCellStyle = dataGridViewCellStyle5;
-            this.Quantity.FillWeight = 60.9137F;
             this.Quantity.HeaderText = "Количина";
             this.Quantity.MinimumWidth = 80;
             this.Quantity.Name = "Quantity";
-            this.Quantity.Width = 80;
+            this.Quantity.Width = 128;
             // 
             // UnitPrice
             // 
             this.UnitPrice.DataPropertyName = "UnitPrice";
             dataGridViewCellStyle6.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
             this.UnitPrice.DefaultCellStyle = dataGridViewCellStyle6;
-            this.UnitPrice.FillWeight = 132.1035F;
             this.UnitPrice.HeaderText = "Цена";
             this.UnitPrice.MinimumWidth = 80;
             this.UnitPrice.Name = "UnitPrice";
-            this.UnitPrice.Width = 147;
+            this.UnitPrice.Width = 128;
             // 
             // Price
             // 
             this.Price.DataPropertyName = "Price";
             dataGridViewCellStyle7.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
             this.Price.DefaultCellStyle = dataGridViewCellStyle7;
-            this.Price.FillWeight = 132.1035F;
+            this.Price.FillWeight = 110F;
             this.Price.HeaderText = "Износ";
-            this.Price.MinimumWidth = 80;
+            this.Price.MinimumWidth = 90;
             this.Price.Name = "Price";
             this.Price.ReadOnly = true;
             // 
@@ -294,14 +295,14 @@
         private System.Windows.Forms.Label lblTotalName;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label lblCurrentProduct;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label lblTodayTurnover;
         private System.Windows.Forms.DataGridViewTextBoxColumn ItemNumber;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProductId;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProductName;
         private ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxColumn Quantity;
         private ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxColumn UnitPrice;
         private System.Windows.Forms.DataGridViewTextBoxColumn Price;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Label lblTodayTurnover;
 
     }
 }

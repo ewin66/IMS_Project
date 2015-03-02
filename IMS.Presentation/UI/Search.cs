@@ -26,9 +26,23 @@ namespace Viktor.IMS.Presentation.UI
         private int? articlesWithStock;
         private decimal? cumulativeAmount;
 
+        private const int CS_DROPSHADOW = 0x00020000;
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                // add the drop shadow flag for automatically drawing
+                // a drop shadow around the form
+                CreateParams cp = base.CreateParams;
+                cp.ClassStyle |= CS_DROPSHADOW;
+                return cp;
+            }
+        }
         public Search()
         {
             this.InitializeComponent();
+            //SetStyle(ControlStyles.DoubleBuffer, true); UpdateStyles();
+
             foreach (DataGridViewColumn c in this.regionDataGridView.Columns)
             {
                 //c.DefaultCellStyle.Font = new Font("Arial Narrow", fontSize, System.Drawing.FontStyle.Bold);
