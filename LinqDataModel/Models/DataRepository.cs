@@ -159,27 +159,15 @@ namespace LinqDataModel.Models
         }
         public int AddProduct(DataRow dataRow)
         {
+            int parsedId;
+            int? productId = null;
+            if (int.TryParse(dataRow["ProductId"].ToString(), out parsedId))
+            {
+                productId = parsedId;
+            }
+
             return (int)_dataContext.AddProduct(
-                    int.Parse(dataRow["ProductId"].ToString()),
-                    DataHelper.GetNullableInt(dataRow["CategoryId"]),
-                    DataHelper.GetNullableInt(dataRow["SuplierId"]),
-                    dataRow["ProductName"].ToString(),
-                    DataHelper.GetNullableInt(dataRow["QuantityPerUnit"]),
-                    DataHelper.GetNullableDecimal(dataRow["UnitPrice"]),
-                    DataHelper.GetNullableDecimal(dataRow["UnitsInStock"]),
-                    DataHelper.GetNullableDecimal(dataRow["ReorderLevel"]),
-                    DataHelper.GetNullableBool(dataRow["isDomestic"]),
-                    DataHelper.GetNullableBool(dataRow["Discontinued"]),
-                    dataRow["BarCode1"].ToString(),
-                    dataRow["BarCode2"].ToString(),
-                    dataRow["BarCode3"].ToString(),
-                    dataRow["BarCode4"].ToString()
-                ).SingleOrDefault().ProductId;
-        }
-        public int AddNewProduct(DataRow dataRow)
-        {
-            return (int)_dataContext.AddProduct(
-                    null,
+                    productId,
                     DataHelper.GetNullableInt(dataRow["CategoryId"]),
                     DataHelper.GetNullableInt(dataRow["SuplierId"]),
                     dataRow["ProductName"].ToString(),
