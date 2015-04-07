@@ -43,6 +43,7 @@
     <Compile Include="Helpers\CommonHelper.cs" />
     <Compile Include="Helpers\DataHelper.cs" />
     <Compile Include="Helpers\DeviceHelper.cs" />
+    <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="Helpers\OrderNumberHelper.cs" />
     <Compile Include="Helpers\ISO9TransliterationProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -84,6 +84,9 @@
     <Reference Include="ComponentFactory.Krypton.Toolkit">
       <HintPath>..\Library\ComponentFactory.Krypton.Toolkit.dll</HintPath>
     </Reference>
+    <Reference Include="Nevron.NChart">
+      <HintPath>D:\MyProgramFiles\VisualStudio\WindowsForm\Nevron Chart for .NET v2.0\Nevron.NChart.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
@@ -148,6 +151,18 @@
     <Compile Include="UI\InfoForm.Designer.cs">
       <DependentUpon>InfoForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\ProgressBar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ProgressBar.Designer.cs">
+      <DependentUpon>ProgressBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Report.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Report.Designer.cs">
+      <DependentUpon>Report.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\RowDetails.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -206,6 +221,12 @@
     </Compile>
     <EmbeddedResource Include="UI\InfoForm.resx">
       <DependentUpon>InfoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ProgressBar.resx">
+      <DependentUpon>ProgressBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Report.resx">
+      <DependentUpon>Report.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\RowDetails.resx">
       <DependentUpon>RowDetails.cs</DependentUpon>
@@ -316,6 +337,7 @@
     <Content Include="Icons\TradePoint32.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\Report32.png" />
     <None Include="Resources\Ok64_Green.png" />
     <None Include="Resources\Ok64_Document.png" />
     <None Include="Resources\Ok64_Blue.png" />
