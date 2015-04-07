@@ -346,6 +346,27 @@ namespace Viktor.IMS.Presentation.UI
                     baseForm._listener.RemoveDataReceivedHandler();
                 }
             }
+        }
+
+        private void showReportButton_Click(object sender, EventArgs e)
+        {
+            Report report = new Report();
+            report.FormBorderStyle = FormBorderStyle.None;
+            report._repository = this._repository;
+            report.TopLevel = false;
+
+            //Added new TabPage
+            TabPage tabPage = NewTabPage(string.Format("Извештај {0}", this.tabContainer.TabCount), "tbpReport", (Control)report);
+            this.tabContainer.TabPages.Add(tabPage);
+
+
+            //Added form to tabpage
+            report.Dock = DockStyle.Fill;
+            report.WindowState = FormWindowState.Maximized;
+            report.Show();
+
+            this.tabContainer.SelectTab(tabPage);
+            this.tabContainer.SelectedTab.Controls[0].Select();
         }        
     }
 }

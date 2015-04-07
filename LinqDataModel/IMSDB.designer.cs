@@ -190,13 +190,6 @@ namespace LinqDataModel
 			return ((int)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.AddProduct")]
-		public int AddProduct([global::System.Data.Linq.Mapping.ParameterAttribute(Name="ProductId", DbType="Int")] System.Nullable<int> productId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CategoryId", DbType="Int")] System.Nullable<int> categoryId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="SuplierId", DbType="Int")] System.Nullable<int> suplierId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ProductName", DbType="NVarChar(22)")] string productName, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="QuantityPerUnit", DbType="Int")] System.Nullable<int> quantityPerUnit, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="UnitPrice", DbType="Decimal(8,2)")] System.Nullable<decimal> unitPrice, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="UnitsInStock", DbType="Decimal(8,2)")] System.Nullable<decimal> unitsInStock, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ReorderLevel", DbType="Decimal(8,2)")] System.Nullable<decimal> reorderLevel, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IsDomestic", DbType="Bit")] System.Nullable<bool> isDomestic, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Discontinued", DbType="Bit")] System.Nullable<bool> discontinued, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="BarCode1", DbType="VarChar(13)")] string barCode1, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="BarCode2", DbType="VarChar(13)")] string barCode2, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="BarCode3", DbType="VarChar(13)")] string barCode3, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="BarCode4", DbType="VarChar(13)")] string barCode4)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), productId, categoryId, suplierId, productName, quantityPerUnit, unitPrice, unitsInStock, reorderLevel, isDomestic, discontinued, barCode1, barCode2, barCode3, barCode4);
-			return ((int)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.AddPromet", IsComposable=true)]
 		public object AddPromet([global::System.Data.Linq.Mapping.ParameterAttribute(Name="CustomerId", DbType="Int")] System.Nullable<int> customerId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ProductId", DbType="Int")] System.Nullable<int> productId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Quantity", DbType="Int")] System.Nullable<int> quantity, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Price", DbType="Money")] System.Nullable<decimal> price, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Comment", DbType="NVarChar(1)")] string comment)
 		{
@@ -263,6 +256,21 @@ namespace LinqDataModel
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
 			return ((ISingleResult<GetTodayTurnoverResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.AddProduct")]
+		public ISingleResult<AddProductResult> AddProduct([global::System.Data.Linq.Mapping.ParameterAttribute(Name="ProductId", DbType="Int")] System.Nullable<int> productId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CategoryId", DbType="Int")] System.Nullable<int> categoryId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="SuplierId", DbType="Int")] System.Nullable<int> suplierId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ProductName", DbType="NVarChar(22)")] string productName, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="QuantityPerUnit", DbType="Int")] System.Nullable<int> quantityPerUnit, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="UnitPrice", DbType="Decimal(8,2)")] System.Nullable<decimal> unitPrice, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="UnitsInStock", DbType="Decimal(8,2)")] System.Nullable<decimal> unitsInStock, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ReorderLevel", DbType="Decimal(8,2)")] System.Nullable<decimal> reorderLevel, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="IsDomestic", DbType="Bit")] System.Nullable<bool> isDomestic, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Discontinued", DbType="Bit")] System.Nullable<bool> discontinued, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="BarCode1", DbType="VarChar(13)")] string barCode1, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="BarCode2", DbType="VarChar(13)")] string barCode2, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="BarCode3", DbType="VarChar(13)")] string barCode3, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="BarCode4", DbType="VarChar(13)")] string barCode4)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), productId, categoryId, suplierId, productName, quantityPerUnit, unitPrice, unitsInStock, reorderLevel, isDomestic, discontinued, barCode1, barCode2, barCode3, barCode4);
+			return ((ISingleResult<AddProductResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetReport")]
+		public ISingleResult<GetReportResult> GetReport([global::System.Data.Linq.Mapping.ParameterAttribute(Name="FromDate", DbType="VarChar(10)")] string fromDate, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ToDate", DbType="VarChar(10)")] string toDate, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CustomerId", DbType="Int")] System.Nullable<int> customerId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="RecipientPrinted", DbType="Bit")] System.Nullable<bool> recipientPrinted, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CumulativeAmount", DbType="Decimal(8,2)")] ref System.Nullable<decimal> cumulativeAmount)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), fromDate, toDate, customerId, recipientPrinted, cumulativeAmount);
+			cumulativeAmount = ((System.Nullable<decimal>)(result.GetParameterValue(4)));
+			return ((ISingleResult<GetReportResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -3483,6 +3491,76 @@ namespace LinqDataModel
 				if ((this._TodayTurnover != value))
 				{
 					this._TodayTurnover = value;
+				}
+			}
+		}
+	}
+	
+	public partial class AddProductResult
+	{
+		
+		private System.Nullable<int> _ProductId;
+		
+		public AddProductResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductId", DbType="Int")]
+		public System.Nullable<int> ProductId
+		{
+			get
+			{
+				return this._ProductId;
+			}
+			set
+			{
+				if ((this._ProductId != value))
+				{
+					this._ProductId = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GetReportResult
+	{
+		
+		private string _ProductName;
+		
+		private System.Nullable<decimal> _Total;
+		
+		public GetReportResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductName", DbType="NVarChar(22)")]
+		public string ProductName
+		{
+			get
+			{
+				return this._ProductName;
+			}
+			set
+			{
+				if ((this._ProductName != value))
+				{
+					this._ProductName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Total", DbType="Decimal(38,4)")]
+		public System.Nullable<decimal> Total
+		{
+			get
+			{
+				return this._Total;
+			}
+			set
+			{
+				if ((this._Total != value))
+				{
+					this._Total = value;
 				}
 			}
 		}

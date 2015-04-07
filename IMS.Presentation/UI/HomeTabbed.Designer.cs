@@ -39,6 +39,7 @@ namespace Viktor.IMS.Presentation.UI
             this.saleButton = new System.Windows.Forms.ToolStripButton();
             this.saleHomeButton = new System.Windows.Forms.ToolStripButton();
             this.reverseInitDevices = new System.Windows.Forms.ToolStripButton();
+            this.showReportButton = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -75,7 +76,8 @@ namespace Viktor.IMS.Presentation.UI
             this.productsButton,
             this.saleButton,
             this.saleHomeButton,
-            this.reverseInitDevices});
+            this.reverseInitDevices,
+            this.showReportButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(822, 39);
@@ -136,6 +138,16 @@ namespace Viktor.IMS.Presentation.UI
             this.reverseInitDevices.Visible = false;
             this.reverseInitDevices.Click += new System.EventHandler(this.reverseInitDevices_Click);
             // 
+            // showReportButton
+            // 
+            this.showReportButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.showReportButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.showReportButton.Image = global::Viktor.IMS.Presentation.Properties.Resources.Report32;
+            this.showReportButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.showReportButton.Name = "showReportButton";
+            this.showReportButton.Size = new System.Drawing.Size(36, 36);
+            this.showReportButton.Click += new System.EventHandler(this.showReportButton_Click);
+            // 
             // HomeTabbed
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -162,5 +174,6 @@ namespace Viktor.IMS.Presentation.UI
         private KryptonTabControl tabContainer;
         private ToolStripButton saleHomeButton;
         private ToolStripButton reverseInitDevices;
+        private ToolStripButton showReportButton;
     }
 }

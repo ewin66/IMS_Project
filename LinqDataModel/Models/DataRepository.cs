@@ -141,7 +141,7 @@ namespace LinqDataModel.Models
         }
         public int AddProduct(int productId, int categoryId, int suplierId, string productName, int quantityPerUnit, decimal unitPrice, decimal unitsInStock, decimal reorderLevel, bool isDomestic, bool discontinued, string barCode1, string barCode2, string barCode3, string barCode4)
         {
-            return _dataContext.AddProduct(
+            return (int)_dataContext.AddProduct(
                         productId, 
                         categoryId, 
                         suplierId, 
@@ -155,11 +155,11 @@ namespace LinqDataModel.Models
                         barCode1, 
                         barCode2, 
                         barCode3, 
-                        barCode4);
+                        barCode4).SingleOrDefault().ProductId;
         }
         public int AddProduct(DataRow dataRow)
         {
-            return _dataContext.AddProduct(
+            return (int)_dataContext.AddProduct(
                     int.Parse(dataRow["ProductId"].ToString()),
                     DataHelper.GetNullableInt(dataRow["CategoryId"]),
                     DataHelper.GetNullableInt(dataRow["SuplierId"]),
@@ -174,7 +174,26 @@ namespace LinqDataModel.Models
                     dataRow["BarCode2"].ToString(),
                     dataRow["BarCode3"].ToString(),
                     dataRow["BarCode4"].ToString()
-                );
+                ).SingleOrDefault().ProductId;
+        }
+        public int AddNewProduct(DataRow dataRow)
+        {
+            return (int)_dataContext.AddProduct(
+                    null,
+                    DataHelper.GetNullableInt(dataRow["CategoryId"]),
+                    DataHelper.GetNullableInt(dataRow["SuplierId"]),
+                    dataRow["ProductName"].ToString(),
+                    DataHelper.GetNullableInt(dataRow["QuantityPerUnit"]),
+                    DataHelper.GetNullableDecimal(dataRow["UnitPrice"]),
+                    DataHelper.GetNullableDecimal(dataRow["UnitsInStock"]),
+                    DataHelper.GetNullableDecimal(dataRow["ReorderLevel"]),
+                    DataHelper.GetNullableBool(dataRow["isDomestic"]),
+                    DataHelper.GetNullableBool(dataRow["Discontinued"]),
+                    dataRow["BarCode1"].ToString(),
+                    dataRow["BarCode2"].ToString(),
+                    dataRow["BarCode3"].ToString(),
+                    dataRow["BarCode4"].ToString()
+                ).SingleOrDefault().ProductId;
         }
 
         public ISingleResult<AddOrderResult> AddOrder(int customerId, int? employeeId, int orderStatusId, string orderNumber, string comment)
@@ -199,6 +218,13 @@ namespace LinqDataModel.Models
             var result = _dataContext.GetProducts(productId, ProductName, Barcode, ref totalArticles, ref articlesWithStock, ref cumulativeAmount).ToList();
             return LinqQueryToDataTable(result);
         }
+
+        public IList<GetReportResult> GetReport(string fromDate, string toDate, int customerId, bool recipientPrinted, ref decimal? cumulativeAmount)
+        {
+            var result = _dataContext.GetReport(fromDate, toDate, customerId, recipientPrinted, ref cumulativeAmount).ToList();
+            return result;
+        }
+
         public static DataTable LinqQueryToDataTable(IEnumerable<dynamic> v)
         {
             //We really want to know if there is any data at all

@@ -125,23 +125,6 @@
     <Parameter Name="Stock" Parameter="stock" Type="System.Decimal" DbType="Decimal(8,2)" />
     <Return Type="System.Int32" />
   </Function>
-  <Function Name="dbo.AddProduct" Method="AddProduct">
-    <Parameter Name="ProductId" Parameter="productId" Type="System.Int32" DbType="Int" />
-    <Parameter Name="CategoryId" Parameter="categoryId" Type="System.Int32" DbType="Int" />
-    <Parameter Name="SuplierId" Parameter="suplierId" Type="System.Int32" DbType="Int" />
-    <Parameter Name="ProductName" Parameter="productName" Type="System.String" DbType="NVarChar(22)" />
-    <Parameter Name="QuantityPerUnit" Parameter="quantityPerUnit" Type="System.Int32" DbType="Int" />
-    <Parameter Name="UnitPrice" Parameter="unitPrice" Type="System.Decimal" DbType="Decimal(8,2)" />
-    <Parameter Name="UnitsInStock" Parameter="unitsInStock" Type="System.Decimal" DbType="Decimal(8,2)" />
-    <Parameter Name="ReorderLevel" Parameter="reorderLevel" Type="System.Decimal" DbType="Decimal(8,2)" />
-    <Parameter Name="IsDomestic" Parameter="isDomestic" Type="System.Boolean" DbType="Bit" />
-    <Parameter Name="Discontinued" Parameter="discontinued" Type="System.Boolean" DbType="Bit" />
-    <Parameter Name="BarCode1" Parameter="barCode1" Type="System.String" DbType="VarChar(13)" />
-    <Parameter Name="BarCode2" Parameter="barCode2" Type="System.String" DbType="VarChar(13)" />
-    <Parameter Name="BarCode3" Parameter="barCode3" Type="System.String" DbType="VarChar(13)" />
-    <Parameter Name="BarCode4" Parameter="barCode4" Type="System.String" DbType="VarChar(13)" />
-    <Return Type="System.Int32" />
-  </Function>
   <Function Name="dbo.AddPromet" Method="AddPromet" IsComposable="true">
     <Parameter Name="CustomerId" Parameter="customerId" Type="System.Int32" DbType="Int" />
     <Parameter Name="ProductId" Parameter="productId" Type="System.Int32" DbType="Int" />
@@ -255,6 +238,36 @@
   <Function Name="dbo.GetTodayTurnover" Method="GetTodayTurnover">
     <ElementType Name="GetTodayTurnoverResult">
       <Column Name="TodayTurnover" Type="System.Decimal" DbType="Decimal(38,4) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.AddProduct" Method="AddProduct">
+    <Parameter Name="ProductId" Parameter="productId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="CategoryId" Parameter="categoryId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="SuplierId" Parameter="suplierId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ProductName" Parameter="productName" Type="System.String" DbType="NVarChar(22)" />
+    <Parameter Name="QuantityPerUnit" Parameter="quantityPerUnit" Type="System.Int32" DbType="Int" />
+    <Parameter Name="UnitPrice" Parameter="unitPrice" Type="System.Decimal" DbType="Decimal(8,2)" />
+    <Parameter Name="UnitsInStock" Parameter="unitsInStock" Type="System.Decimal" DbType="Decimal(8,2)" />
+    <Parameter Name="ReorderLevel" Parameter="reorderLevel" Type="System.Decimal" DbType="Decimal(8,2)" />
+    <Parameter Name="IsDomestic" Parameter="isDomestic" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="Discontinued" Parameter="discontinued" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="BarCode1" Parameter="barCode1" Type="System.String" DbType="VarChar(13)" />
+    <Parameter Name="BarCode2" Parameter="barCode2" Type="System.String" DbType="VarChar(13)" />
+    <Parameter Name="BarCode3" Parameter="barCode3" Type="System.String" DbType="VarChar(13)" />
+    <Parameter Name="BarCode4" Parameter="barCode4" Type="System.String" DbType="VarChar(13)" />
+    <ElementType Name="AddProductResult">
+      <Column Name="ProductId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetReport" Method="GetReport">
+    <Parameter Name="FromDate" Parameter="fromDate" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="ToDate" Parameter="toDate" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="CustomerId" Parameter="customerId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="RecipientPrinted" Parameter="recipientPrinted" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="CumulativeAmount" Parameter="cumulativeAmount" Type="System.Decimal" DbType="Decimal(8,2)" Direction="InOut" />
+    <ElementType Name="GetReportResult">
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(22)" CanBeNull="true" />
+      <Column Name="Total" Type="System.Decimal" DbType="Decimal(38,4)" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>
