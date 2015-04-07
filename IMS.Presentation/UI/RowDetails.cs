@@ -97,7 +97,7 @@ namespace Viktor.IMS.Presentation.UI
             textBox1.Text = dataRow["ProductName"].ToString();
             textBox2.Text = dataRow["UnitPrice"].ToString();
             textBox3.Text = dataRow["UnitsInStock"].ToString();
-            bool? isDomestic = (bool?)dataRow["IsDomestic"];
+            bool? isDomestic = dataRow["IsDomestic"].ToString() == "" ? true : (bool?)dataRow["IsDomestic"];
             rbDomestic.Checked = (isDomestic != null && isDomestic == true);
             rbForeign.Checked = (isDomestic != null && isDomestic == false);
             textBox4.Text = dataRow["BarCode1"].ToString();
