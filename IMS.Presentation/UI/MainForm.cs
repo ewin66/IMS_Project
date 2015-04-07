@@ -37,17 +37,35 @@ namespace Viktor.IMS.Presentation.UI
         private bool m_bLayoutCalled = false;
         private DateTime m_dt;
         //private BarcodeListener listener;
-        private int? totalArticles; 
+        private int? totalArticles;
         private int? articlesWithStock;
-        private decimal? cumulativeAmount; 
+        private decimal? cumulativeAmount;
         //public string activeFormName = "";
 
+        private System.Windows.Forms.Button tbAddNewProduct;
 
 
         RowDetails form2;
         public MainForm(SerialPort serialPort)
-        {            
+        {
             this.InitializeComponent();
+
+            #region INIT UI
+            this.tbAddNewProduct = new System.Windows.Forms.Button();
+            this.panel1.Controls.Add(this.tbAddNewProduct);
+            // 
+            // tbAddNewProduct
+            // 
+            this.tbAddNewProduct.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbAddNewProduct.Location = new System.Drawing.Point(741, 17);
+            this.tbAddNewProduct.Name = "tbAddNewProduct";
+            this.tbAddNewProduct.Size = new System.Drawing.Size(75, 23);
+            this.tbAddNewProduct.TabIndex = 10;
+            this.tbAddNewProduct.Text = "Додај нов";
+            this.tbAddNewProduct.UseVisualStyleBackColor = true;
+            this.tbAddNewProduct.Click += new System.EventHandler(this.tbAddNewProduct_Click);
+            #endregion
+
             this._serialPort = serialPort;
             //if (Program.ActiveForms.Count == 0)
             this._listener = new BarcodeListener(this);
@@ -290,7 +308,7 @@ namespace Viktor.IMS.Presentation.UI
                 //Thread.Sleep(500);
                 SerialPort sp = (SerialPort)sender;
                 string indata = sp.ReadLine();
-                indata = RegExReplace(indata, String.Empty).PadLeft(13, '0'); 
+                indata = RegExReplace(indata, String.Empty).PadLeft(13, '0');
                 //indata = indata.Replace(System.Environment.NewLine, "");
                 //SetText(indata);
 
@@ -300,8 +318,8 @@ namespace Viktor.IMS.Presentation.UI
                     this.Invoke(new MethodInvoker(delegate
                     {
                         // load the control with the appropriate data
-                            this.mikavi.Articles.DefaultView.RowFilter = "Bar_code = '" + indata + "'";
-                            this.articlesBindingSource.DataSource = this.mikavi.Articles.DefaultView;
+                        this.mikavi.Articles.DefaultView.RowFilter = "Bar_code = '" + indata + "'";
+                        this.articlesBindingSource.DataSource = this.mikavi.Articles.DefaultView;
                     }));
                     return;
                 }
@@ -331,7 +349,7 @@ namespace Viktor.IMS.Presentation.UI
                     return;
                 }
                 */
-                
+
             }
             catch (Exception ex)
             {
@@ -426,5 +444,28 @@ namespace Viktor.IMS.Presentation.UI
             }
         }
         #endregion
+        private void tbAddNewProduct_Click(object sender, EventArgs e)
+        {
+            //DataRow NewDataRow = ((DataTable)this.regionDataGridView.DataSource).NewRow();
+            //this.articlesBindingSource.DataSource
+            BindingSource thisBindingSource = (BindingSource)this.regionDataGridView.DataSource;
+            DataRow NewDataRow = ((DataTable)thisBindingSource.DataSource).NewRow();
+            //Izbrishi gi event handler-ite
+            this.SerialEventListener_Pause();
+            this._listener.RemoveDataReceivedHandler();
+            using (var productDetails = new RowDetails(this._serialPort))
+            {
+                productDetails.dataRow = NewDataRow;
+                productDetails._repository = this._repository;
+                productDetails.Owner = this;
+                productDetails.StartPosition = FormStartPosition.CenterParent;
+                productDetails.ShowDialog();
+            }
+            //Vrati gi event hadler-ite
+            this._listener = new BarcodeListener(this);
+            this.SerialEventListener_Start();
+            RefreshView(null);
+            //do whatever you do in double click
+        }
     }
 }
