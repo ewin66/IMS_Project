@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="IMS" Class="IMSDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=.;Initial Catalog=IMS;Integrated Security=True" SettingsObjectName="LinqDataModel.Properties.Settings" SettingsPropertyName="IMSConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="PFM" Class="IMSDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.;Initial Catalog=PFM;Integrated Security=True" SettingsObjectName="LinqDataModel.Properties.Settings" SettingsPropertyName="IMSConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Suplier" Member="Supliers">
     <Type Name="Suplier">
       <Column Name="SuplierId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -268,6 +268,23 @@
     <ElementType Name="GetReportResult">
       <Column Name="ProductName" Type="System.String" DbType="NVarChar(22)" CanBeNull="true" />
       <Column Name="Total" Type="System.Decimal" DbType="Decimal(38,4)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetOrderDetails" Method="GetOrderDetails">
+    <Parameter Name="FromDate" Parameter="fromDate" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="ToDate" Parameter="toDate" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="CustomerId" Parameter="customerId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="RecipientPrinted" Parameter="recipientPrinted" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="CumulativeAmount" Parameter="cumulativeAmount" Type="System.Decimal" DbType="Decimal(8,2)" Direction="InOut" />
+    <ElementType Name="GetOrderDetailsResult">
+      <Column Name="OrderId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OrderNumber" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="OrderDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Comment" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(22)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Decimal" DbType="Decimal(8,2) NOT NULL" CanBeNull="false" />
+      <Column Name="UnitPrice" Type="System.Decimal" DbType="Decimal(8,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Decimal(17,4)" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>

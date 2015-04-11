@@ -169,6 +169,12 @@
     <Compile Include="UI\RowDetails.Designer.cs">
       <DependentUpon>RowDetails.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Orders.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Orders.Designer.cs">
+      <DependentUpon>Orders.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\SplashScreen_.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -231,6 +237,9 @@
     <EmbeddedResource Include="UI\RowDetails.resx">
       <DependentUpon>RowDetails.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Orders.resx">
+      <DependentUpon>Orders.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\SplashScreen_.resx">
       <DependentUpon>SplashScreen_.cs</DependentUpon>
@@ -333,6 +342,7 @@
     <Content Include="Icons\Sale32.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Icons\SalesReport32.png" />
     <Content Include="Icons\Settings32.png" />
     <Content Include="Icons\TradePoint32.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

@@ -22,7 +22,7 @@ namespace LinqDataModel
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="IMS")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="PFM")]
 	public partial class IMSDBDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -271,6 +271,14 @@ namespace LinqDataModel
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), fromDate, toDate, customerId, recipientPrinted, cumulativeAmount);
 			cumulativeAmount = ((System.Nullable<decimal>)(result.GetParameterValue(4)));
 			return ((ISingleResult<GetReportResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetOrderDetails")]
+		public ISingleResult<GetOrderDetailsResult> GetOrderDetails([global::System.Data.Linq.Mapping.ParameterAttribute(Name="FromDate", DbType="VarChar(10)")] string fromDate, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ToDate", DbType="VarChar(10)")] string toDate, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CustomerId", DbType="Int")] System.Nullable<int> customerId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="RecipientPrinted", DbType="Bit")] System.Nullable<bool> recipientPrinted, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CumulativeAmount", DbType="Decimal(8,2)")] ref System.Nullable<decimal> cumulativeAmount)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), fromDate, toDate, customerId, recipientPrinted, cumulativeAmount);
+			cumulativeAmount = ((System.Nullable<decimal>)(result.GetParameterValue(4)));
+			return ((ISingleResult<GetOrderDetailsResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -3561,6 +3569,158 @@ namespace LinqDataModel
 				if ((this._Total != value))
 				{
 					this._Total = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GetOrderDetailsResult
+	{
+		
+		private int _OrderId;
+		
+		private string _OrderNumber;
+		
+		private System.DateTime _OrderDate;
+		
+		private string _Comment;
+		
+		private string _ProductName;
+		
+		private decimal _Quantity;
+		
+		private decimal _UnitPrice;
+		
+		private System.Nullable<decimal> _Price;
+		
+		public GetOrderDetailsResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrderId", DbType="Int NOT NULL")]
+		public int OrderId
+		{
+			get
+			{
+				return this._OrderId;
+			}
+			set
+			{
+				if ((this._OrderId != value))
+				{
+					this._OrderId = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrderNumber", DbType="VarChar(100)")]
+		public string OrderNumber
+		{
+			get
+			{
+				return this._OrderNumber;
+			}
+			set
+			{
+				if ((this._OrderNumber != value))
+				{
+					this._OrderNumber = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrderDate", DbType="DateTime NOT NULL")]
+		public System.DateTime OrderDate
+		{
+			get
+			{
+				return this._OrderDate;
+			}
+			set
+			{
+				if ((this._OrderDate != value))
+				{
+					this._OrderDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comment", DbType="NVarChar(100)")]
+		public string Comment
+		{
+			get
+			{
+				return this._Comment;
+			}
+			set
+			{
+				if ((this._Comment != value))
+				{
+					this._Comment = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductName", DbType="NVarChar(22)")]
+		public string ProductName
+		{
+			get
+			{
+				return this._ProductName;
+			}
+			set
+			{
+				if ((this._ProductName != value))
+				{
+					this._ProductName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Quantity", DbType="Decimal(8,2) NOT NULL")]
+		public decimal Quantity
+		{
+			get
+			{
+				return this._Quantity;
+			}
+			set
+			{
+				if ((this._Quantity != value))
+				{
+					this._Quantity = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnitPrice", DbType="Decimal(8,2) NOT NULL")]
+		public decimal UnitPrice
+		{
+			get
+			{
+				return this._UnitPrice;
+			}
+			set
+			{
+				if ((this._UnitPrice != value))
+				{
+					this._UnitPrice = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Decimal(17,4)")]
+		public System.Nullable<decimal> Price
+		{
+			get
+			{
+				return this._Price;
+			}
+			set
+			{
+				if ((this._Price != value))
+				{
+					this._Price = value;
 				}
 			}
 		}

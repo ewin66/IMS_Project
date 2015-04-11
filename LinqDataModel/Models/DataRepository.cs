@@ -213,6 +213,12 @@ namespace LinqDataModel.Models
             return result;
         }
 
+        public IList<GetOrderDetailsResult> GetOrderDetails(string fromDate, string toDate, int customerId, bool? recipientPrinted, ref decimal? cumulativeAmount)
+        {
+            var result = _dataContext.GetOrderDetails(fromDate, toDate, customerId, recipientPrinted, ref cumulativeAmount).ToList();
+            return result;
+        }
+
         public static DataTable LinqQueryToDataTable(IEnumerable<dynamic> v)
         {
             //We really want to know if there is any data at all

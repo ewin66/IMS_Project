@@ -173,6 +173,16 @@ namespace Viktor.IMS.Presentation.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap SalesReport32 {
+            get {
+                object obj = ResourceManager.GetObject("SalesReport32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Settings32 {
             get {
                 object obj = ResourceManager.GetObject("Settings32", resourceCulture);

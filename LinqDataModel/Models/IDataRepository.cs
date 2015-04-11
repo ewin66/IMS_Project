@@ -19,6 +19,7 @@ namespace LinqDataModel.Models
         Product GetProduct(int? productId, string productName, string barCode);
         IList<GetProductsResult> GetProducts(int? productId, string productName, string barCode, ref int? totalArticles, ref int? articlesWithStock, ref decimal? cumulativeAmount);
         IList<GetReportResult> GetReport(string fromDate, string toDate, int customerId, bool recipientPrinted, ref decimal? cumulativeAmount);
+        IList<GetOrderDetailsResult> GetOrderDetails(string fromDate, string toDate, int customerId, bool? recipientPrinted, ref decimal? cumulativeAmount);
         IList<GetArticlesResult> GetArticles(int? articleId, string name, string barcode, ref int? totalArticles, ref int? articlesWithStock, ref decimal? cumulativeAmount);
         DataTable GetArticlesTable(int? articleId, string name, string barcode, ref int? totalArticles, ref int? articlesWithStock, ref decimal? cumulativeAmount);
         DataTable GetProductsTable(int? productId, string ProductName, string Barcode, ref int? totalArticles, ref int? articlesWithStock, ref decimal? cumulativeAmount);

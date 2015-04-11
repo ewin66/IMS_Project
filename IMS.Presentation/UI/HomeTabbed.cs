@@ -95,8 +95,11 @@ namespace Viktor.IMS.Presentation.UI
                 if (baseForm != null)
                 {
                     baseForm.Select();
-                    baseForm._listener.AddDataReceivedHandler();
-                    baseForm.SerialEventListener_Resume();
+                    if (baseForm._listener != null)
+                    {
+                        baseForm._listener.AddDataReceivedHandler();
+                        baseForm.SerialEventListener_Resume();
+                    }
                     //baseForm._listener.HookHandleEvents(baseForm);
                     //baseForm._listener = new BarcodeListener();
                     var element = Program.ActiveForms.FirstOrDefault(x => x.Form.FormId == baseForm.FormId);
@@ -364,6 +367,27 @@ namespace Viktor.IMS.Presentation.UI
             report.Dock = DockStyle.Fill;
             report.WindowState = FormWindowState.Maximized;
             report.Show();
+
+            this.tabContainer.SelectTab(tabPage);
+            this.tabContainer.SelectedTab.Controls[0].Select();
+        }
+
+        private void orderDetailsButton_Click(object sender, EventArgs e)
+        {
+            Orders orders = new Orders();
+            orders.FormBorderStyle = FormBorderStyle.None;
+            orders._repository = this._repository;
+            orders.TopLevel = false;
+
+            //Added new TabPage
+            TabPage tabPage = NewTabPage(string.Format("Сметки {0}", this.tabContainer.TabCount), "tbpOrders", (Control)orders);
+            this.tabContainer.TabPages.Add(tabPage);
+
+
+            //Added form to tabpage
+            orders.Dock = DockStyle.Fill;
+            orders.WindowState = FormWindowState.Maximized;
+            orders.Show();
 
             this.tabContainer.SelectTab(tabPage);
             this.tabContainer.SelectedTab.Controls[0].Select();

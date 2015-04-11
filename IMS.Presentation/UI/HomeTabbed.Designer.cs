@@ -40,6 +40,7 @@ namespace Viktor.IMS.Presentation.UI
             this.saleHomeButton = new System.Windows.Forms.ToolStripButton();
             this.reverseInitDevices = new System.Windows.Forms.ToolStripButton();
             this.showReportButton = new System.Windows.Forms.ToolStripButton();
+            this.orderDetailsButton = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -77,7 +78,8 @@ namespace Viktor.IMS.Presentation.UI
             this.saleButton,
             this.saleHomeButton,
             this.reverseInitDevices,
-            this.showReportButton});
+            this.showReportButton,
+            this.orderDetailsButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(822, 39);
@@ -148,6 +150,17 @@ namespace Viktor.IMS.Presentation.UI
             this.showReportButton.Size = new System.Drawing.Size(36, 36);
             this.showReportButton.Click += new System.EventHandler(this.showReportButton_Click);
             // 
+            // orderDetailsButton
+            // 
+            this.orderDetailsButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.orderDetailsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.orderDetailsButton.Image = global::Viktor.IMS.Presentation.Properties.Resources.SalesReport32;
+            this.orderDetailsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.orderDetailsButton.Name = "orderDetailsButton";
+            this.orderDetailsButton.Size = new System.Drawing.Size(36, 36);
+            this.orderDetailsButton.Text = "toolStripButton1";
+            this.orderDetailsButton.Click += new System.EventHandler(this.orderDetailsButton_Click);
+            // 
             // HomeTabbed
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -175,5 +188,6 @@ namespace Viktor.IMS.Presentation.UI
         private ToolStripButton saleHomeButton;
         private ToolStripButton reverseInitDevices;
         private ToolStripButton showReportButton;
+        private ToolStripButton orderDetailsButton;
     }
 }
