@@ -34,7 +34,7 @@ namespace Viktor.IMS.Presentation.UI
         {
             var report = _repository.GetReport(
                                 txtFromDate.Value.Date.ToString("yyyy.MM.dd"), 
-                                txtToDate.Value.Date.ToString("yyyy.MM.dd"), 
+                                txtToDate.Value.Date.AddDays(1).ToString("yyyy.MM.dd"), 
                                 (int)CustomerType.HOME, 
                                 false, 
                                 ref cumulativeAmount);
