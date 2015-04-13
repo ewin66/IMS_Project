@@ -16,17 +16,24 @@ using Viktor.IMS.BusinessObjects;
 using Viktor.IMS.BusinessObjects.Enums;
 using Viktor.IMS.Presentation.Infrastructure;
 using System.Configuration;
+using System.IO;
+using System.Threading;
+using System.Diagnostics;
 
 namespace Viktor.IMS.Presentation.UI
 {
     public partial class Sale : BaseForm
     {
+        private ProgressBar progBar;
         List<Product> orderDetails;
         CustomerType _currentCustomer;
         private NumberFormatInfo nfi;
         private int? totalArticles;
         private int? articlesWithStock;
         private decimal? cumulativeAmount;
+        private bool inProgress;
+        private bool printingErrorOcured;
+        private string printingErrorMessage;
 
         int rowindex;
         int colindex;
@@ -540,6 +547,8 @@ namespace Viktor.IMS.Presentation.UI
         }
         private void ExecuteOrder(bool printReceipt)
         {
+            this.progBar = new ProgressBar();
+
             try
             {
                 if (orderDetails.Count == 0)
@@ -547,12 +556,13 @@ namespace Viktor.IMS.Presentation.UI
                     MessageBox.Show(this, "Нема производи за продавање!", "Информација!");
                     return;
                 }
+                
                 if (printReceipt && _fiscalPrinter == null)
                 {
                     MessageBox.Show(this, "Фискалната каса не е успешно поврзана!", "Информација!");
                     return;
                 }
-
+                
                 AddOrderResult addOrderResult;
                 using (var transactionScope = new TransactionScope())
                 {
@@ -574,15 +584,31 @@ namespace Viktor.IMS.Presentation.UI
                     #region Pecati Fiskalna Smetka
                     if (printReceipt)
                     {
+                        printingErrorOcured = false;
+                        printingErrorMessage = string.Empty;
+                        inProgress = true;
                         var stavki = Mapper.FiscalMapper.PrepareFiscalReceipt(orderDetails);
                         //_fiscalPrinter = new SY50("COM1");
                         _fiscalPrinter.Stavki = stavki;
                         _fiscalPrinter.FiskalnaSmetka(SY50.PaidMode.VoGotovo);
 
+                        // Cekanje da zavrshi pecatenjeto
+                        // ==============================
+                        ThreadStart runBatch = new ThreadStart(WaitForFileChange);
+                        Thread batchThread = new Thread(runBatch);
+                        batchThread.Start();
+                        this.ShowProgressThreadSafe(this);
+
+                        // Otkoga ke zavrshi procesiranjeto na smetkata i proverka na .err fajlot
+                        if (printingErrorOcured)
+                        {
+                            throw new Exception(string.Format("Greshka pri pecatenje na fiskalna smetka! \n\n{0}", printingErrorMessage));
+                        }
                         var result = _repository.UpdateOrder((int)addOrderResult.OrderId, true).FirstOrDefault();
                         lblTodayTurnover.Text = decimal.Round(result.TodayTurnover).ToString("N2", nfi);
                     }
                     #endregion
+
                     transactionScope.Complete();
                 }
 
@@ -621,7 +647,9 @@ namespace Viktor.IMS.Presentation.UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                InfoDialog infoDialog = new InfoDialog(ex.Message, true, TraceEventType.Error);
+                infoDialog.ShowDialog();
+                //MessageBox.Show(ex.ToString());
             }
 
         }
@@ -769,6 +797,196 @@ namespace Viktor.IMS.Presentation.UI
 
         }
         */
-        
+
+        /*
+        private void button1_Click(object sender, EventArgs e)
+        {
+            progressBar1.Style = ProgressBarStyle.Marquee;
+            new ReadFileDelegate(ReadFile).BeginInvoke("c:\\abc.txt", null, null);
+        }
+
+        private void WorkDone()
+        {
+            progressBar1.Style = ProgressBarStyle.Continuous;
+            progressBar1.Value = 500;
+        }
+
+        private void ReadFile(string path)
+        {
+            using (StreamReader sr = new StreamReader(path))
+            {
+                sr.ReadToEnd();
+            }
+
+            this.Invoke(new MethodInvoker(WorkDone));
+        }
+        */
+
+        /// <summary>
+        /// Blocks until the file is not locked any more.
+        /// </summary>
+        /// <param name="fullPath"></param>
+        private void WaitForFile()
+        {
+            string fullPath = Fiscal.AppConfig.AppLocal + "pf500.err";
+            int numTries = 0;
+            while (true)
+            {
+                ++numTries;
+                try
+                {
+                    // Attempt to open the file exclusively.
+                    using (FileStream fs = new FileStream(fullPath, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+                    {
+                        //StreamReader reader = new StreamReader(fs);
+                        //reader.ReadLine();
+                        fs.ReadByte();
+
+                        // If we got this far the file is ready
+                        if (numTries > 4) break;
+
+                        double percent = (double)numTries / (double)(orderDetails.Count + 4) * 100;
+                        progBar.SetProgress((int)percent);
+                        //progBar.SetProgress(numTries*10);
+                        // Wait for the command to be started
+                        System.Threading.Thread.Sleep(500);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //Log.LogWarning("WaitForFile {0} failed to get an exclusive lock: {1}",fullPath, ex.ToString());
+
+                    if (numTries > 40)//10
+                    {
+                        //Log.LogWarning("WaitForFile {0} giving up after 10 tries",fullPath);
+                        //return false;
+                        progBar.allDone();
+                        break;
+                    }
+                    double percent = (double)numTries / (double)(orderDetails.Count + 4) * 100;
+                    progBar.SetProgress((int)percent);
+
+                    //double percent = (double)numTries * 10;
+                    //progBar.SetProgress((int)percent);
+
+                    // Wait for the lock to be released
+                    System.Threading.Thread.Sleep(100);
+                }
+            }
+
+            //Log.LogTrace("WaitForFile {0} returning true after {1} tries",fullPath, numTries);
+            progBar.allDone();
+            //return true;
+        }
+        private void WaitForFileChange()
+        {
+            // Create a new FileSystemWatcher and set its properties.
+            FileSystemWatcher watcher = new FileSystemWatcher();
+            watcher.Path = Fiscal.AppConfig.AppLocal;
+            watcher.NotifyFilter = NotifyFilters.LastWrite;
+            watcher.Filter = "*.err";
+            watcher.Changed += new FileSystemEventHandler(OnChanged);
+            watcher.EnableRaisingEvents = true;
+
+            string fullPath = Fiscal.AppConfig.AppLocal + "pf500.err";
+            int numTries = 0;
+            System.Threading.Thread.Sleep(1000);
+            while (inProgress)
+            {
+                ++numTries;
+
+                double percent = (double)numTries / (double)(orderDetails.Count + 4) * 100;
+                if (percent > 100)
+                {
+                    printingErrorOcured = true;
+                    printingErrorMessage = "Izlezniot fajl ne bese azuriran vo ramki na dozvolenoto vreme za pecatenje!\nBroj na obidi: " + numTries;
+                    inProgress = false;
+                    break;
+                }
+
+                progBar.SetProgress((int)percent);
+                //progBar.SetProgress(numTries*10);
+                // Wait for the command to be started
+                System.Threading.Thread.Sleep(500);
+            }
+
+            //Log.LogTrace("WaitForFile {0} returning true after {1} tries",fullPath, numTries);
+            progBar.SetProgress(100);
+            //Za da se vidi koga ke se postigne 100%
+            System.Threading.Thread.Sleep(500);
+            progBar.allDone();
+        }
+
+        private void OnChanged(object sender, FileSystemEventArgs e)
+        {
+            try
+            {
+                string fullPath = Fiscal.AppConfig.AppLocal + "pf500.err";
+                var lines = File.ReadAllLines(fullPath);
+                foreach (var line in lines)
+                {
+                    if (line != "128, 128, 136, 128, 134, 154")
+                    {
+                        printingErrorOcured = true;
+                        printingErrorMessage = "Mozni pricini: \n- Kasata e vo pogreshen rezim na rabota, ili \n- Nema hartija, ili \n- Nepoznata greshka";
+                        break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //Log.LogWarning("Error whine reading file {0}",fullPath);
+            }
+
+            inProgress = false;
+            //progBar.allDone();
+            //System.Threading.Thread.Sleep(500);
+        }
+
+        // Thread-safe show progress:
+        private delegate void ShowProgressCallback(Form parent);
+        public void ShowProgressThreadSafe(Form parent)
+        {
+            if (this.InvokeRequired)
+            {
+                ShowProgressCallback d = new ShowProgressCallback(ShowProgressThreadSafe);
+                this.Invoke(d, new object[] { parent });
+            }
+            else
+            {
+                this.progBar.ShowDialogThreadSafe(parent);
+            }
+        }
     }
 }
+
+
+
+//// Create a new FileSystemWatcher and set its properties.
+//FileSystemWatcher watcher = new FileSystemWatcher();
+//watcher.Path = args[1];
+///* Watch for changes in LastAccess and LastWrite times, and
+//   the renaming of files or directories. */
+//watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
+//   | NotifyFilters.FileName | NotifyFilters.DirectoryName;
+//// Only watch text files.
+//watcher.Filter = "*.txt";
+
+//// Add event handlers.
+//watcher.Changed += new FileSystemEventHandler(OnChanged);
+//watcher.Created += new FileSystemEventHandler(OnChanged);
+//watcher.Deleted += new FileSystemEventHandler(OnChanged);
+//watcher.Renamed += new RenamedEventHandler(OnRenamed);
+
+//The easiest way is to calculate the MD5 hash of the file and compare to the original MD5 hash and if these two don't match the file was modified...
+
+//        using (var md5 = new MD5CryptoServiceProvider())
+//        {
+//            var buffer = md5.ComputeHash(File.ReadAllBytes(filename));
+//            var sb = new StringBuilder();
+//            for (var i = 0; i < buffer.Length; i++)
+//            {
+//                sb.Append(buffer[i].ToString("x2"));
+//            }
+//            return sb.ToString();
+//        }
