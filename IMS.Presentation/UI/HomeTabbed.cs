@@ -359,7 +359,7 @@ namespace Viktor.IMS.Presentation.UI
             report.TopLevel = false;
 
             //Added new TabPage
-            TabPage tabPage = NewTabPage(string.Format("Извештај {0}", this.tabContainer.TabCount), "tbpReport", (Control)report);
+            TabPage tabPage = NewTabPage(string.Format("Извештај по производи ({0})", this.tabContainer.TabCount), "tbpReport", (Control)report);
             this.tabContainer.TabPages.Add(tabPage);
 
 
@@ -380,7 +380,7 @@ namespace Viktor.IMS.Presentation.UI
             orders.TopLevel = false;
 
             //Added new TabPage
-            TabPage tabPage = NewTabPage(string.Format("Сметки {0}", this.tabContainer.TabCount), "tbpOrders", (Control)orders);
+            TabPage tabPage = NewTabPage(string.Format("Историја на продажба ({0})", this.tabContainer.TabCount), "tbpOrders", (Control)orders);
             this.tabContainer.TabPages.Add(tabPage);
 
 
@@ -391,7 +391,31 @@ namespace Viktor.IMS.Presentation.UI
 
             this.tabContainer.SelectTab(tabPage);
             this.tabContainer.SelectedTab.Controls[0].Select();
-        }        
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.Control | Keys.A))
+            {
+                UnHideAdminTabs();   // Implement the Ctrl+A short-cut keystroke
+                return true;     // This keystroke was handled, don't pass to the control with the focus
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void UnHideAdminTabs()
+        {
+            orderDetailsButton.Visible = true;
+            showReportButton.Visible = true;
+            timerAdmin.Start();
+        }
+
+        private void timerAdmin_Tick(object sender, EventArgs e)
+        {
+            orderDetailsButton.Visible = false;
+            showReportButton.Visible = false;
+            timerAdmin.Stop();
+        }
     }
 }
 

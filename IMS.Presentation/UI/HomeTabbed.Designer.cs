@@ -32,6 +32,7 @@ namespace Viktor.IMS.Presentation.UI
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tabContainer = new AC.ExtendedRenderer.Navigator.KryptonTabControl();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.exitButton = new System.Windows.Forms.ToolStripButton();
@@ -41,6 +42,7 @@ namespace Viktor.IMS.Presentation.UI
             this.reverseInitDevices = new System.Windows.Forms.ToolStripButton();
             this.showReportButton = new System.Windows.Forms.ToolStripButton();
             this.orderDetailsButton = new System.Windows.Forms.ToolStripButton();
+            this.timerAdmin = new System.Windows.Forms.Timer(this.components);
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -134,7 +136,7 @@ namespace Viktor.IMS.Presentation.UI
             this.reverseInitDevices.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.reverseInitDevices.Image = global::Viktor.IMS.Presentation.Properties.Resources.Settings32;
             this.reverseInitDevices.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.reverseInitDevices.Margin = new System.Windows.Forms.Padding(20, 1, 0, 2);
+            this.reverseInitDevices.Margin = new System.Windows.Forms.Padding(0, 1, 50, 2);
             this.reverseInitDevices.Name = "reverseInitDevices";
             this.reverseInitDevices.Size = new System.Drawing.Size(36, 36);
             this.reverseInitDevices.Text = "Повторна иницијализација на уреди";
@@ -147,10 +149,11 @@ namespace Viktor.IMS.Presentation.UI
             this.showReportButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.showReportButton.Image = global::Viktor.IMS.Presentation.Properties.Resources.Reports32;
             this.showReportButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.showReportButton.Margin = new System.Windows.Forms.Padding(20, 1, 0, 2);
+            this.showReportButton.Margin = new System.Windows.Forms.Padding(0, 1, 50, 2);
             this.showReportButton.Name = "showReportButton";
             this.showReportButton.Size = new System.Drawing.Size(36, 36);
             this.showReportButton.ToolTipText = "Потрошувачка";
+            this.showReportButton.Visible = false;
             this.showReportButton.Click += new System.EventHandler(this.showReportButton_Click);
             // 
             // orderDetailsButton
@@ -159,12 +162,17 @@ namespace Viktor.IMS.Presentation.UI
             this.orderDetailsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.orderDetailsButton.Image = global::Viktor.IMS.Presentation.Properties.Resources.History32;
             this.orderDetailsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.orderDetailsButton.Margin = new System.Windows.Forms.Padding(20, 1, 0, 2);
+            this.orderDetailsButton.Margin = new System.Windows.Forms.Padding(0, 1, 20, 2);
             this.orderDetailsButton.Name = "orderDetailsButton";
             this.orderDetailsButton.Size = new System.Drawing.Size(36, 36);
-            this.orderDetailsButton.Text = "toolStripButton1";
             this.orderDetailsButton.ToolTipText = "Историја на продажба";
+            this.orderDetailsButton.Visible = false;
             this.orderDetailsButton.Click += new System.EventHandler(this.orderDetailsButton_Click);
+            // 
+            // timerAdmin
+            // 
+            this.timerAdmin.Interval = 30000;
+            this.timerAdmin.Tick += new System.EventHandler(this.timerAdmin_Tick);
             // 
             // HomeTabbed
             // 
@@ -194,5 +202,6 @@ namespace Viktor.IMS.Presentation.UI
         private ToolStripButton reverseInitDevices;
         private ToolStripButton showReportButton;
         private ToolStripButton orderDetailsButton;
+        private Timer timerAdmin;
     }
 }
