@@ -46,6 +46,8 @@
     <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="Helpers\OrderNumberHelper.cs" />
     <Compile Include="Helpers\ISO9TransliterationProvider.cs" />
+    <Compile Include="Helpers\PropertyComparer.cs" />
+    <Compile Include="Helpers\SortableBindingList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -63,6 +63,16 @@ namespace Viktor.IMS.Presentation.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Analytics32 {
+            get {
+                object obj = ResourceManager.GetObject("Analytics32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Exit32 {
             get {
                 object obj = ResourceManager.GetObject("Exit32", resourceCulture);
@@ -76,6 +86,26 @@ namespace Viktor.IMS.Presentation.Properties {
         internal static System.Drawing.Bitmap Goods32 {
             get {
                 object obj = ResourceManager.GetObject("Goods32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap History32 {
+            get {
+                object obj = ResourceManager.GetObject("History32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Import32 {
+            get {
+                object obj = ResourceManager.GetObject("Import32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -156,6 +186,16 @@ namespace Viktor.IMS.Presentation.Properties {
         internal static System.Drawing.Bitmap Report32 {
             get {
                 object obj = ResourceManager.GetObject("Report32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Reports32 {
+            get {
+                object obj = ResourceManager.GetObject("Reports32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -134,6 +134,7 @@ namespace Viktor.IMS.Presentation.UI
             this.reverseInitDevices.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.reverseInitDevices.Image = global::Viktor.IMS.Presentation.Properties.Resources.Settings32;
             this.reverseInitDevices.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.reverseInitDevices.Margin = new System.Windows.Forms.Padding(20, 1, 0, 2);
             this.reverseInitDevices.Name = "reverseInitDevices";
             this.reverseInitDevices.Size = new System.Drawing.Size(36, 36);
             this.reverseInitDevices.Text = "Повторна иницијализација на уреди";
@@ -144,21 +145,25 @@ namespace Viktor.IMS.Presentation.UI
             // 
             this.showReportButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.showReportButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.showReportButton.Image = global::Viktor.IMS.Presentation.Properties.Resources.Report32;
+            this.showReportButton.Image = global::Viktor.IMS.Presentation.Properties.Resources.Reports32;
             this.showReportButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.showReportButton.Margin = new System.Windows.Forms.Padding(20, 1, 0, 2);
             this.showReportButton.Name = "showReportButton";
             this.showReportButton.Size = new System.Drawing.Size(36, 36);
+            this.showReportButton.ToolTipText = "Потрошувачка";
             this.showReportButton.Click += new System.EventHandler(this.showReportButton_Click);
             // 
             // orderDetailsButton
             // 
             this.orderDetailsButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.orderDetailsButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.orderDetailsButton.Image = global::Viktor.IMS.Presentation.Properties.Resources.SalesReport32;
+            this.orderDetailsButton.Image = global::Viktor.IMS.Presentation.Properties.Resources.History32;
             this.orderDetailsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.orderDetailsButton.Margin = new System.Windows.Forms.Padding(20, 1, 0, 2);
             this.orderDetailsButton.Name = "orderDetailsButton";
             this.orderDetailsButton.Size = new System.Drawing.Size(36, 36);
             this.orderDetailsButton.Text = "toolStripButton1";
+            this.orderDetailsButton.ToolTipText = "Историја на продажба";
             this.orderDetailsButton.Click += new System.EventHandler(this.orderDetailsButton_Click);
             // 
             // HomeTabbed

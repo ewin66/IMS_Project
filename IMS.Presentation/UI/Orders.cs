@@ -35,8 +35,8 @@ namespace Viktor.IMS.Presentation.UI
         int colindex;
         private ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxEditingControl temp_text;
         private ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxEditingControl editigncntrl;
-        private const string NRFormat = "### ### ##0.00";
-
+        private const string NRFormat = "##0.00";
+        private float fontSize = float.Parse(ConfigurationManager.AppSettings["FontSize"].ToString());
         private void DataGridView1_CellClick(object sender, System.Windows.Forms.DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -61,11 +61,13 @@ namespace Viktor.IMS.Presentation.UI
             this.txtToDate.Format = DateTimePickerFormat.Custom;
             this.txtFromDate.CustomFormat = "dd-MM-yyyy";
             this.txtToDate.CustomFormat = "dd-MM-yyyy";
+            this.txtToDate.Value = DateTime.Today.AddDays(1);
 
             this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.Columns["UnitPrice"].DefaultCellStyle.Format = NRFormat;
             this.dataGridView1.Columns["Price"].DefaultCellStyle.Format = NRFormat;
-
+            //this.dataGridView1.Columns["OrderDate"].DefaultCellStyle.Font = new Font("Arial Narrow", fontSize, FontStyle.Regular);
+            
             this.dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.RowPrePaint += new DataGridViewRowPrePaintEventHandler(dataGridView1_RowPrePaint);
@@ -85,6 +87,7 @@ namespace Viktor.IMS.Presentation.UI
 
         protected override void OnLoad(EventArgs e)
         {
+            
             refreshUI();
             // do stuff before Load-event is raised
             base.OnLoad(e);
@@ -95,7 +98,7 @@ namespace Viktor.IMS.Presentation.UI
         {
             var orderDetails = _repository.GetOrderDetails(
                                 txtFromDate.Value.Date.ToString("yyyy.MM.dd"),
-                                txtToDate.Value.Date.AddDays(1).ToString("yyyy.MM.dd"),
+                                txtToDate.Value.Date.ToString("yyyy.MM.dd"),
                                 int.Parse(CustomerComboBox.SelectedValue.ToString()),
                                 null,
                                 ref cumulativeAmount);

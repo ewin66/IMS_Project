@@ -265,20 +265,20 @@ namespace LinqDataModel
 			return ((ISingleResult<AddProductResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetReport")]
-		public ISingleResult<GetReportResult> GetReport([global::System.Data.Linq.Mapping.ParameterAttribute(Name="FromDate", DbType="VarChar(10)")] string fromDate, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ToDate", DbType="VarChar(10)")] string toDate, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CustomerId", DbType="Int")] System.Nullable<int> customerId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="RecipientPrinted", DbType="Bit")] System.Nullable<bool> recipientPrinted, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CumulativeAmount", DbType="Decimal(8,2)")] ref System.Nullable<decimal> cumulativeAmount)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), fromDate, toDate, customerId, recipientPrinted, cumulativeAmount);
-			cumulativeAmount = ((System.Nullable<decimal>)(result.GetParameterValue(4)));
-			return ((ISingleResult<GetReportResult>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetOrderDetails")]
 		public ISingleResult<GetOrderDetailsResult> GetOrderDetails([global::System.Data.Linq.Mapping.ParameterAttribute(Name="FromDate", DbType="VarChar(10)")] string fromDate, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ToDate", DbType="VarChar(10)")] string toDate, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CustomerId", DbType="Int")] System.Nullable<int> customerId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="RecipientPrinted", DbType="Bit")] System.Nullable<bool> recipientPrinted, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CumulativeAmount", DbType="Decimal(8,2)")] ref System.Nullable<decimal> cumulativeAmount)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), fromDate, toDate, customerId, recipientPrinted, cumulativeAmount);
 			cumulativeAmount = ((System.Nullable<decimal>)(result.GetParameterValue(4)));
 			return ((ISingleResult<GetOrderDetailsResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.GetReport")]
+		public ISingleResult<GetReportResult> GetReport([global::System.Data.Linq.Mapping.ParameterAttribute(Name="FromDate", DbType="VarChar(10)")] string fromDate, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="ToDate", DbType="VarChar(10)")] string toDate, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CustomerId", DbType="Int")] System.Nullable<int> customerId, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="RecipientPrinted", DbType="Bit")] System.Nullable<bool> recipientPrinted, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="CumulativeAmount", DbType="Decimal(8,2)")] ref System.Nullable<decimal> cumulativeAmount)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), fromDate, toDate, customerId, recipientPrinted, cumulativeAmount);
+			cumulativeAmount = ((System.Nullable<decimal>)(result.GetParameterValue(4)));
+			return ((ISingleResult<GetReportResult>)(result.ReturnValue));
 		}
 	}
 	
@@ -3530,50 +3530,6 @@ namespace LinqDataModel
 		}
 	}
 	
-	public partial class GetReportResult
-	{
-		
-		private string _ProductName;
-		
-		private System.Nullable<decimal> _Total;
-		
-		public GetReportResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductName", DbType="NVarChar(22)")]
-		public string ProductName
-		{
-			get
-			{
-				return this._ProductName;
-			}
-			set
-			{
-				if ((this._ProductName != value))
-				{
-					this._ProductName = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Total", DbType="Decimal(38,4)")]
-		public System.Nullable<decimal> Total
-		{
-			get
-			{
-				return this._Total;
-			}
-			set
-			{
-				if ((this._Total != value))
-				{
-					this._Total = value;
-				}
-			}
-		}
-	}
-	
 	public partial class GetOrderDetailsResult
 	{
 		
@@ -3721,6 +3677,68 @@ namespace LinqDataModel
 				if ((this._Price != value))
 				{
 					this._Price = value;
+				}
+			}
+		}
+	}
+	
+	public partial class GetReportResult
+	{
+		
+		private string _ProductName;
+		
+		private System.Nullable<decimal> _Quantity;
+		
+		private System.Nullable<decimal> _Total;
+		
+		public GetReportResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductName", DbType="NVarChar(22)")]
+		public string ProductName
+		{
+			get
+			{
+				return this._ProductName;
+			}
+			set
+			{
+				if ((this._ProductName != value))
+				{
+					this._ProductName = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Quantity", DbType="Decimal(38,2)")]
+		public System.Nullable<decimal> Quantity
+		{
+			get
+			{
+				return this._Quantity;
+			}
+			set
+			{
+				if ((this._Quantity != value))
+				{
+					this._Quantity = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Total", DbType="Decimal(38,4)")]
+		public System.Nullable<decimal> Total
+		{
+			get
+			{
+				return this._Total;
+			}
+			set
+			{
+				if ((this._Total != value))
+				{
+					this._Total = value;
 				}
 			}
 		}

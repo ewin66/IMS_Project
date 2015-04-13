@@ -118,11 +118,20 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Analytics32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Analytics32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Exit32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\Exit32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Goods32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\Goods32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="History32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\History32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Import32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Import32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Loader_blue_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Loader_blue_48.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -147,6 +156,9 @@
   </data>
   <data name="Report32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Report32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Reports32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Icons\Reports32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Sale32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\Sale32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

@@ -48,8 +48,8 @@
             this.txtFromDate = new System.Windows.Forms.DateTimePicker();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.OrderId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.OrderDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.OrderId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Quantity = new ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxColumn();
             this.UnitPrice = new ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxColumn();
@@ -181,8 +181,8 @@
             this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.OrderId,
             this.OrderDate,
+            this.OrderId,
             this.ProductName,
             this.Quantity,
             this.UnitPrice,
@@ -211,27 +211,27 @@
             this.panel4.Size = new System.Drawing.Size(844, 23);
             this.panel4.TabIndex = 2;
             // 
-            // OrderId
-            // 
-            this.OrderId.DataPropertyName = "OrderId";
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
-            this.OrderId.DefaultCellStyle = dataGridViewCellStyle2;
-            this.OrderId.FillWeight = 60F;
-            this.OrderId.HeaderText = "Сметка";
-            this.OrderId.MinimumWidth = 60;
-            this.OrderId.Name = "OrderId";
-            this.OrderId.ReadOnly = true;
-            // 
             // OrderDate
             // 
             this.OrderDate.DataPropertyName = "OrderDate";
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
-            this.OrderDate.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
+            this.OrderDate.DefaultCellStyle = dataGridViewCellStyle2;
             this.OrderDate.FillWeight = 60F;
             this.OrderDate.HeaderText = "Датум";
             this.OrderDate.MinimumWidth = 80;
             this.OrderDate.Name = "OrderDate";
             this.OrderDate.ReadOnly = true;
+            // 
+            // OrderId
+            // 
+            this.OrderId.DataPropertyName = "OrderId";
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
+            this.OrderId.DefaultCellStyle = dataGridViewCellStyle3;
+            this.OrderId.FillWeight = 60F;
+            this.OrderId.HeaderText = "Сметка";
+            this.OrderId.MinimumWidth = 50;
+            this.OrderId.Name = "OrderId";
+            this.OrderId.ReadOnly = true;
             // 
             // ProductName
             // 
@@ -249,6 +249,7 @@
             // Quantity
             // 
             this.Quantity.DataPropertyName = "Quantity";
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle5.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
             this.Quantity.DefaultCellStyle = dataGridViewCellStyle5;
             this.Quantity.HeaderText = "Количина";
@@ -260,6 +261,7 @@
             // UnitPrice
             // 
             this.UnitPrice.DataPropertyName = "UnitPrice";
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle6.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
             this.UnitPrice.DefaultCellStyle = dataGridViewCellStyle6;
             this.UnitPrice.HeaderText = "Цена";
@@ -271,6 +273,7 @@
             // Price
             // 
             this.Price.DataPropertyName = "Price";
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle7.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
             this.Price.DefaultCellStyle = dataGridViewCellStyle7;
             this.Price.FillWeight = 110F;
@@ -311,8 +314,8 @@
         private System.Windows.Forms.DateTimePicker txtFromDate;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox CustomerComboBox;
-        private System.Windows.Forms.DataGridViewTextBoxColumn OrderId;
         private System.Windows.Forms.DataGridViewTextBoxColumn OrderDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn OrderId;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProductName;
         private ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxColumn Quantity;
         private ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxColumn UnitPrice;

@@ -174,7 +174,7 @@ namespace Viktor.IMS.Presentation.UI
             sale.TopLevel = false;
             
             //Added new TabPage
-            TabPage tabPage = NewTabPage(string.Format("Продажба {0}", this.tabContainer.TabCount), "tbpSale", (Control)sale);
+            TabPage tabPage = NewTabPage(string.Format("Историја на продажба {0}", this.tabContainer.TabCount), "tbpSale", (Control)sale);
             this.tabContainer.TabPages.Add(tabPage);
             
 
