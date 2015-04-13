@@ -73,6 +73,16 @@ namespace Viktor.IMS.Presentation.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Cancel64 {
+            get {
+                object obj = ResourceManager.GetObject("Cancel64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Exit32 {
             get {
                 object obj = ResourceManager.GetObject("Exit32", resourceCulture);
@@ -166,6 +176,16 @@ namespace Viktor.IMS.Presentation.Properties {
         internal static System.Drawing.Bitmap Ok64_Green {
             get {
                 object obj = ResourceManager.GetObject("Ok64_Green", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Problem64 {
+            get {
+                object obj = ResourceManager.GetObject("Problem64", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

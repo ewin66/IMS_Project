@@ -334,6 +334,8 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <None Include="Resources\Problem64.png" />
+    <None Include="Resources\Cancel64.png" />
     <None Include="Icons\Analytics32.png" />
     <None Include="Icons\1428892332_import.png" />
     <Content Include="Icons\Exit32.png">
