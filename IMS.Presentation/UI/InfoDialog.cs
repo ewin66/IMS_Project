@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -33,6 +34,27 @@ namespace Viktor.IMS.Presentation.UI
             lblMessage.Text = message;
             button1.Visible = showYesNo;
             //button2.Visible = showYesNo;
+        }
+        public InfoDialog(string message, bool showYesNo, TraceEventType eventType)
+        {
+            InitializeComponent();
+            lblMessage.Text = message;
+            button1.Visible = showYesNo;
+            switch (eventType)
+            {
+                case TraceEventType.Error:
+                    imgProgress.Image = Viktor.IMS.Presentation.Properties.Resources.Problem64;
+                    this.Height = 300;
+                    this.lblMessage.Font = new Font("Arial Narrow", 16, FontStyle.Bold);
+                    break;
+                case TraceEventType.Information:
+                    imgProgress.Image = Viktor.IMS.Presentation.Properties.Resources.Ok64_Green;
+                    break;
+                case TraceEventType.Warning:
+                    break;
+                default:
+                    break;
+            }
         }
         protected override void OnGotFocus(EventArgs e)
         {
