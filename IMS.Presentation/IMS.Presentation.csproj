@@ -23,18 +23,18 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile />
     <PublishUrl>D:\WORKSPACE\RELEASE\IMS\</PublishUrl>
-    <Install>false</Install>
-    <InstallFrom>Unc</InstallFrom>
-    <UpdateEnabled>true</UpdateEnabled>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>\\ORION\VirtualHD\App\</InstallUrl>
-    <UpdateUrl>\\MUSHIN\Update\IMS\</UpdateUrl>
-    <ApplicationRevision>8</ApplicationRevision>
+    <UpdateUrl>\\orion\VirtualHD\Update\IMS\</UpdateUrl>
+    <AutorunEnabled>true</AutorunEnabled>
+    <ApplicationRevision>17</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -88,6 +88,9 @@
     <Reference Include="Nevron.NChart">
       <HintPath>D:\MyProgramFiles\VisualStudio\WindowsForm\Nevron Chart for .NET v2.0\Nevron.NChart.dll</HintPath>
     </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\Library\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
@@ -133,6 +136,12 @@
     <Compile Include="UI\InfoDialog.Designer.cs">
       <DependentUpon>InfoDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Products.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Products.Designer.cs">
+      <DependentUpon>Products.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -165,6 +174,12 @@
     </Compile>
     <Compile Include="UI\Report.Designer.cs">
       <DependentUpon>Report.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ProductDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ProductDetails.Designer.cs">
+      <DependentUpon>ProductDetails.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\RowDetails.cs">
       <SubType>Form</SubType>
@@ -214,6 +229,10 @@
     <EmbeddedResource Include="UI\InfoDialog.resx">
       <DependentUpon>InfoDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Products.resx">
+      <DependentUpon>Products.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\MainForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -236,6 +255,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Report.resx">
       <DependentUpon>Report.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ProductDetails.resx">
+      <DependentUpon>ProductDetails.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\RowDetails.resx">
       <DependentUpon>RowDetails.cs</DependentUpon>
@@ -270,6 +293,9 @@
     </None>
     <None Include="Mikavi.xss">
       <DependentUpon>Mikavi.xsd</DependentUpon>
+    </None>
+    <None Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -338,9 +364,13 @@
     <None Include="Resources\Cancel64.png" />
     <None Include="Icons\Analytics32.png" />
     <None Include="Icons\1428892332_import.png" />
+    <None Include="Icons\ButtonDeletePayment.png" />
+    <None Include="Icons\Delete24.png" />
+    <None Include="Icons\DocumentDelete24.png" />
     <Content Include="Icons\Exit32.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Icons\FileDelete32.png" />
     <Content Include="Icons\Goods32.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

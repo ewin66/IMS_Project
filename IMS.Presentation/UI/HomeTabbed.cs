@@ -166,6 +166,33 @@ namespace Viktor.IMS.Presentation.UI
             this.tabContainer.SelectedTab.Controls[0].Select();
         }
 
+        private void productsButton2_Click(object sender, EventArgs e)
+        {
+            //Konstruktor
+            Products products = new Products(this._serialPort);
+
+            products._repository = this._repository;
+            products.FormBorderStyle = FormBorderStyle.None;
+            products.TopLevel = false;
+
+            //Added new TabPage
+            TabPage tabPage = NewTabPage(string.Format("Производи {0}", this.tabContainer.TabCount), "tbpProducts", (Control)products);
+            this.tabContainer.TabPages.Add(tabPage);
+
+
+            //Added form to tabpage
+            products.Dock = DockStyle.Fill;
+            products.WindowState = FormWindowState.Maximized;
+            products.Show(); //So ovaa naredba se aktivira OnLoad event na samata forma
+
+            // Pauziraj listener vo prethodno aktivniot tab
+            //PausePreviousSelectedTab_Listener();
+
+            // Duri otkako formata ke se loadira go selektirame soodvetniot tab za aktiven
+            this.tabContainer.SelectTab(tabPage);
+            this.tabContainer.SelectedTab.Controls[0].Select();
+        }
+
         private void saleButton_Click(object sender, EventArgs e)
         {
             Sale sale = new Sale(this._serialPort, this._fiscalPrinter, CustomerType.RETAIL);

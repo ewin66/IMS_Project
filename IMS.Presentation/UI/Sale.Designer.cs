@@ -40,7 +40,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.lblCurrentProduct = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.panelTotal = new System.Windows.Forms.Panel();
             this.lblTotalValue = new System.Windows.Forms.Label();
             this.lblTotalName = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -55,7 +55,7 @@
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
-            this.panel2.SuspendLayout();
+            this.panelTotal.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel4.SuspendLayout();
             this.SuspendLayout();
@@ -81,7 +81,7 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.panel3);
-            this.panel1.Controls.Add(this.panel2);
+            this.panel1.Controls.Add(this.panelTotal);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
@@ -109,17 +109,17 @@
             this.lblCurrentProduct.TabIndex = 0;
             this.lblCurrentProduct.Text = "label1";
             // 
-            // panel2
+            // panelTotal
             // 
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.lblTotalValue);
-            this.panel2.Controls.Add(this.lblTotalName);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel2.Location = new System.Drawing.Point(585, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(259, 44);
-            this.panel2.TabIndex = 6;
+            this.panelTotal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.panelTotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelTotal.Controls.Add(this.lblTotalValue);
+            this.panelTotal.Controls.Add(this.lblTotalName);
+            this.panelTotal.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelTotal.Location = new System.Drawing.Point(585, 0);
+            this.panelTotal.Name = "panelTotal";
+            this.panelTotal.Size = new System.Drawing.Size(259, 44);
+            this.panelTotal.TabIndex = 6;
             // 
             // lblTotalValue
             // 
@@ -275,8 +275,8 @@
             this.panel1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            this.panelTotal.ResumeLayout(false);
+            this.panelTotal.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
@@ -290,7 +290,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panelTotal;
         private System.Windows.Forms.Label lblTotalValue;
         private System.Windows.Forms.Label lblTotalName;
         private System.Windows.Forms.Panel panel3;

@@ -29,6 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{B585
 		Library\Newtonsoft.Json.dll = Library\Newtonsoft.Json.dll
 		Library\Newtonsoft.Json.pdb = Library\Newtonsoft.Json.pdb
 		Library\Newtonsoft.Json.xml = Library\Newtonsoft.Json.xml
+		D:\Pexim.Ibank\Main\AdaptersSK\FxMakTelService\Library\NLog.dll = D:\Pexim.Ibank\Main\AdaptersSK\FxMakTelService\Library\NLog.dll
 		Library\UnidecodeSharpFork.dll = Library\UnidecodeSharpFork.dll
 		Library\Unity.Mvc3.dll = Library\Unity.Mvc3.dll
 	EndProjectSection
@@ -127,7 +128,7 @@ Global
 		{0DB9809F-3ACE-403F-9CF5-02D41E6BE069} = {B58531E4-D4E0-4AD2-A569-00D2AAC1649D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		VisualSVNWorkingCopyRoot = .
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
+		VisualSVNWorkingCopyRoot = .
 	EndGlobalSection
 EndGlobal

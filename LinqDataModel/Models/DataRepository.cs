@@ -200,7 +200,10 @@ namespace LinqDataModel.Models
         {
             return _dataContext.AddOrderDetails(orderId, productId, productName, quantity, unitPrice, discount);
         }
-        
+        public int DeleteOrderProduct(int orderDetailsId)
+        {
+            return _dataContext.DeleteOrderProduct(orderDetailsId);
+        }
         public DataTable GetProductsTable(int? productId, string ProductName, string Barcode, ref int? totalArticles, ref int? articlesWithStock, ref decimal? cumulativeAmount)
         {
             var result = _dataContext.GetProducts(productId, ProductName, Barcode, ref totalArticles, ref articlesWithStock, ref cumulativeAmount).ToList();

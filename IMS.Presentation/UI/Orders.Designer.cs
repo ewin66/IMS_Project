@@ -48,12 +48,14 @@
             this.txtFromDate = new System.Windows.Forms.DateTimePicker();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.OrderDetailsId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.OrderDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.OrderId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Quantity = new ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxColumn();
             this.UnitPrice = new ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxColumn();
             this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnDeleteRow = new System.Windows.Forms.DataGridViewImageColumn();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -181,12 +183,14 @@
             this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.OrderDetailsId,
             this.OrderDate,
             this.OrderId,
             this.ProductName,
             this.Quantity,
             this.UnitPrice,
-            this.Price});
+            this.Price,
+            this.btnDeleteRow});
             dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -202,6 +206,7 @@
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(844, 366);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseClick);
             // 
             // panel4
             // 
@@ -210,6 +215,14 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(844, 23);
             this.panel4.TabIndex = 2;
+            // 
+            // OrderDetailsId
+            // 
+            this.OrderDetailsId.DataPropertyName = "OrderDetailsId";
+            this.OrderDetailsId.HeaderText = "OrderDetailsId";
+            this.OrderDetailsId.Name = "OrderDetailsId";
+            this.OrderDetailsId.ReadOnly = true;
+            this.OrderDetailsId.Visible = false;
             // 
             // OrderDate
             // 
@@ -229,7 +242,7 @@
             this.OrderId.DefaultCellStyle = dataGridViewCellStyle3;
             this.OrderId.FillWeight = 60F;
             this.OrderId.HeaderText = "Сметка";
-            this.OrderId.MinimumWidth = 50;
+            this.OrderId.MinimumWidth = 74;
             this.OrderId.Name = "OrderId";
             this.OrderId.ReadOnly = true;
             // 
@@ -282,6 +295,15 @@
             this.Price.Name = "Price";
             this.Price.ReadOnly = true;
             // 
+            // btnDeleteRow
+            // 
+            this.btnDeleteRow.HeaderText = "...";
+            this.btnDeleteRow.Image = global::Viktor.IMS.Presentation.Properties.Resources.ButtonDeletePayment;
+            this.btnDeleteRow.Name = "btnDeleteRow";
+            this.btnDeleteRow.ReadOnly = true;
+            this.btnDeleteRow.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.btnDeleteRow.Visible = false;
+            // 
             // Orders
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -314,12 +336,14 @@
         private System.Windows.Forms.DateTimePicker txtFromDate;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox CustomerComboBox;
+        private System.Windows.Forms.DataGridViewTextBoxColumn OrderDetailsId;
         private System.Windows.Forms.DataGridViewTextBoxColumn OrderDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn OrderId;
         private System.Windows.Forms.DataGridViewTextBoxColumn ProductName;
         private ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxColumn Quantity;
         private ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxColumn UnitPrice;
         private System.Windows.Forms.DataGridViewTextBoxColumn Price;
+        private System.Windows.Forms.DataGridViewImageColumn btnDeleteRow;
 
     }
 }

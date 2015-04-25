@@ -42,6 +42,7 @@ namespace Viktor.IMS.Presentation.UI
             this.reverseInitDevices = new System.Windows.Forms.ToolStripButton();
             this.showReportButton = new System.Windows.Forms.ToolStripButton();
             this.orderDetailsButton = new System.Windows.Forms.ToolStripButton();
+            this.productsButton2 = new System.Windows.Forms.ToolStripButton();
             this.timerAdmin = new System.Windows.Forms.Timer(this.components);
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -77,6 +78,7 @@ namespace Viktor.IMS.Presentation.UI
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exitButton,
             this.productsButton,
+            this.productsButton2,
             this.saleButton,
             this.saleHomeButton,
             this.reverseInitDevices,
@@ -128,6 +130,7 @@ namespace Viktor.IMS.Presentation.UI
             this.saleHomeButton.Margin = new System.Windows.Forms.Padding(20, 1, 0, 2);
             this.saleHomeButton.Name = "saleHomeButton";
             this.saleHomeButton.Size = new System.Drawing.Size(36, 36);
+            this.saleHomeButton.ToolTipText = "Продажба дома";
             this.saleHomeButton.Click += new System.EventHandler(this.saleHomeButton_Click);
             // 
             // reverseInitDevices
@@ -152,7 +155,7 @@ namespace Viktor.IMS.Presentation.UI
             this.showReportButton.Margin = new System.Windows.Forms.Padding(0, 1, 50, 2);
             this.showReportButton.Name = "showReportButton";
             this.showReportButton.Size = new System.Drawing.Size(36, 36);
-            this.showReportButton.ToolTipText = "Потрошувачка";
+            this.showReportButton.ToolTipText = "Анализа на Потрошувачка";
             this.showReportButton.Visible = false;
             this.showReportButton.Click += new System.EventHandler(this.showReportButton_Click);
             // 
@@ -168,6 +171,18 @@ namespace Viktor.IMS.Presentation.UI
             this.orderDetailsButton.ToolTipText = "Историја на продажба";
             this.orderDetailsButton.Visible = false;
             this.orderDetailsButton.Click += new System.EventHandler(this.orderDetailsButton_Click);
+            // 
+            // btnProducts
+            // 
+            this.productsButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.productsButton2.Image = global::Viktor.IMS.Presentation.Properties.Resources.Goods32;
+            this.productsButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.productsButton2.Margin = new System.Windows.Forms.Padding(20, 1, 0, 2);
+            this.productsButton2.Name = "btnProducts";
+            this.productsButton2.Size = new System.Drawing.Size(36, 36);
+            this.productsButton2.Text = "toolStripButton1";
+            this.productsButton2.ToolTipText = "Производи";
+            this.productsButton2.Click += new System.EventHandler(this.productsButton2_Click);
             // 
             // timerAdmin
             // 
@@ -203,5 +218,6 @@ namespace Viktor.IMS.Presentation.UI
         private ToolStripButton showReportButton;
         private ToolStripButton orderDetailsButton;
         private Timer timerAdmin;
+        private ToolStripButton productsButton2;
     }
 }

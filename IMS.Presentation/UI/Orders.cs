@@ -30,6 +30,7 @@ namespace Viktor.IMS.Presentation.UI
         private int? totalArticles;
         private int? articlesWithStock;
         private decimal? cumulativeAmount;
+        int currentRowIndex;
 
         int rowindex;
         int colindex;
@@ -104,7 +105,7 @@ namespace Viktor.IMS.Presentation.UI
                                 ref cumulativeAmount);
             this.dataGridView1.DataSource = orderDetails;
             if (this.dataGridView1.RowCount > 0)
-                this.dataGridView1.CurrentCell = this.dataGridView1.Rows[this.dataGridView1.RowCount - 1].Cells[0];
+                this.dataGridView1.CurrentCell = this.dataGridView1.Rows[this.dataGridView1.RowCount - 1].Cells[1];
             this.dataGridView1.Focus();
         }
         private void PopulateComboBox()
@@ -125,7 +126,14 @@ namespace Viktor.IMS.Presentation.UI
             //Change cell font
             foreach (DataGridViewColumn c in this.dataGridView1.Columns)
             {
-                c.DefaultCellStyle.Font = new Font("Arial Narrow", fontSize, FontStyle.Bold);//Arial Narrow
+                if (c.Name == "OrderDate")
+                {
+                    c.DefaultCellStyle.Font = new Font("Arial Narrow", fontSize-2, FontStyle.Regular);//Arial Narrow
+                }
+                else
+                {
+                    c.DefaultCellStyle.Font = new Font("Arial Narrow", fontSize, FontStyle.Bold);//Arial Narrow
+                }
                 c.DefaultCellStyle.Padding = new Padding(paddingSize);
             }
             this.dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Arial Narrow", fontSize, FontStyle.Bold);//Tahoma
@@ -161,6 +169,38 @@ namespace Viktor.IMS.Presentation.UI
         {
             refreshUI();
         }
+        private void dataGridView1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                currentRowIndex = dataGridView1.HitTest(e.X, e.Y).RowIndex;
 
+                ContextMenuStrip m = new ContextMenuStrip();
+                if (currentRowIndex >= 0)
+                {
+                    var itemText = string.Format("Бриши \"{0}\"", dataGridView1.Rows[currentRowIndex].Cells["ProductName"].Value.ToString());
+                    m.Items.Add(new ToolStripMenuItem(itemText,Properties.Resources.Delete24, deleteMenuItem_Click));
+                    //m.Items.Add(new ToolStripMenuItem("Бриши", Properties.Resources.Delete24, deleteMenuItem_Click));
+                    //m.MenuItems.Add(new MenuItem("Copy"));
+                    //m.MenuItems.Add(new MenuItem("Paste"));
+                }
+
+                //if (currentRowIndex >= 0)
+                //{
+                //    m.MenuItems.Add(new MenuItem(string.Format("Do something to row {0}", currentMouseOverRow.ToString())));
+                //}
+
+                m.Show(dataGridView1, new Point(e.X, e.Y));
+
+            }
+        }
+
+        private void deleteMenuItem_Click(object sender, EventArgs e)
+        {
+            var value = dataGridView1.Rows[currentRowIndex].Cells["OrderDetailsId"].Value.ToString();
+            _repository.DeleteOrderProduct(int.Parse(value));
+            refreshUI();
+            //dataGridView1.Rows.Remove(dataGridView1.Rows[currentRowIndex]);
+        }
     }
 }

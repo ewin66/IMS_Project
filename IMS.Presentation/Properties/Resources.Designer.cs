@@ -73,6 +73,16 @@ namespace Viktor.IMS.Presentation.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ButtonDeletePayment {
+            get {
+                object obj = ResourceManager.GetObject("ButtonDeletePayment", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Cancel64 {
             get {
                 object obj = ResourceManager.GetObject("Cancel64", resourceCulture);
@@ -83,9 +93,39 @@ namespace Viktor.IMS.Presentation.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Delete24 {
+            get {
+                object obj = ResourceManager.GetObject("Delete24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap DocumentDelete24 {
+            get {
+                object obj = ResourceManager.GetObject("DocumentDelete24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Exit32 {
             get {
                 object obj = ResourceManager.GetObject("Exit32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap FileDelete32 {
+            get {
+                object obj = ResourceManager.GetObject("FileDelete32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

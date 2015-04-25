@@ -19,11 +19,13 @@ using System.Configuration;
 using System.IO;
 using System.Threading;
 using System.Diagnostics;
+using NLog;
 
 namespace Viktor.IMS.Presentation.UI
 {
     public partial class Sale : BaseForm
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         private ProgressBar progBar;
         List<Product> orderDetails;
         CustomerType _currentCustomer;
@@ -85,7 +87,11 @@ namespace Viktor.IMS.Presentation.UI
             myCurrentLanguage = InputLanguage.CurrentInputLanguage;
             
             orderDetails = new List<Product>();
-            this.ActiveControl = dataGridView1;            
+            this.ActiveControl = dataGridView1;
+            if (this._currentCustomer == CustomerType.HOME)
+            {
+                this.panelTotal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            }
         }
 
         protected override void OnLoad(EventArgs e)
@@ -594,7 +600,7 @@ namespace Viktor.IMS.Presentation.UI
 
                         // Cekanje da zavrshi pecatenjeto
                         // ==============================
-                        ThreadStart runBatch = new ThreadStart(WaitForFileChange);
+                        ThreadStart runBatch = new ThreadStart(WaitForFile);
                         Thread batchThread = new Thread(runBatch);
                         batchThread.Start();
                         this.ShowProgressThreadSafe(this);
@@ -602,7 +608,7 @@ namespace Viktor.IMS.Presentation.UI
                         // Otkoga ke zavrshi procesiranjeto na smetkata i proverka na .err fajlot
                         if (printingErrorOcured)
                         {
-                            throw new Exception(string.Format("Greshka pri pecatenje na fiskalna smetka! \n\n{0}", printingErrorMessage));
+                            throw new Exception(string.Format("Грешка при печатење на фискална сметка! \n\n{0}", printingErrorMessage));
                         }
                         var result = _repository.UpdateOrder((int)addOrderResult.OrderId, true).FirstOrDefault();
                         lblTodayTurnover.Text = decimal.Round(result.TodayTurnover).ToString("N2", nfi);
@@ -611,7 +617,6 @@ namespace Viktor.IMS.Presentation.UI
 
                     transactionScope.Complete();
                 }
-
                 #region Update Order if Smetkata e ispecatena
                 if (printReceipt)
                 {
@@ -647,6 +652,7 @@ namespace Viktor.IMS.Presentation.UI
             }
             catch (Exception ex)
             {
+                logger.Log(LogLevel.Error, "Greshka:{0}", ex.ToString());
                 InfoDialog infoDialog = new InfoDialog(ex.Message, true, TraceEventType.Error);
                 infoDialog.ShowDialog();
                 //MessageBox.Show(ex.ToString());
@@ -829,12 +835,25 @@ namespace Viktor.IMS.Presentation.UI
         private void WaitForFile()
         {
             string fullPath = Fiscal.AppConfig.AppLocal + "pf500.err";
+
+            /// 1.Pocekaj se dodeka fajlot da stane nedostapen (ekskluzivno zaklucen od strana na aplikacijata za fiskalno pecatenje) 
+            /// =================================
+            System.Threading.Thread.Sleep(2000);
+
+            /// 2.Otkako ke stane nedostapen cekame povtorno da stane dostapen za da go procesirame
+            /// =================================
             int numTries = 0;
             while (true)
             {
                 ++numTries;
                 try
                 {
+                    var lines = File.ReadAllLines(fullPath);
+                    ProcessFileResponse(lines);
+                    break;
+
+                    #region Comment
+                    /*
                     // Attempt to open the file exclusively.
                     using (FileStream fs = new FileStream(fullPath, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
                     {
@@ -843,7 +862,11 @@ namespace Viktor.IMS.Presentation.UI
                         fs.ReadByte();
 
                         // If we got this far the file is ready
-                        if (numTries > 4) break;
+                        if (numTries > 4)
+                        {
+                            ReadFileResponse();
+                            break;
+                        }
 
                         double percent = (double)numTries / (double)(orderDetails.Count + 4) * 100;
                         progBar.SetProgress((int)percent);
@@ -851,32 +874,26 @@ namespace Viktor.IMS.Presentation.UI
                         // Wait for the command to be started
                         System.Threading.Thread.Sleep(500);
                     }
+                    */
+                    
+                    #endregion
                 }
                 catch (Exception ex)
                 {
-                    //Log.LogWarning("WaitForFile {0} failed to get an exclusive lock: {1}",fullPath, ex.ToString());
-
-                    if (numTries > 40)//10
+                    double percent = (double)numTries / (double)(orderDetails.Count + 20) * 100;
+                    if (percent > 100)
                     {
-                        //Log.LogWarning("WaitForFile {0} giving up after 10 tries",fullPath);
-                        //return false;
-                        progBar.allDone();
+                        printingErrorOcured = true;
+                        printingErrorMessage = "Истече дозволеното време за печатење!\nБрој на обиди: " + numTries + "\nКасата е во погрешен мод или е исклучена!";
+                        inProgress = false;
                         break;
                     }
-                    double percent = (double)numTries / (double)(orderDetails.Count + 4) * 100;
                     progBar.SetProgress((int)percent);
-
-                    //double percent = (double)numTries * 10;
-                    //progBar.SetProgress((int)percent);
-
                     // Wait for the lock to be released
-                    System.Threading.Thread.Sleep(100);
+                    System.Threading.Thread.Sleep(300);
                 }
             }
-
-            //Log.LogTrace("WaitForFile {0} returning true after {1} tries",fullPath, numTries);
             progBar.allDone();
-            //return true;
         }
         private void WaitForFileChange()
         {
@@ -916,17 +933,76 @@ namespace Viktor.IMS.Presentation.UI
             System.Threading.Thread.Sleep(500);
             progBar.allDone();
         }
-
-        private void OnChanged(object sender, FileSystemEventArgs e)
+        private FileStream WaitForFile(string fullPath, FileMode mode, FileAccess access, FileShare share)
         {
+            for (int numTries = 0; numTries < 10; numTries++)
+            {
+                try
+                {
+                    FileStream fs = new FileStream(fullPath, mode, access, share);
+
+                    fs.ReadByte();
+                    fs.Seek(0, SeekOrigin.Begin);
+
+                    return fs;
+                }
+                catch (IOException)
+                {
+                    Thread.Sleep(50);
+                }
+            }
+
+            return null;
+        }
+        protected virtual bool IsFileLocked(FileInfo file)
+        {
+            FileStream stream = null;
+
             try
             {
-                string fullPath = Fiscal.AppConfig.AppLocal + "pf500.err";
-                var lines = File.ReadAllLines(fullPath);
-                foreach (var line in lines)
+                stream = file.Open(FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+            }
+            catch (IOException)
+            {
+                //the file is unavailable because it is:
+                //still being written to
+                //or being processed by another thread
+                //or does not exist (has already been processed)
+                return true;
+            }
+            finally
+            {
+                if (stream != null)
+                    stream.Close();
+            }
+
+            //file is not locked
+            return false;
+        }
+        private void OnChanged(object sender, FileSystemEventArgs e)
+        {
+            string fullPath = Fiscal.AppConfig.AppLocal + "pf500.err";
+            var lines = File.ReadAllLines(fullPath);
+            ProcessFileResponse(lines);
+        }
+        private void ProcessFileResponse(string[] fileContent)
+        {
+            logger.Log(LogLevel.Info, "ProcessFileResponse - se povika");
+            try
+            {
+                if (fileContent.Length > 0 && fileContent[0].Length == 0)
+                {
+                    printingErrorOcured = true;
+                    printingErrorMessage = "Mozni pricini: \n- Kasata e vo pogreshen rezim na rabota";
+                    inProgress = false;
+                    return;
+                }
+                logger.Log(LogLevel.Info, "Before -> foreach (var line in lines), fileContent:" + fileContent.Length + "fileContent[0]:" + fileContent[0]);
+                foreach (var line in fileContent.Where(x => x.Length > 0))
                 {
                     if (line != "128, 128, 136, 128, 134, 154")
                     {
+                        logger.Log(LogLevel.Error, "Greshka:" + line);
                         printingErrorOcured = true;
                         printingErrorMessage = "Mozni pricini: \n- Kasata e vo pogreshen rezim na rabota, ili \n- Nema hartija, ili \n- Nepoznata greshka";
                         break;
@@ -935,12 +1011,12 @@ namespace Viktor.IMS.Presentation.UI
             }
             catch (Exception ex)
             {
-                //Log.LogWarning("Error whine reading file {0}",fullPath);
+                printingErrorOcured = true;
+                printingErrorMessage = ex.Message;
+                logger.Log(LogLevel.Error, "Error whine reading file. Exception:{1}", ex.ToString());
             }
 
             inProgress = false;
-            //progBar.allDone();
-            //System.Threading.Thread.Sleep(500);
         }
 
         // Thread-safe show progress:

@@ -259,6 +259,22 @@
       <Column Name="ProductId" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.GetReport" Method="GetReport">
+    <Parameter Name="FromDate" Parameter="fromDate" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="ToDate" Parameter="toDate" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="CustomerId" Parameter="customerId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="RecipientPrinted" Parameter="recipientPrinted" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="CumulativeAmount" Parameter="cumulativeAmount" Type="System.Decimal" DbType="Decimal(8,2)" Direction="InOut" />
+    <ElementType Name="GetReportResult">
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(22)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Decimal" DbType="Decimal(38,2)" CanBeNull="true" />
+      <Column Name="Total" Type="System.Decimal" DbType="Decimal(38,4)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DeleteOrderProduct" Method="DeleteOrderProduct">
+    <Parameter Name="OrderDetailsId" Parameter="orderDetailsId" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
   <Function Name="dbo.GetOrderDetails" Method="GetOrderDetails">
     <Parameter Name="FromDate" Parameter="fromDate" Type="System.String" DbType="VarChar(10)" />
     <Parameter Name="ToDate" Parameter="toDate" Type="System.String" DbType="VarChar(10)" />
@@ -270,22 +286,11 @@
       <Column Name="OrderNumber" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="OrderDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="Comment" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="OrderDetailsId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="ProductName" Type="System.String" DbType="NVarChar(22)" CanBeNull="true" />
       <Column Name="Quantity" Type="System.Decimal" DbType="Decimal(8,2) NOT NULL" CanBeNull="false" />
       <Column Name="UnitPrice" Type="System.Decimal" DbType="Decimal(8,2) NOT NULL" CanBeNull="false" />
       <Column Name="Price" Type="System.Decimal" DbType="Decimal(17,4)" CanBeNull="true" />
-    </ElementType>
-  </Function>
-  <Function Name="dbo.GetReport" Method="GetReport">
-    <Parameter Name="FromDate" Parameter="fromDate" Type="System.String" DbType="VarChar(10)" />
-    <Parameter Name="ToDate" Parameter="toDate" Type="System.String" DbType="VarChar(10)" />
-    <Parameter Name="CustomerId" Parameter="customerId" Type="System.Int32" DbType="Int" />
-    <Parameter Name="RecipientPrinted" Parameter="recipientPrinted" Type="System.Boolean" DbType="Bit" />
-    <Parameter Name="CumulativeAmount" Parameter="cumulativeAmount" Type="System.Decimal" DbType="Decimal(8,2)" Direction="InOut" />
-    <ElementType Name="GetReportResult">
-      <Column Name="ProductName" Type="System.String" DbType="NVarChar(22)" CanBeNull="true" />
-      <Column Name="Quantity" Type="System.Decimal" DbType="Decimal(38,2)" CanBeNull="true" />
-      <Column Name="Total" Type="System.Decimal" DbType="Decimal(38,4)" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>
