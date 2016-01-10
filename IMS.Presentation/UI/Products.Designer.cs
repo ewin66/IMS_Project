@@ -37,12 +37,6 @@ namespace Viktor.IMS.Presentation.UI
             this.articlesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
             this.productsDataGridView = new AC.ExtendedRenderer.Toolkit.KryptonGrid();
-            this.tbColumnPLU = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tbColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tbColumnPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tbColumnBar_code = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tbColumnStock = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tbColumnUpdated = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.lbltotalArticlesName = new System.Windows.Forms.Label();
@@ -53,6 +47,13 @@ namespace Viktor.IMS.Presentation.UI
             this.lblCumulativeAmount = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.tbAddNewProduct = new System.Windows.Forms.Button();
+            this.tbColumnPLU = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tbColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tbColumnPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UnitPurchasePrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tbColumnBar_code = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tbColumnStock = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tbColumnUpdated = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.articlesBindingSource)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.productsDataGridView)).BeginInit();
@@ -89,6 +90,7 @@ namespace Viktor.IMS.Presentation.UI
             this.tbColumnPLU,
             this.tbColumnName,
             this.tbColumnPrice,
+            this.UnitPurchasePrice,
             this.tbColumnBar_code,
             this.tbColumnStock,
             this.tbColumnUpdated});
@@ -125,57 +127,6 @@ namespace Viktor.IMS.Presentation.UI
             this.productsDataGridView.Size = new System.Drawing.Size(828, 360);
             this.productsDataGridView.TabIndex = 1;
             this.productsDataGridView.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.productsDataGridView_CellMouseDoubleClick);
-            // 
-            // tbColumnPLU
-            // 
-            this.tbColumnPLU.DataPropertyName = "ProductId";
-            this.tbColumnPLU.HeaderText = "Шифра";
-            this.tbColumnPLU.Name = "tbColumnPLU";
-            this.tbColumnPLU.ReadOnly = true;
-            // 
-            // tbColumnName
-            // 
-            this.tbColumnName.DataPropertyName = "ProductName";
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbColumnName.DefaultCellStyle = dataGridViewCellStyle3;
-            this.tbColumnName.HeaderText = "Назив";
-            this.tbColumnName.Name = "tbColumnName";
-            this.tbColumnName.ReadOnly = true;
-            // 
-            // tbColumnPrice
-            // 
-            this.tbColumnPrice.DataPropertyName = "UnitPrice";
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbColumnPrice.DefaultCellStyle = dataGridViewCellStyle4;
-            this.tbColumnPrice.HeaderText = "Цена";
-            this.tbColumnPrice.Name = "tbColumnPrice";
-            this.tbColumnPrice.ReadOnly = true;
-            // 
-            // tbColumnBar_code
-            // 
-            this.tbColumnBar_code.DataPropertyName = "BarCode1";
-            this.tbColumnBar_code.HeaderText = "Баркод";
-            this.tbColumnBar_code.Name = "tbColumnBar_code";
-            this.tbColumnBar_code.ReadOnly = true;
-            // 
-            // tbColumnStock
-            // 
-            this.tbColumnStock.DataPropertyName = "UnitsInStock";
-            this.tbColumnStock.HeaderText = "Количина";
-            this.tbColumnStock.Name = "tbColumnStock";
-            this.tbColumnStock.ReadOnly = true;
-            // 
-            // tbColumnUpdated
-            // 
-            this.tbColumnUpdated.DataPropertyName = "Updated";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.tbColumnUpdated.DefaultCellStyle = dataGridViewCellStyle5;
-            this.tbColumnUpdated.HeaderText = "Последна промена";
-            this.tbColumnUpdated.Name = "tbColumnUpdated";
-            this.tbColumnUpdated.ReadOnly = true;
             // 
             // panel1
             // 
@@ -279,6 +230,64 @@ namespace Viktor.IMS.Presentation.UI
             this.tbAddNewProduct.UseVisualStyleBackColor = true;
             this.tbAddNewProduct.Click += new System.EventHandler(this.btnAddProduct_Click);
             // 
+            // tbColumnPLU
+            // 
+            this.tbColumnPLU.DataPropertyName = "ProductId";
+            this.tbColumnPLU.HeaderText = "Шифра";
+            this.tbColumnPLU.Name = "tbColumnPLU";
+            this.tbColumnPLU.ReadOnly = true;
+            // 
+            // tbColumnName
+            // 
+            this.tbColumnName.DataPropertyName = "ProductName";
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbColumnName.DefaultCellStyle = dataGridViewCellStyle3;
+            this.tbColumnName.HeaderText = "Назив";
+            this.tbColumnName.Name = "tbColumnName";
+            this.tbColumnName.ReadOnly = true;
+            // 
+            // tbColumnPrice
+            // 
+            this.tbColumnPrice.DataPropertyName = "UnitPrice";
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbColumnPrice.DefaultCellStyle = dataGridViewCellStyle4;
+            this.tbColumnPrice.HeaderText = "Цена";
+            this.tbColumnPrice.Name = "tbColumnPrice";
+            this.tbColumnPrice.ReadOnly = true;
+            // 
+            // UnitPurchasePrice
+            // 
+            this.UnitPurchasePrice.DataPropertyName = "UnitPurchasePrice";
+            this.UnitPurchasePrice.HeaderText = "Цена2";
+            this.UnitPurchasePrice.Name = "UnitPurchasePrice";
+            this.UnitPurchasePrice.ReadOnly = true;
+            // 
+            // tbColumnBar_code
+            // 
+            this.tbColumnBar_code.DataPropertyName = "BarCode1";
+            this.tbColumnBar_code.HeaderText = "Баркод";
+            this.tbColumnBar_code.Name = "tbColumnBar_code";
+            this.tbColumnBar_code.ReadOnly = true;
+            // 
+            // tbColumnStock
+            // 
+            this.tbColumnStock.DataPropertyName = "UnitsInStock";
+            this.tbColumnStock.HeaderText = "Количина";
+            this.tbColumnStock.Name = "tbColumnStock";
+            this.tbColumnStock.ReadOnly = true;
+            // 
+            // tbColumnUpdated
+            // 
+            this.tbColumnUpdated.DataPropertyName = "Updated";
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.tbColumnUpdated.DefaultCellStyle = dataGridViewCellStyle5;
+            this.tbColumnUpdated.HeaderText = "Последна промена";
+            this.tbColumnUpdated.Name = "tbColumnUpdated";
+            this.tbColumnUpdated.ReadOnly = true;
+            // 
             // Products
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -317,6 +326,7 @@ namespace Viktor.IMS.Presentation.UI
     private System.Windows.Forms.DataGridViewTextBoxColumn tbColumnPLU;
     private System.Windows.Forms.DataGridViewTextBoxColumn tbColumnName;
     private System.Windows.Forms.DataGridViewTextBoxColumn tbColumnPrice;
+    private System.Windows.Forms.DataGridViewTextBoxColumn UnitPurchasePrice;
     private System.Windows.Forms.DataGridViewTextBoxColumn tbColumnBar_code;
     private System.Windows.Forms.DataGridViewTextBoxColumn tbColumnStock;
     private System.Windows.Forms.DataGridViewTextBoxColumn tbColumnUpdated;

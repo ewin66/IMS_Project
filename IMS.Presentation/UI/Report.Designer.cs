@@ -55,6 +55,8 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.lblCumulativeTotal = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.lblCumulativeProfit = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
@@ -256,6 +258,8 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.lblCumulativeProfit);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.lblCumulativeTotal);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -284,6 +288,27 @@
             this.lblCumulativeTotal.Size = new System.Drawing.Size(71, 13);
             this.lblCumulativeTotal.TabIndex = 9;
             this.lblCumulativeTotal.Text = "Total value";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label5.Location = new System.Drawing.Point(185, 6);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(56, 13);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "Профит:";
+            // 
+            // lblCumulativeProfit
+            // 
+            this.lblCumulativeProfit.AutoSize = true;
+            this.lblCumulativeProfit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblCumulativeProfit.ForeColor = System.Drawing.Color.Blue;
+            this.lblCumulativeProfit.Location = new System.Drawing.Point(239, 6);
+            this.lblCumulativeProfit.Name = "lblCumulativeProfit";
+            this.lblCumulativeProfit.Size = new System.Drawing.Size(71, 13);
+            this.lblCumulativeProfit.TabIndex = 11;
+            this.lblCumulativeProfit.Text = "Total value";
             // 
             // Report
             // 
@@ -331,5 +356,7 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblCumulativeProfit;
     }
 }

@@ -90,7 +90,7 @@ namespace Viktor.IMS.Presentation.UI
             this.ActiveControl = dataGridView1;
             if (this._currentCustomer == CustomerType.HOME)
             {
-                this.panelTotal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+                this.panelTotal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             }
         }
 
@@ -582,6 +582,7 @@ namespace Viktor.IMS.Presentation.UI
                                                          product.ProductName, 
                                                          product.Quantity, 
                                                          product.UnitPrice, 
+														 product.UnitPurchasePrice,
                                                          product.Discount);
                     } 
                     

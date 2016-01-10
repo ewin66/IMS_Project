@@ -139,7 +139,7 @@ namespace LinqDataModel.Models
                     decimal.Parse(dataRow["Stock"].ToString())
                 );
         }
-        public int AddProduct(int productId, int categoryId, int suplierId, string productName, int quantityPerUnit, decimal unitPrice, decimal unitsInStock, decimal reorderLevel, bool isDomestic, bool discontinued, string barCode1, string barCode2, string barCode3, string barCode4)
+        public int AddProduct(int productId, int categoryId, int suplierId, string productName, int quantityPerUnit, decimal unitPurchasePrice, decimal unitPrice, decimal unitsInStock, decimal reorderLevel, bool isDomestic, bool discontinued, string barCode1, string barCode2, string barCode3, string barCode4)
         {
             return (int)_dataContext.AddProduct(
                         productId, 
@@ -147,6 +147,7 @@ namespace LinqDataModel.Models
                         suplierId, 
                         productName, 
                         quantityPerUnit, 
+                        unitPurchasePrice,
                         unitPrice, 
                         unitsInStock, 
                         reorderLevel, 
@@ -172,6 +173,7 @@ namespace LinqDataModel.Models
                     DataHelper.GetNullableInt(dataRow["SuplierId"]),
                     dataRow["ProductName"].ToString(),
                     DataHelper.GetNullableInt(dataRow["QuantityPerUnit"]),
+                    DataHelper.GetNullableDecimal(dataRow["UnitPurchasePrice"]),
                     DataHelper.GetNullableDecimal(dataRow["UnitPrice"]),
                     DataHelper.GetNullableDecimal(dataRow["UnitsInStock"]),
                     DataHelper.GetNullableDecimal(dataRow["ReorderLevel"]),
@@ -196,9 +198,9 @@ namespace LinqDataModel.Models
         {
             return _dataContext.UpdateOrder(orderId, receiptPrinted);
         }
-        public int AddOrderDetails(int orderId, int productId, string productName, decimal quantity, decimal unitPrice, decimal discount)
+        public int AddOrderDetails(int orderId, int productId, string productName, decimal quantity, decimal unitPrice, decimal unitPurchasePrice, decimal discount)
         {
-            return _dataContext.AddOrderDetails(orderId, productId, productName, quantity, unitPrice, discount);
+            return _dataContext.AddOrderDetails(orderId, productId, productName, quantity, unitPrice, unitPurchasePrice, discount);
         }
         public int DeleteOrderProduct(int orderDetailsId)
         {
@@ -210,9 +212,9 @@ namespace LinqDataModel.Models
             return LinqQueryToDataTable(result);
         }
 
-        public IList<GetReportResult> GetReport(string fromDate, string toDate, int customerId, bool recipientPrinted, ref decimal? cumulativeAmount)
+        public IList<GetReportResult> GetReport(string fromDate, string toDate, int customerId, bool recipientPrinted, ref decimal? cumulativeAmount, ref decimal? cumulativeProfit)
         {
-            var result = _dataContext.GetReport(fromDate, toDate, customerId, recipientPrinted, ref cumulativeAmount).ToList();
+            var result = _dataContext.GetReport(fromDate, toDate, customerId, recipientPrinted, ref cumulativeAmount, ref cumulativeProfit).ToList();
             return result;
         }
 
@@ -320,6 +322,13 @@ namespace LinqDataModel.Models
         {
             return _dataContext.GetTodayTurnover();
         }
-        
+        public ISingleResult<AddCategoryResult> AddCategory(string categoryName)
+        {
+            return _dataContext.AddCategory(categoryName);
+        }
+        public IList<GetCategoriesResult> GetCategories()
+        {
+            return _dataContext.GetCategories().ToList();
+        }
     }
 }

@@ -15,6 +15,8 @@ namespace Viktor.IMS.Presentation.UI
     public partial class Report : BaseForm
     {
         private decimal? cumulativeAmount;
+        private decimal? cumulativeProfit;
+        
         private NumberFormatInfo nfi;
         private const string NRFormat = "### ### ##0.00";
 
@@ -51,8 +53,10 @@ namespace Viktor.IMS.Presentation.UI
                                 txtToDate.Value.Date.ToString("yyyy.MM.dd"),
                                 int.Parse(CustomerComboBox.SelectedValue.ToString()),
                                 false, 
-                                ref cumulativeAmount);
+                                ref cumulativeAmount,
+                                ref cumulativeProfit);
             lblCumulativeTotal.Text = decimal.Round((decimal)cumulativeAmount).ToString("N2", nfi);
+            lblCumulativeProfit.Text = decimal.Round((decimal)cumulativeProfit).ToString("N2", nfi);
             SortableBindingList<LinqDataModel.GetReportResult> sortableReport = new SortableBindingList<LinqDataModel.GetReportResult>(report);
             this.dataGridView1.DataSource = sortableReport;
             this.dataGridView1.Focus();

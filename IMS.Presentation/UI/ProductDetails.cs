@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO.Ports;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -63,10 +64,16 @@ namespace Viktor.IMS.Presentation.UI
                 var updated = dataRow;
                 updated["ProductName"] = textBox1.Text.Trim();
                 updated["UnitPrice"] = textBox2.Text.Trim();
+                updated["UnitPurchasePrice"] = txtUnitPurchasePrice.Text.Trim();
                 updated["UnitsInStock"] = textBox3.Text.Trim();
                 updated["BarCode1"] = textBox4.Text.Trim();
                 updated["IsDomestic"] = rbDomestic.Checked;
-                
+                if (comboCategory.SelectedIndex != 0)
+                {
+                    updated["CategoryId"] = comboCategory.SelectedValue;
+                }
+                updated["ReorderLevel"] = txtReorderLevel.Text.Trim();
+
                 _repository.AddProduct(updated);
                 products.LastDataRow = updated;
 
@@ -96,11 +103,26 @@ namespace Viktor.IMS.Presentation.UI
 
             textBox1.Text = dataRow["ProductName"].ToString();
             textBox2.Text = dataRow["UnitPrice"].ToString();
+            txtUnitPurchasePrice.Text = dataRow["UnitPurchasePrice"].ToString();
             textBox3.Text = dataRow["UnitsInStock"].ToString();
             bool? isDomestic = dataRow["IsDomestic"].ToString() == "" ? true : (bool?)dataRow["IsDomestic"];
             rbDomestic.Checked = (isDomestic != null && isDomestic == true);
             rbForeign.Checked = (isDomestic != null && isDomestic == false);
             textBox4.Text = dataRow["BarCode1"].ToString();
+            var categories = _repository.GetCategories();
+            var categoryId = DataHelper.GetNullableInt(dataRow["CategoryId"]);
+            categories.Insert(0, new LinqDataModel.GetCategoriesResult { CategoryId = -1, CategoryName = "-- Избери категорија --" });
+            categories.Add(new LinqDataModel.GetCategoriesResult { CategoryId = -1000, CategoryName = "-- Додај нова категорија --" });
+            comboCategory.Refresh();
+            comboCategory.DataSource = categories;
+            comboCategory.DisplayMember = "CategoryName";
+            comboCategory.ValueMember = "CategoryId";
+            //comboCategory.Items.Insert(0, "Избери категорија");
+            if (categoryId != null)
+            {
+                comboCategory.SelectedValue = categoryId;
+            }
+            txtReorderLevel.Text = dataRow["ReorderLevel"].ToString();
         }
 
         public override void OnBarcodeScanned(object sender, EventArgs e)
@@ -149,6 +171,28 @@ namespace Viktor.IMS.Presentation.UI
         private void RowDetails_Activated(object sender, EventArgs e)
         {
             base.Form_Activated(sender, e);
+        }
+
+        private void btnAddNewCategory_Click(object sender, EventArgs e)
+        {
+            var selectedItem = (LinqDataModel.GetCategoriesResult)comboCategory.SelectedItem;
+            if (selectedItem == null)
+            {
+                var addCategoryResult = _repository.AddCategory(comboCategory.Text).FirstOrDefault();
+                var categories = _repository.GetCategories();
+                var categoryId = addCategoryResult.CategoryId;
+                //categories.Insert(0, new LinqDataModel.GetCategoriesResult { CategoryId = -1, CategoryName = "-- Избери категорија --" });
+                categories.Add(new LinqDataModel.GetCategoriesResult { CategoryId = -1000, CategoryName = "-- Додај нова категорија --" });
+                comboCategory.Refresh();
+                comboCategory.DataSource = categories;
+                comboCategory.DisplayMember = "CategoryName";
+                comboCategory.ValueMember = "CategoryId";
+                //comboCategory.Items.Insert(0, "Избери категорија");
+                if (categoryId != null)
+                {
+                    comboCategory.SelectedValue = categoryId;
+                }
+            }
         }
     }
 }
