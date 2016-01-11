@@ -94,6 +94,7 @@ namespace LinqDataModel.Models
                     SuplierId = result.SuplierId,
                     ProductName = result.ProductName,
                     QuantityPerUnit = result.QuantityPerUnit,
+                    UnitPurchasePrice = result.UnitPurchasePrice,
                     UnitPrice = result.UnitPrice,
                     UnitsInStock = result.UnitsInStock,
                     ReorderLevel = result.ReorderLevel,
