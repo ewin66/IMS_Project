@@ -1,4 +1,4 @@
-namespace Viktor.IMS.Presentation.UI
+п»їnamespace Viktor.IMS.Presentation.UI
 {
     partial class Products
     {
@@ -153,7 +153,7 @@ namespace Viktor.IMS.Presentation.UI
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(107, 20);
             this.label1.TabIndex = 3;
-            this.label1.Text = "Внеси назив:";
+            this.label1.Text = "Р’РЅРµСЃРё РЅР°Р·РёРІ:";
             // 
             // lbltotalArticlesName
             // 
@@ -162,7 +162,7 @@ namespace Viktor.IMS.Presentation.UI
             this.lbltotalArticlesName.Name = "lbltotalArticlesName";
             this.lbltotalArticlesName.Size = new System.Drawing.Size(46, 13);
             this.lbltotalArticlesName.TabIndex = 4;
-            this.lbltotalArticlesName.Text = "Вкупно:";
+            this.lbltotalArticlesName.Text = "Р’РєСѓРїРЅРѕ:";
             // 
             // lblTotalArticles
             // 
@@ -180,7 +180,7 @@ namespace Viktor.IMS.Presentation.UI
             this.lblArticlesWithStockName.Name = "lblArticlesWithStockName";
             this.lblArticlesWithStockName.Size = new System.Drawing.Size(66, 13);
             this.lblArticlesWithStockName.TabIndex = 6;
-            this.lblArticlesWithStockName.Text = "Ажурирани:";
+            this.lblArticlesWithStockName.Text = "РђР¶СѓСЂРёСЂР°РЅРё:";
             // 
             // lblArticlesWithStock
             // 
@@ -198,7 +198,7 @@ namespace Viktor.IMS.Presentation.UI
             this.lblCumulativeAmountName.Name = "lblCumulativeAmountName";
             this.lblCumulativeAmountName.Size = new System.Drawing.Size(79, 13);
             this.lblCumulativeAmountName.TabIndex = 8;
-            this.lblCumulativeAmountName.Text = "Вкупен износ:";
+            this.lblCumulativeAmountName.Text = "Р’РєСѓРїРµРЅ РёР·РЅРѕСЃ:";
             // 
             // lblCumulativeAmount
             // 
@@ -226,14 +226,14 @@ namespace Viktor.IMS.Presentation.UI
             this.tbAddNewProduct.Name = "tbAddNewProduct";
             this.tbAddNewProduct.Size = new System.Drawing.Size(75, 23);
             this.tbAddNewProduct.TabIndex = 10;
-            this.tbAddNewProduct.Text = "Додај нов";
+            this.tbAddNewProduct.Text = "Р”РѕРґР°С РЅРѕРІ";
             this.tbAddNewProduct.UseVisualStyleBackColor = true;
             this.tbAddNewProduct.Click += new System.EventHandler(this.btnAddProduct_Click);
             // 
             // tbColumnPLU
             // 
             this.tbColumnPLU.DataPropertyName = "ProductId";
-            this.tbColumnPLU.HeaderText = "Шифра";
+            this.tbColumnPLU.HeaderText = "РЁРёС„СЂР°";
             this.tbColumnPLU.Name = "tbColumnPLU";
             this.tbColumnPLU.ReadOnly = true;
             // 
@@ -242,7 +242,7 @@ namespace Viktor.IMS.Presentation.UI
             this.tbColumnName.DataPropertyName = "ProductName";
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tbColumnName.DefaultCellStyle = dataGridViewCellStyle3;
-            this.tbColumnName.HeaderText = "Назив";
+            this.tbColumnName.HeaderText = "РќР°Р·РёРІ";
             this.tbColumnName.Name = "tbColumnName";
             this.tbColumnName.ReadOnly = true;
             // 
@@ -251,28 +251,28 @@ namespace Viktor.IMS.Presentation.UI
             this.tbColumnPrice.DataPropertyName = "UnitPrice";
             dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tbColumnPrice.DefaultCellStyle = dataGridViewCellStyle4;
-            this.tbColumnPrice.HeaderText = "Цена";
+            this.tbColumnPrice.HeaderText = "РџСЂРѕРґР°Р¶РЅР°";
             this.tbColumnPrice.Name = "tbColumnPrice";
             this.tbColumnPrice.ReadOnly = true;
             // 
             // UnitPurchasePrice
             // 
             this.UnitPurchasePrice.DataPropertyName = "UnitPurchasePrice";
-            this.UnitPurchasePrice.HeaderText = "Цена2";
+            this.UnitPurchasePrice.HeaderText = "РќР°Р±Р°РІРЅР°";
             this.UnitPurchasePrice.Name = "UnitPurchasePrice";
             this.UnitPurchasePrice.ReadOnly = true;
             // 
             // tbColumnBar_code
             // 
             this.tbColumnBar_code.DataPropertyName = "BarCode1";
-            this.tbColumnBar_code.HeaderText = "Баркод";
+            this.tbColumnBar_code.HeaderText = "Р‘Р°СЂРєРѕРґ";
             this.tbColumnBar_code.Name = "tbColumnBar_code";
             this.tbColumnBar_code.ReadOnly = true;
             // 
             // tbColumnStock
             // 
             this.tbColumnStock.DataPropertyName = "UnitsInStock";
-            this.tbColumnStock.HeaderText = "Количина";
+            this.tbColumnStock.HeaderText = "РљРѕР»РёС‡РёРЅР°";
             this.tbColumnStock.Name = "tbColumnStock";
             this.tbColumnStock.ReadOnly = true;
             // 
@@ -284,7 +284,7 @@ namespace Viktor.IMS.Presentation.UI
             dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.tbColumnUpdated.DefaultCellStyle = dataGridViewCellStyle5;
-            this.tbColumnUpdated.HeaderText = "Последна промена";
+            this.tbColumnUpdated.HeaderText = "РџРѕСЃР»РµРґРЅР° РїСЂРѕРјРµРЅР°";
             this.tbColumnUpdated.Name = "tbColumnUpdated";
             this.tbColumnUpdated.ReadOnly = true;
             // 
@@ -296,7 +296,7 @@ namespace Viktor.IMS.Presentation.UI
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "Products";
-            this.Text = "Преглед на Производи";
+            this.Text = "Р“Р»Р°РІРЅРѕ РјРµРЅРё";
             this.Activated += new System.EventHandler(this.MainForm_Activated);
             this.Deactivate += new System.EventHandler(this.MainForm_Deactivate);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
